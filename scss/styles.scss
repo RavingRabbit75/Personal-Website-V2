@@ -1,10 +1,20 @@
-$header-blue: #2b416a;
-$header-blue-shadow: #1e3051;
-$main-grey-bg: #4b545e;
-$section-cliff-bg: #273341;
-$section-bg: #353e46;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Raleway');
+@import 'normalize';
+@import 'variables';
+@import 'modules/mainHeader';
+
 
 
 body {
   background-color: $main-grey-bg;
+}
+
+
+@mixin icon-colors($base, $hover) {
+  
+}
+
+.icon-large {
+  height: 31px;
+  width: 31px;
 }

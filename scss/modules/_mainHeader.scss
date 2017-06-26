@@ -1,0 +1,68 @@
+
+// font-family: 'Open Sans Condensed', sans-serif;
+// font-family: 'Raleway', sans-serif;
+.date-text {
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: $white;
+  font-size: 11.5pt;
+  letter-spacing: 1.0px;
+  padding-top: 10px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text {
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: $white;
+  font-size: 11.5pt;
+  letter-spacing: 1.0px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-bold {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: bold;
+  color: $light-tan;
+  font-size: 11.5pt;
+  letter-spacing: 1.0px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.section-btn {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+#developer-title {
+  margin-bottom: 10px;
+}
+
+#header-main-bg {
+  background-color: $header-blue;
+  height: 414px;
+}
+
+#header-edge {
+  background-color: $header-blue-highlight;
+  height: 2px;
+}
+
+#header-dropoff {
+  background-color: $header-blue-shadow;
+  height: 16px;
+}
+
+#hero-image {
+  margin-top: 30px;
+  margin-bottom: 25px;
+}
+
+#header-icon-links {
+  margin-bottom: 25px;
+}
