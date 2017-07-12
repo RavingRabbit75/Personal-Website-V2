@@ -12,7 +12,7 @@ gulp.task("sass", function(){
 		console.error("\x1b[35m", error);
 	})
 	.pipe(cssbeautify())
-	.pipe(gulp.dest("./build/css"));
+	.pipe(gulp.dest("./build/static/css"));
 });
 
 gulp.task("watch", function(){

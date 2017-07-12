@@ -34,9 +34,17 @@
   text-align: center;
 }
 
-.section-btn {
-  margin-left: 60px;
-  margin-right: 60px;
+
+.font-icons {
+  font-family: fontIcons;
+  font-size: 35px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.header-icons-spacing {
+  margin-left: -13px;
+  margin-right: -13px;
 }
 
 #developer-title {
@@ -59,10 +67,68 @@
 }
 
 #hero-image {
+  background-image: url('../images/header_illustration.png');
+  background-size: 546px 182px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 182px;
+  width: auto;
   margin-top: 30px;
   margin-bottom: 25px;
 }
 
+.divspan {
+  display: inline-block;
+  overflow: hidden;
+}
+
+
 #header-icon-links {
   margin-bottom: 25px;
+  
+
+  .header-icon-size {
+    height: 36px;
+    width: 36px;
+    position: relative;
+  }
+  
+
+  .iconposition {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  
+
+  .iconover {
+    opacity: 0.0;
+  }
+
+  .iconmiddle {
+    margin-left: -12px;
+    margin-right: -13px;
+  }
+
 }
+
+#sections-links {
+  .section-btn {
+    margin-left: 60px;
+    margin-right: 60px;
+
+    a {
+      color: $light-tan;
+      text-decoration: none;
+
+      &:hover {
+        color: $strong-tan;
+      }
+    }
+
+  }
+
+  
+}
+
+

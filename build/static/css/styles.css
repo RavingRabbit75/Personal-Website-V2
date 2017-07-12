@@ -433,6 +433,11 @@ template {
     display: none;
 }
 
+@font-face {
+    font-family: fontIcons;
+  src: url("../fonts/icomoon.ttf");
+}
+
 .date-text {
     font-family: 'Open Sans Condensed', sans-serif;
     color: #fff;
@@ -466,9 +471,16 @@ template {
     text-align: center;
 }
 
-.section-btn {
-    margin-left: 60px;
-    margin-right: 60px;
+.font-icons {
+    font-family: fontIcons;
+    font-size: 35px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.header-icons-spacing {
+    margin-left: -13px;
+    margin-right: -13px;
 }
 
 #developer-title {
@@ -491,19 +503,64 @@ template {
 }
 
 #hero-image {
+    background-image: url("../images/header_illustration.png");
+    background-size: 546px 182px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 182px;
+    width: auto;
     margin-top: 30px;
     margin-bottom: 25px;
+}
+
+.divspan {
+    display: inline-block;
+    overflow: hidden;
 }
 
 #header-icon-links {
     margin-bottom: 25px;
 }
 
+#header-icon-links .header-icon-size {
+    height: 36px;
+    width: 36px;
+    position: relative;
+}
+
+#header-icon-links .iconposition {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#header-icon-links .iconover {
+    opacity: 0.0;
+}
+
+#header-icon-links .iconmiddle {
+    margin-left: -12px;
+    margin-right: -13px;
+}
+
+#sections-links .section-btn {
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+#sections-links .section-btn a {
+    color: #efc978;
+    text-decoration: none;
+}
+
+#sections-links .section-btn a:hover {
+    color: #f5b730;
+}
+
 body {
     background-color: #5d6771;
 }
 
-.icon-large {
-    height: 31px;
-    width: 31px;
+.border {
+    border: 1px solid red;
 }
