@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="project-container">
+	<div class="proeject-title">
+		WEATHER ANIMATOR
+	</div>
+	<div class="project-subcontainer">
+		<div class="project-edge-highlight"></div>
+		<div class="project-edge-wall">
+		</div>
+		<div class="container-fluid">
+			<div class="project-content">
+				<div class="images-container">
+					<div class="project-image-slot"></div>
+					<img src="{{url_for('static', filename='images/test_image.png')}}" alt="">
+				</div>
+				<div class="project-text">
+					Built with:
+				</div>
+				<div class="project-text">
+					GSAP, PixiJS, Bootstrap, Flask, Celery, Python, Javascript, HTML/CSS
+				</div>
+				<div class="project-text">
+					Weather Animator is a weather app with several goals in mind. First was a simple weather visualizer of sorts. When displaying weather information it also plays animations that reflect the current weather of the associated location. Second, to allow users to setup notifications for specific weather conditions.
+				</div>
+			</div>
+		</div>
+		<div class="project-edge-highlight"></div>
+	</div>
+	
+</div>
+	
+
+{% endblock %}

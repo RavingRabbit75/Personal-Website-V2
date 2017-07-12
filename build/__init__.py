@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, redirect, url_for
 
 
 
@@ -13,6 +13,24 @@ else:
 
 
 @app.route("/")
-def root():
-	return render_template("index.html")
+def root_route():
+	return redirect("/profile")
+
+
+
+@app.route("/profile")
+def profile_route():
+	return render_template("profile.html")
+
+
+@app.route("/projects")
+def projects_route():
+	return render_template("projects.html")
+
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+	return render_template("404.html"), 404
+
 
