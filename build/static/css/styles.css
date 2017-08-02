@@ -489,7 +489,9 @@ template {
 
 #header-main-bg {
     background-color: #39537c;
-    height: 414px;
+    padding-bottom: 20px;
+    height: auto;
+    width: 100%;
 }
 
 #header-edge {
@@ -500,17 +502,6 @@ template {
 #header-dropoff {
     background-color: #284063;
     height: 16px;
-}
-
-#hero-image {
-    background-image: url("../images/header_illustration.png");
-    background-size: 546px 182px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 182px;
-    width: auto;
-    margin-top: 30px;
-    margin-bottom: 25px;
 }
 
 .divspan {
@@ -557,24 +548,67 @@ template {
     color: #f5b730;
 }
 
+#hero-images {
+    height: 250px;
+    width: 370px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+#header-image1 {
+    position: absolute;
+    left: 30px;
+    top: 0px;
+}
+
+#header-image2 {
+    position: absolute;
+    left: 159px;
+    top: 105px;
+}
+
+@media only screen and (min-width: 500px) {
+    #hero-images {
+        width: 502px;
+        height: 182px;
+        margin-bottom: 25px;
+    }
+
+    #header-image1 {
+        left: 0px;
+        top: 0px;
+    }
+
+    #header-image2 {
+        left: 310px;
+        top: -6px;
+    }
+}
+
 #footer {
     margin-top: 100px;
     margin-bottom: 150px;
 }
 
-.proeject-title {
+.project-title {
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: bold;
     font-size: 24pt;
     color: white;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin-left: 17px;
     margin-bottom: 5px;
+    padding-left: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 550px;
 }
 
 .project-container {
-    margin-top: 120px;
+    margin-top: 45px;
     width: auto;
 }
 
@@ -605,13 +639,19 @@ template {
 }
 
 .project-content {
+    max-width: 550px;
     padding-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.project-image-slot {
-    background-color: #000;
-    height: 3px;
-    width: 566px;
+.project-text-builtwith {
+    font-family: 'Open Sans Condensed', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: bold;
+    font-size: 12pt;
+    color: #fff;
 }
 
 .project-text {
@@ -620,6 +660,77 @@ template {
     -moz-osx-font-smoothing: grayscale;
     font-size: 12pt;
     color: #fff;
+}
+
+.project-links-icons {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.project-image-slot {
+    background-color: #000;
+    height: 3px;
+    width: 100%;
+    position: relative;
+    top: -10px;
+}
+
+.project-image-withshadow {
+    position: relative;
+    left: 0px;
+    top: -6px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.4);
+}
+
+.image {
+    width: 100%;
+}
+
+.block-button {
+    height: 5px;
+    width: 38px;
+    background-color: #EFC978;
+    display: inline-block;
+}
+
+.current-image-indicator {
+    background-color: #F5B730;
+    height: 2px;
+    width: 38px;
+}
+
+@media only screen and (min-width: 600px) {
+    .project-image-slot {
+        background-color: #000;
+        height: 3px;
+        width: 550px;
+        position: relative;
+        top: -10px;
+    }
+
+    .project-image-withshadow {
+        position: relative;
+        left: 0px;
+        top: -6px;
+    }
+
+    .project-title {
+        width: 550px;
+        padding-left: 6px;
+    }
+
+    .project-container {
+        margin-top: 85px;
+        width: auto;
+    }
 }
 
 body {

@@ -9,3 +9,7 @@ echo ''
 mkvirtualenv personal_website
 pip install ipython Flask Flask-Testing
 pip install ipython Flask-Restful
+
+
+# workon personal_website
+# python3 app.py

@@ -1,4 +1,5 @@
 
+
 // font-family: 'Open Sans Condensed', sans-serif;
 // font-family: 'Raleway', sans-serif;
 .date-text {
@@ -53,7 +54,10 @@
 
 #header-main-bg {
   background-color: $header-blue;
-  height: 414px;
+  padding-bottom: 20px;
+  height: auto;
+  width: 100%;
+  // border: 1px solid yellow;
 }
 
 #header-edge {
@@ -66,16 +70,7 @@
   height: 16px;
 }
 
-#hero-image {
-  background-image: url('../images/header_illustration.png');
-  background-size: 546px 182px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  height: 182px;
-  width: auto;
-  margin-top: 30px;
-  margin-bottom: 25px;
-}
+
 
 .divspan {
   display: inline-block;
@@ -131,4 +126,48 @@
   
 }
 
+
+#hero-images {
+  height: 250px;
+  // height: auto;
+  width: 370px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  // border: 1px solid green;
+}
+
+#header-image1 {
+  position: absolute;
+  left: 30px;
+  top: 0px;
+}
+
+#header-image2 {
+  position: absolute;
+  left: 159px;
+  top: 105px;
+}
+
+
+@media only screen and (min-width: 500px) {
+  #hero-images {
+    // border: 1px solid red;
+    width: 502px;
+    height: 182px;
+    margin-bottom: 25px;
+  }
+
+  #header-image1 {
+    left: 0px;
+    top: 0px;
+  }
+
+  #header-image2 {
+    left: 310px;
+    top: -6px;
+  }
+}
 

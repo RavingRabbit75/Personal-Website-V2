@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="project-container">
-	<div class="proeject-title">
+	<div class="project-title">
 		WEATHER ANIMATOR
 	</div>
 	<div class="project-subcontainer">
@@ -11,12 +11,22 @@
 		<div class="project-edge-wall">
 		</div>
 		<div class="container-fluid">
+
 			<div class="project-content">
 				<div class="images-container">
 					<div class="project-image-slot"></div>
-					<img src="{{url_for('static', filename='images/test_image.png')}}" alt="">
+					<div class="project-image-withshadow">
+						<img class="image" src="{{url_for('static', filename='images/projectScreenShot_01.jpg')}}" alt="">
+					</div>
+					
 				</div>
-				<div class="project-text">
+				<div class="preview-block-buttons">
+					<div class="block-button"></div>
+					<div class="block-button"></div>
+					<div class="block-button"></div>
+					<div class="current-image-indicator"></div>
+				</div>
+				<div class="project-text-builtwith">
 					Built with:
 				</div>
 				<div class="project-text">
@@ -24,6 +34,10 @@
 				</div>
 				<div class="project-text">
 					Weather Animator is a weather app with several goals in mind. First was a simple weather visualizer of sorts. When displaying weather information it also plays animations that reflect the current weather of the associated location. Second, to allow users to setup notifications for specific weather conditions.
+				</div>
+				<div>
+					<a href=""><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_github.svg')}}" alt=""></div></a>
+					<a href=""><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_link.svg')}}" alt=""></div></a>
 				</div>
 			</div>
 		</div>
