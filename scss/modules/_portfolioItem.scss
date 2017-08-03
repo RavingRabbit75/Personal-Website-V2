@@ -62,14 +62,29 @@
   font-weight: bold;
   font-size: 12pt;
   color: $white;
+  margin-top: 20px;
 }
 
 .project-text {
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 12pt;
+  font-size: 11pt;
   color: $white;
+}
+
+.project-text-description {
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 11pt;
+  margin-top: 20px;
+  color: $white;
+}
+
+.project-links {
+  margin-top: 20px;
+  font-size: 0;
 }
 
 .project-links-icons {
@@ -77,6 +92,8 @@
   width: 20px;
   position: relative;
   display: inline-block;
+  margin-right: 10px;
+  // border: 1px solid red;
 }
 
 .project-image-slot {
@@ -107,22 +124,38 @@
 
 
 .preview-block-buttons {
-  // width: 500px;
-  // border: 1px solid red;
+  position: relative;
+  padding: 0px;
+  font-size: 0;
+  width: auto;
+  margin-top: 10px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
 
 .block-button {
+  margin-left: 2px;
+  margin-right: 2px;
+  position: relative;
   height: 5px;
   width: 38px;
   background-color: #EFC978;
-  display: inline-block;
-  // border: 1px solid red;
+  // display: inline-block;
+  // border: 1px solid green;
+  float: left;
 }
 
 .current-image-indicator {
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
   background-color: #F5B730;
   height: 2px;
   width: 38px;
+  display: inline-block;
+
 }
 
 
