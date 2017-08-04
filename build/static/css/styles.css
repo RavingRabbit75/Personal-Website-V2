@@ -438,33 +438,92 @@ template {
   src: url("../fonts/icomoon.ttf");
 }
 
+body {
+    background-color: #5d6771;
+}
+
+.item-container {
+    margin-top: 45px;
+    width: auto;
+}
+
+.item-title {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    font-size: 24pt;
+    color: #fff;
+    margin-bottom: 5px;
+    padding-left: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 550px;
+}
+
+.item-subcontainer {
+    background-color: #454F58;
+    height: auto;
+}
+
+.item-edge-highlight {
+    background-color: #A1ADBA;
+    height: 2px;
+    width: auto;
+}
+
+.item-edge-wall {
+    background-color: #344352;
+    height: 18px;
+    width: auto;
+}
+
+.item-content {
+    max-width: 550px;
+    padding-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (min-width: 600px) {
+    .item-title {
+        width: 550px;
+        padding-left: 6px;
+    }
+
+    .item-container {
+        margin-top: 85px;
+        width: auto;
+    }
+}
+
 .date-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: 'Open Sans Condensed', sans-serif;
     color: #fff;
     font-size: 11.5pt;
-    letter-spacing: 1.0px;
+    letter-spacing: 1px;
     padding-top: 10px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 .text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: 'Open Sans Condensed', sans-serif;
     color: #fff;
     font-size: 11.5pt;
-    letter-spacing: 1.0px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 1px;
 }
 
 .text-bold {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: bold;
     color: #efc978;
     font-size: 11.5pt;
-    letter-spacing: 1.0px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 1px;
 }
 
 .text-center {
@@ -472,10 +531,10 @@ template {
 }
 
 .font-icons {
-    font-family: fontIcons;
-    font-size: 35px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: fontIcons;
+    font-size: 35px;
 }
 
 .header-icons-spacing {
@@ -521,12 +580,12 @@ template {
 
 #header-icon-links .iconposition {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
 }
 
 #header-icon-links .iconover {
-    opacity: 0.0;
+    opacity: 0;
 }
 
 #header-icon-links .iconmiddle {
@@ -552,7 +611,7 @@ template {
     height: 250px;
     width: 370px;
     margin-top: 30px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -561,7 +620,7 @@ template {
 #header-image1 {
     position: absolute;
     left: 30px;
-    top: 0px;
+    top: 0;
 }
 
 #header-image2 {
@@ -578,8 +637,8 @@ template {
     }
 
     #header-image1 {
-        left: 0px;
-        top: 0px;
+        left: 0;
+        top: 0;
     }
 
     #header-image2 {
@@ -593,62 +652,10 @@ template {
     margin-bottom: 40px;
 }
 
-.project-title {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: bold;
-    font-size: 24pt;
-    color: white;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin-bottom: 5px;
-    padding-left: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 550px;
-}
-
-.project-container {
-    margin-top: 45px;
-    width: auto;
-}
-
-.project-subcontainer {
-    background-color: #454F58;
-    height: auto;
-}
-
-.zeropadding {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.zero {
-    margin-left: 0px;
-}
-
-.project-edge-highlight {
-    background-color: #A1ADBA;
-    height: 2px;
-    width: auto;
-}
-
-.project-edge-wall {
-    background-color: #344352;
-    height: 18px;
-    width: auto;
-}
-
-.project-content {
-    max-width: 550px;
-    padding-bottom: 40px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .project-text-builtwith {
-    font-family: 'Open Sans Condensed', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: 'Open Sans Condensed', sans-serif;
     font-weight: bold;
     font-size: 12pt;
     color: #fff;
@@ -656,17 +663,17 @@ template {
 }
 
 .project-text {
-    font-family: 'Raleway', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: 'Raleway', sans-serif;
     font-size: 11pt;
     color: #fff;
 }
 
 .project-text-description {
-    font-family: 'Raleway', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: 'Raleway', sans-serif;
     font-size: 11pt;
     margin-top: 20px;
     color: #fff;
@@ -694,15 +701,15 @@ template {
 }
 
 .project-image-withshadow {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     position: relative;
-    left: 0px;
+    left: 0;
     top: -6px;
     width: 100%;
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
     -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.4);
 }
 
@@ -712,7 +719,7 @@ template {
 
 .preview-block-buttons {
     position: relative;
-    padding: 0px;
+    padding: 0;
     font-size: 0;
     width: auto;
     margin-top: 10px;
@@ -728,7 +735,7 @@ template {
     position: relative;
     height: 5px;
     width: 38px;
-    background-color: #EFC978;
+    background-color: #efc978;
     float: left;
 }
 
@@ -736,7 +743,7 @@ template {
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 2px;
-    background-color: #F5B730;
+    background-color: #f5b730;
     height: 2px;
     width: 38px;
     display: inline-block;
@@ -753,25 +760,7 @@ template {
 
     .project-image-withshadow {
         position: relative;
-        left: 0px;
+        left: 0;
         top: -6px;
     }
-
-    .project-title {
-        width: 550px;
-        padding-left: 6px;
-    }
-
-    .project-container {
-        margin-top: 85px;
-        width: auto;
-    }
-}
-
-body {
-    background-color: #5d6771;
-}
-
-.border {
-    border: 1px solid red;
 }

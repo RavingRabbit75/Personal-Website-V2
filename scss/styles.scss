@@ -1,24 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Raleway');
 @import 'normalize';
 @import 'variables';
+@import 'mixins';
+@import 'base';
 @import 'modules/mainHeader';
 @import 'modules/footer';
 @import 'modules/portfolioItem';
-
-
-body {
-  background-color: $main-grey-bg;
-}
-
-
-@mixin icon-colors($base, $hover) {
-  
-}
-
-
-.border {
-  border: 1px solid red;
-}
-
-
 

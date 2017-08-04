@@ -1,34 +1,28 @@
 
-
-// font-family: 'Open Sans Condensed', sans-serif;
-// font-family: 'Raleway', sans-serif;
 .date-text {
+  @include font-smoothing-prefix();
   font-family: 'Open Sans Condensed', sans-serif;
   color: $white;
   font-size: 11.5pt;
-  letter-spacing: 1.0px;
+  letter-spacing: 1px;
   padding-top: 10px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .text {
+  @include font-smoothing-prefix();
   font-family: 'Open Sans Condensed', sans-serif;
   color: $white;
   font-size: 11.5pt;
-  letter-spacing: 1.0px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 1px;
 }
 
 .text-bold {
+  @include font-smoothing-prefix();
   font-family: 'Open Sans Condensed', sans-serif;
   font-weight: bold;
-  color: $light-tan;
+  color: $light-tan ;
   font-size: 11.5pt;
-  letter-spacing: 1.0px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 1px;
 }
 
 .text-center {
@@ -37,10 +31,9 @@
 
 
 .font-icons {
+  @include font-smoothing-prefix();
   font-family: fontIcons;
   font-size: 35px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .header-icons-spacing {
@@ -57,7 +50,6 @@
   padding-bottom: 20px;
   height: auto;
   width: 100%;
-  // border: 1px solid yellow;
 }
 
 #header-edge {
@@ -91,13 +83,13 @@
 
   .iconposition {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
   }
   
 
   .iconover {
-    opacity: 0.0;
+    opacity: 0;
   }
 
   .iconmiddle {
@@ -122,8 +114,6 @@
     }
 
   }
-
-  
 }
 
 
@@ -132,17 +122,16 @@
   // height: auto;
   width: 370px;
   margin-top: 30px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  // border: 1px solid green;
 }
 
 #header-image1 {
   position: absolute;
   left: 30px;
-  top: 0px;
+  top: 0;
 }
 
 #header-image2 {
@@ -154,15 +143,14 @@
 
 @media only screen and (min-width: 500px) {
   #hero-images {
-    // border: 1px solid red;
     width: 502px;
     height: 182px;
     margin-bottom: 25px;
   }
 
   #header-image1 {
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
   }
 
   #header-image2 {
