@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, jsonify, render_template, redirect, url_for, json
 
 
 
@@ -17,15 +17,20 @@ def root_route():
 	return redirect("/profile")
 
 
-
 @app.route("/profile")
 def profile_route():
-	return render_template("profile.html")
+	siteRoot = os.path.realpath(os.path.dirname(__file__))
+	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
+	data=json.load(open(jsonUrl))
+	return render_template("profile.html", profileData=data["profile"])
 
 
 @app.route("/projects")
 def projects_route():
-	return render_template("projects.html")
+	siteRoot = os.path.realpath(os.path.dirname(__file__))
+	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
+	data=json.load(open(jsonUrl))
+	return render_template("projects.html", projectsData=data["projects"])
 
 
 

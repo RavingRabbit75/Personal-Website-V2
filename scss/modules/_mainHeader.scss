@@ -100,22 +100,46 @@
 }
 
 #sections-links {
+
+  position: relative;
+  padding: 0;
+  width: auto;
+  margin-top: 10px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+
   .section-btn {
     margin-left: 60px;
     margin-right: 60px;
+
+    position: relative;
+    float: left;
 
     a {
       color: $light-tan;
       text-decoration: none;
 
-      &:hover {
-        color: $strong-tan;
-      }
+      // &:hover {
+      //   color: $strong-tan;
+      // }
     }
 
   }
 }
 
+$width1: 53px;
+$width2: 60px;
+
+.current-section-indicator {
+  margin-left: 60px;
+  margin-right: 60px;
+  background-color: $strong-tan;
+  height: 2px;
+  width: $width1;
+  margin-top: 1px;
+}
 
 #hero-images {
   height: 250px;

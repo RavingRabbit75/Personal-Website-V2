@@ -485,6 +485,10 @@ body {
     margin-right: auto;
 }
 
+.border-red {
+    border: 1px solid red;
+}
+
 @media only screen and (min-width: 600px) {
     .item-title {
         width: 550px;
@@ -593,9 +597,22 @@ body {
     margin-right: -13px;
 }
 
+#sections-links {
+    position: relative;
+    padding: 0;
+    width: auto;
+    margin-top: 10px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
 #sections-links .section-btn {
     margin-left: 60px;
     margin-right: 60px;
+    position: relative;
+    float: left;
 }
 
 #sections-links .section-btn a {
@@ -603,8 +620,13 @@ body {
     text-decoration: none;
 }
 
-#sections-links .section-btn a:hover {
-    color: #f5b730;
+.current-section-indicator {
+    margin-left: 60px;
+    margin-right: 60px;
+    background-color: #f5b730;
+    height: 2px;
+    width: 53px;
+    margin-top: 1px;
 }
 
 #hero-images {
