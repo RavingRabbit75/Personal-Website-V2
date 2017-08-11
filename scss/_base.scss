@@ -49,6 +49,9 @@ body {
   @include dev-border(red);
 }
 
+.border-green {
+  @include dev-border(green);
+}
 
 @media only screen and (min-width: 600px) {
   .item-title {

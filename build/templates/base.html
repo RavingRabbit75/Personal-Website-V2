@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/plugins/CSSPlugin.min.js"></script>
 </head>
 <body>
 	<div id="header">
@@ -22,15 +23,15 @@
 				FULL STACK WEB DEVELOPER with a focus on front-end
 			</div>
 			<div id="header-icon-links" class="text-center font-icons">
-				<a class="" href=""><div class="divspan header-icon-size">
+				<a class="icon-link" href=""><div class="divspan header-icon-size">
 					<img class="iconposition" src="{{url_for('static', filename='images/icon_mail.svg')}}" alt="">
 					<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_mail_over.svg')}}" alt="">
 				</div></a>
-				<a class="" href=""><div class="divspan header-icon-size iconmiddle">
+				<a class="icon-link" href=""><div class="divspan header-icon-size iconmiddle">
 					<img class="iconposition" src="{{url_for('static', filename='images/icon_linkedin.svg')}}" alt="">
 					<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_linkedin_over.svg')}}" alt="">
 				</div></a>
-				<a class="" href=""><div class="divspan header-icon-size">
+				<a class="icon-link" href=""><div class="divspan header-icon-size">
 					<img class="iconposition" src="{{url_for('static', filename='images/icon_github.svg')}}" alt="">
 					<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_github_over.svg')}}" alt="">
 				</div></a>
@@ -42,9 +43,14 @@
 			</div> -->
 			<div style="text-align: center;">
 				<div id="sections-links" class="text-bold">
-					<div id="profile-btn" class="section-btn"><a href="/profile">PROFILE</a></div>
-					<div id="projects-btn" class="section-btn"><a href="/projects">PROJECTS</a></div><br/>
-					<div class="current-section-indicator"></div>
+					<div id="profile-btn" class="section-btn">
+						<a class="section-link-txt" href="/profile">PROFILE</a>
+						<div id="profile-btn-indicator"></div>
+					</div>
+					<div id="projects-btn" class="section-btn">
+						<a class="section-link-txt" href="/projects">PROJECTS</a>
+						<div id="projects-btn-indicator"></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -58,11 +64,11 @@
 		<div id="header-icon-links" class="text-center font-icons">
 			<a class="" href=""><div class="divspan header-icon-size">
 				<img class="iconposition" src="{{url_for('static', filename='images/iconFooter_mail.svg')}}" alt="">
-				<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_mail_over.svg')}}" alt="">
+				<img class="iconposition iconover" src="{{url_for('static', filename='images/iconFooter_mail_over.svg')}}" alt="">
 			</div></a>
 			<a class="" href=""><div class="divspan header-icon-size iconmiddle">
 				<img class="iconposition" src="{{url_for('static', filename='images/iconFooter_linkedin.svg')}}" alt="">
-				<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_linkedin_over.svg')}}" alt="">
+				<img class="iconposition iconover" src="{{url_for('static', filename='images/iconFooter_linkedin_over.svg')}}" alt="">
 			</div></a>
 			<a class="" href=""><div class="divspan header-icon-size">
 				<img class="iconposition" src="{{url_for('static', filename='images/iconFooter_github.svg')}}" alt="">
@@ -70,6 +76,7 @@
 			</div></a>
 		</div>
 	</div>
+	<div id="dud"></div>
 </body>
 <script src="{{url_for('static', filename='js/header.js')}}"></script>
 </html>
