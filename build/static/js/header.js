@@ -23,7 +23,6 @@ function sectionMouseOut(evt) {
 	TweenMax.to(evt.target, 0.25, {color:"#efc978"});
 }
 
-
 // var width1 = $("#profile-btn").width();
 // console.log(width1);
 
@@ -44,4 +43,89 @@ function sectionMouseOut(evt) {
 // }});
 
 
+function startTime() {
+	var today=new Date();
+	var year=today.getFullYear();
+	var month=adjustMonth(today.getMonth());
+	var date=today.getDate();
+	var day=adjustDay(today.getDay());
+	var antePostMeridiem="AM";
+	var h=adjustHours(today.getHours());
+	var m=today.getMinutes();
+	
+	m = addZero(m);
+	// document.getElementById("current-date").innerHTML = day + " " + month+" "+ date +", " + year+"<br>\n"+h+":"+m +" "+ antePostMeridiem;
+	document.getElementById("current-date").innerHTML = day + " " + month+" "+ date +", " + year;
+	var t = setTimeout(function() {
+		startTime();
+	},10000);
+
+
+	function adjustMonth(i) {
+	   var month = new Array();
+	   month[0] = "January";
+	   month[1] = "February";
+	   month[2] = "March";
+	   month[3] = "April";
+	   month[4] = "May";
+	   month[5] = "June";
+	   month[6] = "July";
+	   month[7] = "August";
+	   month[8] = "September";
+	   month[9] = "October";
+	   month[10] = "November";
+	   month[11] = "December";
+	   var n = month[i];
+	   return n;
+	}
+
+	function adjustDay(i) {
+	   switch(i) {
+		  case 0:
+			 day = "Sunday";
+			 break;
+		  case 1:
+			 day = "Monday";
+			 break;
+		  case 2:
+			 day = "Tuesday";
+			 break;
+		  case 3:
+			 day = "Wednesday";
+			 break;
+		  case 4:
+			 day = "Thursday";
+			 break;
+		  case 5:
+			 day = "Friday";
+			 break;
+		  case 6:
+			 day = "Saturday";
+			 break;
+		  default:
+			 console.log("no day picked");
+	   }
+
+	   return day;
+	}
+
+	function adjustHours(i){
+		if (i > 12) {
+			i = i - 12;
+			antePostMeridiem = "PM";
+		} else if (i == 0) {
+			i = 12;
+		}
+		return i;
+	}
+
+	function addZero(i) {
+		if (i < 10) {
+			i = "0" + i;
+		}
+		return i;
+	}
+}
+
+startTime();
 

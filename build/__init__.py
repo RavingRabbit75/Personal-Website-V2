@@ -19,12 +19,18 @@ def root_route():
 
 @app.route("/profile")
 def profile_route():
-	return render_template("profile.html")
+	siteRoot = os.path.realpath(os.path.dirname(__file__))
+	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
+	data=json.load(open(jsonUrl))
+	return render_template("profile.html", profileData=data["profile"])
 
 
 @app.route("/projects")
 def projects_route():
-	return render_template("projects.html")
+	siteRoot = os.path.realpath(os.path.dirname(__file__))
+	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
+	data=json.load(open(jsonUrl))
+	return render_template("projects.html", projectsData=data["projects"])
 
 
 @app.route("/api/profile")

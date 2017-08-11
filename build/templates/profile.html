@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+<!-- profileData -->
 {% block content %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/profile.css')}}">
 <div class="item-container">
@@ -17,6 +17,7 @@
 					Built with:
 				</div>
 				<div class="project-text">
+					{{profileData.skills.proficient[0]}}
 					GSAP, PixiJS, Bootstrap, Flask, Celery, Python, Javascript, HTML/CSS
 				</div>
 				<div class="project-text-description">

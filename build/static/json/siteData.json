@@ -23,9 +23,14 @@
       "liveLink": "https://weather-animator.herokuapp.com/",
       "images": [
         {
-          "path": "",
-          "width": "",
-          "height": ""
+          "path": "images/projects/weather_01.jpg",
+          "width": "550",
+          "height": "400"
+        },
+        {
+          "path": "images/projects/weather_02.jpg",
+          "width": "550",
+          "height": "400"
         }
       ]
     },
@@ -40,7 +45,7 @@
         "Socket IO",
         "ReactJS"
       ],
-      "description": "Weather Animator is a weather app with several goals in mind. First was a simple weather visualizer of sorts. When displaying weather information it also plays animations that reflect the current weather of the associated location. Second, to allow users to setup notifications for specific weather conditions.",
+      "description": "",
       "shortDescription": "“Battleship meets Space Invaders” in an online experience where players battle to defend their place in the cosmos.",
       "accomplishments": [
       	"Minimized front-end codebase by ~25% utilizing ReactJS for modular and componentized user interface (UI).",
@@ -50,9 +55,37 @@
       "liveLink": "http://space-bomber.herokuapp.com/",
       "images": [
         {
-          "path": "",
-          "width": "",
-          "height": ""
+          "path": "images/projects/spaceBomber_01.jpg",
+          "width": "550",
+          "height": "400"
+        }
+      ]
+    },
+    {
+      "name": "Simple Todo",
+      "role": "Software Engineer, Android",
+      "tech": [
+        "Java",
+        "Android SDK",
+        "SQLite"
+      ],
+      "description": "",
+      "shortDescription": "Mobile system designed to help busy professionals and time-conscious individuals to better track tasks and reminders.",
+      "accomplishments": [
+        "Constructed push notification to alert users of upcoming tasks utilizing Java and Android SDK, with persistence of users events achieved utilizing SQLite database."
+      ],
+      "githubLink": "https://github.com/RavingRabbit75/SimpleTodo2",
+      "liveLink": "https://play.google.com/store/apps/details?id=com.raychow.simpletodo&hl=en",
+      "images": [
+        {
+          "path": "images/projects/simpleTodo_01.jpg",
+          "width": "235",
+          "height": "450"
+        },
+        {
+          "path": "images/projects/simpleTodo_02.jpg",
+          "width": "235",
+          "height": "450"
         }
       ]
     }
