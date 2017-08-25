@@ -22,7 +22,11 @@ def profile_route():
 	siteRoot = os.path.realpath(os.path.dirname(__file__))
 	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
 	data=json.load(open(jsonUrl))
-	return render_template("profile.html", profileData=data["profile"])
+
+	return render_template("profile.html", skillsProficient=data["profile"]["skills"]["proficient"]
+										 , skillsExposure=data["profile"]["skills"]["exposure"]
+										 , professionalExperience=data["profile"]["experience"]
+										 , educationList=data["profile"]["education"])
 
 
 @app.route("/projects")

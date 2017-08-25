@@ -793,3 +793,9 @@ body {
         top: -6px;
     }
 }
+
+ul {
+    list-style: none;
+    padding-left: 10px;
+    text-indent: -10px;
+}
