@@ -794,8 +794,53 @@ body {
     }
 }
 
-ul {
+.no-wrap {
+    white-space: nowrap;
+}
+
+.exp-title {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    font-size: 12pt;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.exp-accomplishments {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11pt;
+    margin-top: 20px;
+    color: #fff;
+}
+
+.exp-accomplishments ul {
     list-style: none;
     padding-left: 10px;
     text-indent: -10px;
+}
+
+.exp-container-margin {
+    margin-bottom: 60px;
+}
+
+.edu-degree {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+    font-size: 12pt;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.edu-institution {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11pt;
+    color: #fff;
 }

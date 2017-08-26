@@ -47,11 +47,17 @@
 		<div class="container-fluid">
 			<div class="item-content">
 				{% for experience in professionalExperience %}
-					<div class="project-text-builtwith">
-						<span>{{ experience.name }} | {{ experience.title }} | {{ experience.location }}</span>
-						<span class="pull-right">{{ experience.years }}</span>
+					<div class="exp-title row">
+						<div class="col-xs-9">
+							<span class="">{{ experience.name }} | </span>
+							<span class="no-wrap">{{ experience.title }} | </span>
+							<span class="no-wrap">{{ experience.location }}</span>
+						</div>
+						<div class="col-xs-3">
+							<span class="pull-right">{{ experience.years }}</span>
+						</div>
 					</div>
-					<div class="project-text-description">
+					{% if not loop.last %}<div class="exp-accomplishments exp-container-margin">{% else %}<div class="exp-accomplishments ">{% endif %}
 						<ul>
 						{% for accomplishment in experience.accomplishments %}
 							<li>• {{ accomplishment }}</li>
@@ -63,7 +69,7 @@
 		</div>
 		<div class="item-edge-highlight"></div>
 	</div>
-	
+
 </div>
 
 <div class="item-container">
@@ -78,11 +84,12 @@
 
 			<div class="item-content">
 				{% for education in educationList %}
-					<div class="project-text-builtwith">
-						{{ education.degree }}
+					<div class="edu-degree">
+						<span>{{ education.degree }}</span>
+						<span class="pull-right">{{ education.gradYear }}</span>
 					</div>
-					<div class="project-text-description">
-						{{ education.institution }}
+					<div class="edu-institution">
+						{{ education.institution }}{% if education.location | length > 0 %}, {{ education.location }} {% endif %}
 					</div>
 				{% endfor %}
 			</div>

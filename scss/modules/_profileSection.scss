@@ -1,6 +1,48 @@
-ul {
-  list-style: none;
-  padding-left: 10px;
-  text-indent: -10px;
+
+.no-wrap {
+  white-space: nowrap;
 }
 
+.exp-title {
+  @include font-smoothing-prefix();
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+  color: $white;
+  margin-top: 20px;
+}
+
+
+.exp-accomplishments {
+  @include font-smoothing-prefix();
+  font-family: 'Raleway', sans-serif;
+  font-size: 11pt;
+  margin-top: 20px;
+  color: $white;
+
+  ul {
+    list-style: none;
+    padding-left: 10px;
+    text-indent: -10px;
+  }
+}
+
+.exp-container-margin {
+  margin-bottom: 60px;
+}
+
+.edu-degree {
+  @include font-smoothing-prefix();
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+  color: $white;
+  margin-top: 20px;
+}
+
+.edu-institution {
+  @include font-smoothing-prefix();
+  font-family: 'Raleway', sans-serif;
+  font-size: 11pt;
+  color: $white;
+}

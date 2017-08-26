@@ -2,6 +2,8 @@
 
 {% block content %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/projects.css')}}">
+
+{% for project in projectsData %}
 <div class="item-container">
 	<div class="item-title">
 		WEATHER ANIMATOR
@@ -47,6 +49,6 @@
 	</div>
 	
 </div>
-	
+{% endfor %}
 
 {% endblock %}
