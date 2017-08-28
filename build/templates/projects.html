@@ -6,7 +6,7 @@
 {% for project in projectsData %}
 <div class="item-container">
 	<div class="item-title">
-		WEATHER ANIMATOR
+		{{ project.name }}
 	</div>
 	<div class="item-subcontainer">
 		<div class="item-edge-highlight"></div>
@@ -18,14 +18,15 @@
 				<div class="images-container">
 					<div class="project-image-slot"></div>
 					<div class="project-image-withshadow">
-						<img class="image" src="{{url_for('static', filename='images/projects/weather_01.jpg')}}" alt="">
+						<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
 					</div>
 				</div>
 				<div style="text-align: center;">
 					<div class="preview-block-buttons">
-						<div class="block-button"></div>
-						<div class="block-button"></div>
-						<div class="block-button"></div><br/>
+						{% for image in project.images %}
+							<div data="{{ loop.index }}" class="block-button"></div>
+						{% endfor %}
+						<br/>
 						<div class="current-image-indicator"></div>
 					</div>
 				</div>
@@ -33,15 +34,16 @@
 					Built with:
 				</div>
 				<div class="project-text">
-					GSAP, PixiJS, Bootstrap, Flask, Celery, Python, Javascript, HTML/CSS
+					{% for tech in project.tech %}
+						{{ tech }}{% if not loop.last %}, {% endif %}
+					{% endfor %}
 				</div>
 				<div class="project-text-description">
-					Weather Animator is a weather app with several goals in mind. First was a simple weather visualizer of sorts. When displaying weather information it also plays animations that reflect the current weather of the associated location. Second, to allow users to setup notifications for specific weather conditions.
+					{{ project.description }}
 				</div>
 				<div class="project-links">
-					<a href=""><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_link.svg')}}" alt=""></div></a>
-					<a href=""><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_github.svg')}}" alt=""></div></a>
-					
+					<a href="{{ project.liveLink }}" target="_blank"><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_link.svg')}}" alt=""></div></a>
+					<a href="{{ project.githubLink }}" target="_blank"><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_github.svg')}}" alt=""></div></a>
 				</div>
 			</div>
 		</div>
