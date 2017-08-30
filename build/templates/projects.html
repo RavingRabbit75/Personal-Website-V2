@@ -17,9 +17,32 @@
 			<div class="item-content">
 				<div class="images-container">
 					<div class="project-image-slot"></div>
-					<div class="project-image-withshadow">
-						<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
-					</div>
+					{% if project.imagesLayout=="single" %}
+						<div class="project-image-withshadow-single">
+							<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+						</div>
+					{% elif project.imagesLayout=="double" %}
+						<div class="previews-row-double">
+							<div class="project-image-withshadow-double">
+								<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+							</div>
+							<div class="project-image-withshadow-double project-image-buffer">
+								<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+							</div>
+						</div>
+					{% elif project.imagesLayout=="triple" %}
+						<div class="previews-row-triple">
+							<div class="project-image-withshadow-triple">
+								<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+							</div>
+							<div class="project-image-withshadow-double project-image-buffer">
+								<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+							</div>
+							<div class="project-image-withshadow-double project-image-buffer">
+								<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+							</div>
+						</div>
+					{% endif %}
 				</div>
 				<div style="text-align: center;">
 					<div class="preview-block-buttons">

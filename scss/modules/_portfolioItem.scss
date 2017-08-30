@@ -7,6 +7,8 @@
   margin-top: 20px;
 }
 
+
+
 .project-text {
   @include font-smoothing-prefix();
   font-family: 'Raleway', sans-serif;
@@ -43,7 +45,14 @@
   top: -10px;
 }
 
-.project-image-withshadow {
+
+.previews-row-double {
+  width: 100%;
+  text-align: center;
+}
+
+
+.project-image-withshadow-single {
   @include font-smoothing-prefix();
   position: relative;
   left: 0;
@@ -51,12 +60,45 @@
   width: 100%;
   border-radius: 5px;
   overflow: hidden;
+  display: inline-block;
   box-shadow: 0 0 5px $project-img-shadow;
   -o-box-shadow: 10px -10px 5px $project-img-shadow;
 }
 
+.project-image-withshadow-double {
+  @include font-smoothing-prefix();
+  position: relative;
+  left: 0;
+  top: -6px;
+  width: 48%;
+  border-radius: 5px;
+  overflow: hidden;
+  display: inline-block;
+  box-shadow: 0 0 5px $project-img-shadow;
+  -o-box-shadow: 10px -10px 5px $project-img-shadow;
+}
+
+.project-image-withshadow-triple {
+  @include font-smoothing-prefix();
+  position: relative;
+  left: 0;
+  top: -6px;
+  width: 48%;
+  border-radius: 5px;
+  overflow: hidden;
+  display: inline-block;
+  box-shadow: 0 0 5px $project-img-shadow;
+  -o-box-shadow: 10px -10px 5px $project-img-shadow;
+}
+
+.project-image-buffer {
+  margin-left: 10px; 
+}
+
+
 .image {
   width: 100%;
+  max-height: 450px;
 }
 
 .preview-block-buttons {

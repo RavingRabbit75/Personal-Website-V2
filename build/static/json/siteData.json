@@ -21,6 +21,7 @@
       ],
       "githubLink": "https://github.com/RavingRabbit75/WeatherAnimator",
       "liveLink": "https://weather-animator.herokuapp.com/",
+      "imagesLayout": "single",
       "images": [
         {
           "path": "images/projects/weather_01.jpg",
@@ -53,6 +54,7 @@
       ],
       "githubLink": "https://github.com/RavingRabbit75/SpaceBomber",
       "liveLink": "http://space-bomber.herokuapp.com/",
+      "imagesLayout": "single",
       "images": [
         {
           "path": "images/projects/spaceBomber_01.jpg",
@@ -76,15 +78,16 @@
       ],
       "githubLink": "https://github.com/RavingRabbit75/SimpleTodo2",
       "liveLink": "https://play.google.com/store/apps/details?id=com.raychow.simpletodo&hl=en",
+      "imagesLayout": "double",
       "images": [
         {
           "path": "images/projects/simpleTodo_01.jpg",
-          "width": "235",
+          "width": "253",
           "height": "450"
         },
         {
           "path": "images/projects/simpleTodo_02.jpg",
-          "width": "235",
+          "width": "253",
           "height": "450"
         }
       ]
