@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, render_template, redirect, url_for, json
+from flask import Flask, jsonify, render_template, redirect, url_for, json, request
 
 
 
@@ -47,10 +47,32 @@ def api_profile():
 
 @app.route("/api/projects")
 def api_projects():
+	projectName = request.args.get('prjname', 0, type=str)
+	imageIndex = request.args.get('imageidx', 0, type=str)
+
 	siteRoot = os.path.realpath(os.path.dirname(__file__))
 	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
 	data=json.load(open(jsonUrl))
-	return jsonify(data["projects"])
+
+	projectFound=False
+	for project in data["projects"]:
+		if projectName==project["name"]:
+			# get the index
+			if project["imagesLayout"]=="triple":
+				pass
+			elif project["imagesLayout"]=="double":
+				pass
+			else:
+				nextImages=project["images"][int(imageIndex)-1]
+				print(nextImages)
+
+			projectFound=True
+			break
+
+	if projectFound==True:
+		return jsonify(nextImages)
+	
+	return jsonify({"results":"No project found"})
 
 
 @app.errorhandler(404)

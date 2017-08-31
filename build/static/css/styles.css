@@ -769,7 +769,7 @@ body {
     position: relative;
     left: 0;
     top: -6px;
-    width: 48%;
+    width: 32%;
     border-radius: 5px;
     overflow: hidden;
     display: inline-block;
@@ -779,6 +779,10 @@ body {
 
 .project-image-buffer {
     margin-left: 10px;
+}
+
+.project-image-buffer2 {
+    margin-left: 3px;
 }
 
 .image {
@@ -806,6 +810,7 @@ body {
     width: 38px;
     background-color: #efc978;
     float: left;
+    cursor: pointer;
 }
 
 .current-image-indicator {
