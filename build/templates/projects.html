@@ -18,8 +18,10 @@
 				<div class="images-container">
 					<div class="project-image-slot"></div>
 					{% if project.imagesLayout=="single" %}
-						<div class="project-image-withshadow-single">
-							<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+						<div class="previews-row-double">
+							<div class="project-image-withshadow-single">
+								<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+							</div>
 						</div>
 					{% elif project.imagesLayout=="double" %}
 						<div class="previews-row-double">

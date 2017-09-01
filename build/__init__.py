@@ -55,16 +55,25 @@ def api_projects():
 	data=json.load(open(jsonUrl))
 
 	projectFound=False
+	nextImages=[]
 	for project in data["projects"]:
 		if projectName==project["name"]:
 			# get the index
 			if project["imagesLayout"]=="triple":
-				pass
+				startIdx = (int(imageIndex)-1)*3
+				nextImages.append(project["images"][startIdx])
+				if startIdx+1 < len(project["images"]):
+					nextImages.append(project["images"][startIdx+1])
+					if startIdx+2 < len(project["images"]):
+						nextImages.append(project["images"][startIdx+2])
+
 			elif project["imagesLayout"]=="double":
-				pass
+				startIdx = (int(imageIndex)-1)*2
+				nextImages.append(project["images"][startIdx])
+				if startIdx+1 < len(project["images"]):
+					nextImages.append(project["images"][startIdx+1])
 			else:
-				nextImages=project["images"][int(imageIndex)-1]
-				print(nextImages)
+				nextImages.append(project["images"][int(imageIndex)-1])
 
 			projectFound=True
 			break
