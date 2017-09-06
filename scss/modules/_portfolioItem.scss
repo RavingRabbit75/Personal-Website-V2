@@ -198,13 +198,7 @@
   top: 0px;
 }
 
-.top {
-  z-index: 20;
-}
 
-.bottom {
-  z-index: 10;
-}
 
 .project-image-withshadow-single {
   width: 100%;
@@ -214,6 +208,29 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, .4);
   -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, .4);
 }
+
+.project-image-withshadow-single2 {
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  display: inline-block;
+  top: 10px;
+  width: 95%;
+  height: 95%;
+  box-shadow: 0 0 0px rgba(0, 0, 0, .4);
+  -o-box-shadow: 10px -10px 0px rgba(0, 0, 0, .4);
+}
+
+.top {
+  z-index: 20;
+}
+
+.bottom {
+  z-index: 10;
+}
+
+
 
 .image {
   width: 100%;

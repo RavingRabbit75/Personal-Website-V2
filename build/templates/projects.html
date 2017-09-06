@@ -20,14 +20,14 @@
 					<div class="project-slot-clipper">
 					{% if project.imagesLayout=="single" %}
 						<div class="wrapper">
-							<div id="preview1" class="previews-row-double top">
+							<div id="{{ project.name + '_' + 'a'}}" class="previews-row-double top">
 								<div class="project-image-withshadow-single">
 									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
 								</div>
 							</div>
-							<div id="preview2" class="previews-row-double2 bottom">
-								<div class="project-image-withshadow-single">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}">
+							<div id="{{ project.name + '_' + 'b' }}" class="previews-row-double2 bottom">
+								<div class="project-image-withshadow-single2">
+									<img class="image" src="">
 								</div>
 							</div>
 						</div>
@@ -59,7 +59,7 @@
 					<div class="preview-block-buttons">
 						{% if project.imagesLayout=="single" %}
 							{% for image in project.images %}
-								<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
+								<div id="{{ 'btn'+loop.index|string+'_'+project.name }}" data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
 							{% endfor %}
 							<br/>
 							<div class="current-image-indicator"></div>

@@ -1,38 +1,56 @@
-$('.block-button').click(function(evt) {
-	evt.preventDefault();
-	// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
-	url="/api/projects";
-	data={"imageidx":evt.target.dataset.imageidx, "prjname":evt.target.dataset.prjname};
-	$.get({
-	  url: url,
-	  data: data,
-	  success: processData,
-	  dataType: "json"
-	});
+// $('.block-button').click(function(evt) {
+// 	evt.preventDefault();
+// 	// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
+// 	url="/api/projects";
+// 	data={"imageidx":evt.target.dataset.imageidx, "prjname":evt.target.dataset.prjname};
+// 	$.get({
+// 	  url: url,
+// 	  data: data,
+// 	  success: processData,
+// 	  dataType: "json"
+// 	});
 
-	function processData(data) {
+// 	function processData(data) {
 		
-	}
+// 	}
 
-	function moveCurrentPreviews() {
-		TweenMax.to(evt.target, 0.25, {opacity:0});
-	}
-});
+// 	function moveCurrentPreviews() {
+// 		TweenMax.to(evt.target, 0.25, {opacity:0});
+// 	}
+// });
 
 
 
-var preview1=document.getElementById("preview1");
-var preview2=document.getElementById("preview2");
+var preview1=document.getElementById("Weather Animator_a");
+var preview2=document.getElementById("Weather Animator_b");
 
-$('#button1').click(function(evt) {
+var btn1=document.getElementById("btn1_Weather Animator");
+var btn2=document.getElementById("btn2_Weather Animator");
+
+// $('#btn1_Weather Animator').click(function(evt) {
+// 	evt.preventDefault();
+// 	console.log("PING!");
+// 	TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
+// });
+
+// $('#btn2_Weather Animator').click(function(evt) {
+// 	evt.preventDefault();
+// 	console.log("PING!");
+// 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
+// });
+btn1.addEventListener("click", function(evt){
 	evt.preventDefault();
+	console.log("PING_1");
 	TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
 });
 
-$('#button2').click(function(evt) {
+btn2.addEventListener("click", function(evt){
 	evt.preventDefault();
+	console.log("PING_2");
 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
 });
+	
+
 
 function next01(){
 	preview1.classList.remove("top");
