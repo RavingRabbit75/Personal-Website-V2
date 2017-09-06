@@ -17,10 +17,18 @@
 			<div class="item-content">
 				<div class="images-container">
 					<div class="project-image-slot"></div>
+					<div class="project-slot-clipper">
 					{% if project.imagesLayout=="single" %}
-						<div class="previews-row-double">
-							<div class="project-image-withshadow-single">
-								<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+						<div class="wrapper">
+							<div id="preview1" class="previews-row-double top">
+								<div class="project-image-withshadow-single">
+									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								</div>
+							</div>
+							<div id="preview2" class="previews-row-double2 bottom">
+								<div class="project-image-withshadow-single">
+									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}">
+								</div>
 							</div>
 						</div>
 					{% elif project.imagesLayout=="double" %}
@@ -45,6 +53,7 @@
 							</div>
 						</div>
 					{% endif %}
+					</div>
 				</div>
 				<div style="text-align: center;">
 					<div class="preview-block-buttons">
