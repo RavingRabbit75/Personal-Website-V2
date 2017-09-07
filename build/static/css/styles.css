@@ -791,15 +791,23 @@ body {
 }
 
 .project-image-withshadow-double {
-    position: relative;
-    left: 0;
-    top: -6px;
     width: 48%;
     border-radius: 5px;
     overflow: hidden;
     display: inline-block;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
     -o-box-shadow: 10px -10px 5px rgba(0, 0, 0, 0.4);
+}
+
+.project-image-withshadow-double2 {
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    display: inline-block;
+    width: 35%;
+    height: 35%;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.4);
+    -o-box-shadow: 10px -10px 0 rgba(0, 0, 0, 0.4);
 }
 
 .project-image-withshadow-triple {

@@ -119,9 +119,6 @@
 
 
 .project-image-withshadow-double {
-  position: relative;
-  left: 0;
-  top: -6px;
   width: 48%;
   border-radius: 5px;
   overflow: hidden;
@@ -129,6 +126,20 @@
   box-shadow: 0 0 5px $project-img-shadow;
   -o-box-shadow: 10px -10px 5px $project-img-shadow;
 }
+
+
+.project-image-withshadow-double2 {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  display: inline-block;
+  // top: 10px;
+  width: 35%;
+  height: 35%;
+  box-shadow: 0 0 0 $project-img-shadow;
+  -o-box-shadow: 10px -10px 0 $project-img-shadow;
+}
+
 
 .project-image-withshadow-triple {
   position: relative;
