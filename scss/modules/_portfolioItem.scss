@@ -55,7 +55,6 @@
   padding-left: 4px;
   padding-right: 4px;
   padding-bottom: 10px;
-  // border: 1px dashed yellow;
   overflow: hidden;
   top: -11px;
 }
@@ -95,62 +94,54 @@
 }
 
 
-.project-image-withshadow-single {
+.project-image {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.shadow-on {
+  box-shadow: 0 0 5px $project-img-shadow;
+  -o-box-shadow: 10px -10px 5px $project-img-shadow;
+}
+
+.shadow-off {
+  box-shadow: 0 0 0 $project-img-shadow;
+  -o-box-shadow: 10px -10px 0 $project-img-shadow;
+}
+
+.preview-single-wrapper {
   width: 100%;
-  border-radius: 5px;
-  overflow: hidden;
   display: inline-block;
-  box-shadow: 0 0 5px $project-img-shadow;
-  -o-box-shadow: 10px -10px 5px $project-img-shadow;
 }
 
-
-.project-image-withshadow-single2 {
-  position: relative;
-  border-radius: 5px;
-  overflow: hidden;
+.preview-single-wrapper2 {
+  width: 100%;
   display: inline-block;
-  top: 10px;
-  width: 95%;
-  height: 95%;
-  box-shadow: 0 0 0 $project-img-shadow;
-  -o-box-shadow: 10px -10px 0 $project-img-shadow;
+  padding: 8px;
+  padding-top: 5px;
 }
 
-
-.project-image-withshadow-double {
+.preview-double-wrapper {
   width: 48%;
-  border-radius: 5px;
-  overflow: hidden;
   display: inline-block;
-  box-shadow: 0 0 5px $project-img-shadow;
-  -o-box-shadow: 10px -10px 5px $project-img-shadow;
 }
 
-
-.project-image-withshadow-double2 {
-  position: relative;
-  border-radius: 5px;
-  overflow: hidden;
+.preview-double-wrapper2 {
+  width: 48%;
   display: inline-block;
-  // top: 10px;
-  width: 35%;
-  height: 35%;
-  box-shadow: 0 0 0 $project-img-shadow;
-  -o-box-shadow: 10px -10px 0 $project-img-shadow;
+  padding: 8px;
 }
 
-
-.project-image-withshadow-triple {
-  position: relative;
-  left: 0;
-  top: -6px;
+.preview-triple-wrapper {
   width: 32%;
-  border-radius: 5px;
-  overflow: hidden;
   display: inline-block;
-  box-shadow: 0 0 5px $project-img-shadow;
-  -o-box-shadow: 10px -10px 5px $project-img-shadow;
+}
+
+.preview-triple-wrapper2 {
+  width: 32%;
+  display: inline-block;
+  padding: 5px;
+  padding-top: 10px;
 }
 
 .project-image-buffer {
@@ -210,6 +201,15 @@
     width: 550px;
     position: relative;
     top: -10px;
+  }
+
+  .project-image-buffer {
+    margin-left: 5px; 
+  }
+
+
+  .project-image-buffer2 {
+    margin-left: 1px; 
   }
 
 }

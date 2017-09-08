@@ -21,57 +21,81 @@
 					{% if project.imagesLayout=="single" %}
 						<div class="wrapper">
 							<div id="{{ project.name + '_' + 'a'}}" class="previews-row top">
-								<div class="project-image-withshadow-single">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-single-wrapper shadow-on">
+									<div class="project-image">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+									</div>
 								</div>
 							</div>
 							<div id="{{ project.name + '_' + 'b' }}" class="previews-row2 bottom">
-								<div class="project-image-withshadow-single2">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-single-wrapper2 shadow-off">
+									<div class="project-image">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+									</div>
 								</div>
 							</div>
 						</div>
 					{% elif project.imagesLayout=="double" %}
 						<div class="wrapper">
 							<div id="{{ project.name + '_' + 'a'}}" class="previews-row top">
-								<div class="project-image-withshadow-double">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-double-wrapper">
+									<div class="project-image shadow-on">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+									</div>
 								</div>
-								<div class="project-image-withshadow-double project-image-buffer">
-									<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+								<div class="preview-double-wrapper project-image-buffer">
+									<div class="project-image shadow-on">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+									</div>
 								</div>
 							</div>
 							<div id="{{ project.name + '_' + 'b' }}" class="previews-row2 bottom">
-								<div class="project-image-withshadow-double2">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-double-wrapper2">
+									<div class="project-image shadow-off">
+										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+									</div>
 								</div>
-								<div class="project-image-withshadow-double2 project-image-buffer">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-double-wrapper2 project-image-buffer">
+									<div class="project-image shadow-off">
+										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+									</div>
 								</div>
 							</div>
 						</div>
 					{% elif project.imagesLayout=="triple" %}
 						<div class="wrapper">
-							<div id="{{ project.name + '_' + 'a'}}" class="previews-row">
-								<div class="project-image-withshadow-triple">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+							<div id="{{ project.name + '_' + 'a'}}" class="previews-row top">
+								<div class="preview-triple-wrapper">
+									<div class="project-image shadow-on">
+										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+									</div>
 								</div>
-								<div class="project-image-withshadow-triple project-image-buffer2">
-									<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+								<div class="preview-triple-wrapper project-image-buffer2">
+									<div class="project-image shadow-on">
+										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+									</div>
 								</div>
-								<div class="project-image-withshadow-triple project-image-buffer2">
-									<img class="image" src="{{ url_for('static', filename=project.images[2].path) }}" alt="">
+								<div class="preview-triple-wrapper project-image-buffer2">
+									<div class="project-image shadow-on">
+										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+									</div>
 								</div>
 							</div>
 							<div id="{{ project.name + '_' + 'b' }}" class="previews-row2 bottom">
-								<div class="project-image-withshadow-triple">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-triple-wrapper2">
+									<div class="project-image shadow-off">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+									</div>
 								</div>
-								<div class="project-image-withshadow-triple2 project-image-buffer">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-triple-wrapper2 project-image-buffer2">
+									<div class="project-image shadow-off">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+									</div>
 								</div>
-								<div class="project-image-withshadow-triple2 project-image-buffer">
-									<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+								<div class="preview-triple-wrapper2 project-image-buffer2">
+									<div class="project-image shadow-off">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
+									</div>
 								</div>
 							</div>
 						</div>
