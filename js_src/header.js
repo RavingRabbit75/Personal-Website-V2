@@ -41,7 +41,7 @@ mysite.header={
 		// document.getElementById("current-date").innerHTML = day + " " + month+" "+ date +", " + year+"<br>\n"+h+":"+m +" "+ antePostMeridiem;
 		document.getElementById("current-date").innerHTML = day + " " + month+" "+ date +", " + year;
 		var t = setTimeout(function() {
-			startTime();
+			mysite.header.startTime();
 		},10000);
 
 

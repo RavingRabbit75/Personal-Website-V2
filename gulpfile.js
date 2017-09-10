@@ -4,6 +4,8 @@ var gulp = require("gulp");
 var sass = require("gulp-sass");
 var cssbeautify = require("gulp-cssbeautify");
 var concat = require("gulp-concat");
+var uglify = require("gulp-uglify");
+var cleanCSS = require("gulp-clean-css");
 
 gulp.task("sass", function(){
 	return gulp.src("./scss/styles.scss")
@@ -28,4 +30,29 @@ gulp.task("watch", function(){
 	gulp.watch("./js_src/*.js", ["scripts"]);
 });
 
+gulp.task("processJS", function(){
+	return gulp.src(["./js_src/header.js", "./js_src/projects.js"])
+	.pipe(concat("app.js"))
+	.pipe(uglify())
+	.pipe(gulp.dest("./build/static/js/"))
+	.on('error', function(err) {
+      console.error('Error in compress task', err.toString());
+    });
+});
+
+gulp.task("processCSS", function(){
+	return gulp.src("./scss/styles.scss")
+	.pipe(sass())
+	.on("error", function(error){
+		console.error("\x1b[31m\x1b[1m%s\x1b[0m", "ERROR occured:");
+		console.error("\x1b[35m", error);
+	})
+	.pipe(cleanCSS())
+	.pipe(gulp.dest("./build/static/css"));
+});
+
+// For final production build
+gulp.task("build", ["processCSS", "processJS"]);
+
+// default development build and watch for changes
 gulp.task("default", ["watch", "sass", "scripts"]);
