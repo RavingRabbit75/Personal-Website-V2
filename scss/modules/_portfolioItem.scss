@@ -153,12 +153,10 @@
   margin-left: 3px; 
 }
 
-
 .image {
   width: 100%;
   max-height: 450px;
 }
-
 
 .preview-block-buttons {
   position: relative;
@@ -169,28 +167,49 @@
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
-  text-align: left;
+  // text-align: left;
+  // 
 }
+
+.preview-block-buttons-row {
+  position: relative;
+  height: 20px;
+  width: auto;
+  bottom: 0;
+  // border: 1px dashed yellow;
+}
+
+
+.block-button-wrapper {
+  position: relative;
+  font-size: 0;
+  display: inline-block;
+  width: 38px;
+  top: 18px;
+  left: -2px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
 
 .block-button {
   margin-left: 2px;
   margin-right: 2px;
-  position: relative;
+  position: absolute;
+  float: left;
   height: 5px;
   width: 38px;
+  bottom: 0;
   background-color: $light-tan;
-  float: left;
   cursor: pointer;
 }
 
 .current-image-indicator {
   margin-left: 2px;
   margin-right: 2px;
-  margin-top: 2px;
   background-color: $strong-tan;
   height: 2px;
   width: 38px;
-  display: inline-block;
 }
 
 

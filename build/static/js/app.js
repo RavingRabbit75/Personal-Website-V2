@@ -1,10 +1,22 @@
 var mysite={};
 
 mysite.header={
-	initHeader: function(someString) {
+	initHeader: function() {
+		var section=$("#sectionName").data();
 		mysite.header.startTime();
 		mysite.header.setupHeaderBtns();
-		mysite.header.animateInSectionIndicator();
+		mysite.header.animateInSectionIndicator(section.name);
+
+		switch(section.name) {
+			case "profile":
+				mysite.profile.initProfile();
+				break;
+			case "projects":
+				mysite.projects.initProjects()
+				break;
+			default:
+
+		}
 	},
 
 	setupHeaderBtns: function() {
@@ -32,9 +44,8 @@ mysite.header={
 		}
 	},
 
-	animateInSectionIndicator: function() {
-		var section=$("#sectionName").data();
-		switch(section.name) {
+	animateInSectionIndicator: function(section) {
+		switch(section) {
 			case "profile":
 				var sectionIndicator=document.getElementById("profile-btn-indicator");
 				break;
@@ -157,58 +168,68 @@ mysite.header={
 mysite.projects = {
 
 	initProjects: function() {
-		// var section=$("#sectionName").data();
 		mysite.projects.setupPreviewButtons();
 	},
 
 	setupPreviewButtons: function() {
+
 		$('.block-button').click(function(evt) {
-			evt.preventDefault();
+			
+			console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
+			// url="/api/projects";
+			// data={"imageidx":evt.target.dataset.imageidx, "prjname":evt.target.dataset.prjname};
+			// $.get({
+			//   url: url,
+			//   data: data,
+			//   success: processData,
+			//   dataType: "json"
+			// });
+
+			// function processData(data) {
+								
+			// }
+
+			// function moveCurrentPreviews() {
+			// 	TweenMax.to(evt.target, 0.25, {opacity:0});
+			// }
+		});
+
+		$(".block-button").on("mouseover", function(evt) {
 			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
-			url="/api/projects";
-			data={"imageidx":evt.target.dataset.imageidx, "prjname":evt.target.dataset.prjname};
-			$.get({
-			  url: url,
-			  data: data,
-			  success: processData,
-			  dataType: "json"
-			});
+			TweenMax.set(evt.target, {transformOrigin: "0 100% 0", scale:1});
+			TweenMax.to(evt.target, 0.75, {height: "15px", ease: Power4.easeOut});
+		});
 
-			function processData(data) {
-				
-			}
-
-			function moveCurrentPreviews() {
-				TweenMax.to(evt.target, 0.25, {opacity:0});
-			}
+		$(".block-button").on("mouseout", function(evt) {
+			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
+			TweenMax.to(evt.target, 0.4, {height: "5px", ease: Power2.easeIn});
 		});
 
 		var preview1=document.getElementById("Weather Animator_a");
 		var preview2=document.getElementById("Weather Animator_b");
+		// console.log(projectData);
+		var listOfButtons=[];
+		for (let i=0; i<projectData.length; i++) {
+			// console.log(projectData[i].name);
+			var targetDiv=document.getElementById(projectData[i].name).getElementsByClassName("block-button");
+			listOfButtons.push(targetDiv);
+		}
 
-		var btn1=document.getElementById("btn1_Weather Animator");
-		var btn2=document.getElementById("btn2_Weather Animator");
+		// var btn1=document.getElementById("btn1_Weather Animator");
+		// var btn2=document.getElementById("btn2_Weather Animator");
 
-		$('#btn1_Weather Animator').click(function(evt) {
-			evt.preventDefault();
-			console.log("PING!");
-			TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
-		});
+		// $('#btn1_Weather Animator').click(function(evt) {
+		// 	TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
+		// });
 
-		$('#btn2_Weather Animator').click(function(evt) {
-			evt.preventDefault();
-			console.log("PING!");
-			TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
-		});
+		// $('#btn2_Weather Animator').click(function(evt) {
+		// 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
+		// });
 		// btn1.addEventListener("click", function(evt){
-		// 	evt.preventDefault();
-		// 	console.log("PING_1");
 		// 	TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
 		// });
 
 		// btn2.addEventListener("click", function(evt){
-		// 	evt.preventDefault();
-		// 	console.log("PING_2");
 		// 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
 		// });
 
@@ -233,9 +254,20 @@ mysite.projects = {
 			preview1.classList.add("top");
 		}
 	
+	},
+
+	movePreviewIndicator: function() {
+
 	}
 		
 };
 
-mysite.projects.initProjects();
+// mysite.projects.initProjects();
 
+
+
+mysite.profile = {
+	initProfile: function() {
+		
+	}
+};

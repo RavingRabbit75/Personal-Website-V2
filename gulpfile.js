@@ -19,7 +19,7 @@ gulp.task("sass", function(){
 });
 
 gulp.task("scripts", function(){
-	return gulp.src(["./js_src/header.js", "./js_src/projects.js"])
+	return gulp.src(["./js_src/header.js", "./js_src/projects.js", "./js_src/profile.js"])
 		.pipe(concat("app.js"))
 		.pipe(gulp.dest("./build/static/js/"));
 });
@@ -31,7 +31,7 @@ gulp.task("watch", function(){
 });
 
 gulp.task("processJS", function(){
-	return gulp.src(["./js_src/header.js", "./js_src/projects.js"])
+	return gulp.src(["./js_src/header.js", "./js_src/projects.js", "./js_src/profile.js"])
 	.pipe(concat("app.js"))
 	.pipe(uglify())
 	.pipe(gulp.dest("./build/static/js/"))

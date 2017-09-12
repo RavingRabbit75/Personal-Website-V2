@@ -1,10 +1,22 @@
 var mysite={};
 
 mysite.header={
-	initHeader: function(someString) {
+	initHeader: function() {
+		var section=$("#sectionName").data();
 		mysite.header.startTime();
 		mysite.header.setupHeaderBtns();
-		mysite.header.animateInSectionIndicator();
+		mysite.header.animateInSectionIndicator(section.name);
+
+		switch(section.name) {
+			case "profile":
+				mysite.profile.initProfile();
+				break;
+			case "projects":
+				mysite.projects.initProjects()
+				break;
+			default:
+
+		}
 	},
 
 	setupHeaderBtns: function() {
@@ -32,9 +44,8 @@ mysite.header={
 		}
 	},
 
-	animateInSectionIndicator: function() {
-		var section=$("#sectionName").data();
-		switch(section.name) {
+	animateInSectionIndicator: function(section) {
+		switch(section) {
 			case "profile":
 				var sectionIndicator=document.getElementById("profile-btn-indicator");
 				break;

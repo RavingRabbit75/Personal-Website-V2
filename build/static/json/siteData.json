@@ -32,6 +32,16 @@
           "path": "images/projects/weather_02.jpg",
           "width": "550",
           "height": "400"
+        },
+        {
+          "path": "images/projects/weather_01.jpg",
+          "width": "550",
+          "height": "400"
+        },
+        {
+          "path": "images/projects/weather_02.jpg",
+          "width": "550",
+          "height": "400"
         }
       ]
     },
