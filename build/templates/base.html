@@ -14,7 +14,7 @@
 <body>
 	<div id="header">
 		<div id="header-main-bg">
-			<div id="current-date" class="date-text text-center">Sunday October 3, 2014</div>
+			<div id="current-date" class="date-text text-center">Sunday January 1, 2000</div>
 			<div id="hero-images">
 				<img id="header-image1" src="{{url_for('static', filename='images/header_image_name.png')}}" alt="">
 				<img id="header-image2" src="{{url_for('static', filename='images/header_image_laptop.png')}}" alt="">
@@ -36,11 +36,6 @@
 					<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_github_over.svg')}}" alt="">
 				</div></a>
 			</div>
-			<!-- <div id="sections-links" class="text-center text-bold border-red">
-				<span id="profile-btn" class="section-btn"><a href="/profile">PROFILE</a></span>
-				<span id="projects-btn" class="section-btn"><a href="/projects">PROJECTS</a></span><br />
-				<div class="current-section-indicator"></div>
-			</div> -->
 			<div style="text-align: center;">
 				<div id="sections-links" class="text-bold">
 					<div id="profile-btn" class="section-btn">
@@ -78,5 +73,5 @@
 	</div>
 	<div id="dud"></div>
 </body>
-<script src="{{url_for('static', filename='js/app.js')}}"></script>
+<script id="appjs" onload="mysite.header.initHeader();" src="{{url_for('static', filename='js/app.js')}}"></script>
 </html>

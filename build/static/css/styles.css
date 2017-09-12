@@ -626,6 +626,7 @@ body {
 #sections-links .section-btn {
     position: relative;
     display: inline-block;
+    text-align: center;
 }
 
 #sections-links .section-btn a {
@@ -635,6 +636,24 @@ body {
 
 #sections-links .section-btn a:hover {
     cursor: pointer;
+}
+
+#sections-links .section-btn #profile-btn-indicator {
+    position: relative;
+    top: -14px;
+    height: 2px;
+    width: 0%;
+    background-color: #efc978;
+    display: inline-block;
+}
+
+#sections-links .section-btn #projects-btn-indicator {
+    position: relative;
+    top: -14px;
+    height: 2px;
+    width: 0%;
+    background-color: #efc978;
+    display: inline-block;
 }
 
 #hero-images {

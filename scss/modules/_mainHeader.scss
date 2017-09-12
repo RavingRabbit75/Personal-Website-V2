@@ -121,8 +121,10 @@
   }
 
   .section-btn {
+    // @include dev-border(yellow);
     position: relative;
     display: inline-block;
+    text-align: center;
     
 
     .section-link-txt {
@@ -136,6 +138,24 @@
       &:hover {
         cursor: pointer;
       }
+    }
+
+    #profile-btn-indicator {
+      position: relative;
+      top: -14px;
+      height: 2px;
+      width: 0%;
+      background-color: $light-tan;
+      display: inline-block;
+    }
+
+    #projects-btn-indicator {
+      position: relative;
+      top: -14px;
+      height: 2px;
+      width: 0%;
+      background-color: $light-tan;
+      display: inline-block;
     }
 
   }

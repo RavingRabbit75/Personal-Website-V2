@@ -26,7 +26,8 @@ def profile_route():
 	return render_template("profile.html", skillsProficient=data["profile"]["skills"]["proficient"]
 										 , skillsExposure=data["profile"]["skills"]["exposure"]
 										 , professionalExperience=data["profile"]["experience"]
-										 , educationList=data["profile"]["education"])
+										 , educationList=data["profile"]["education"]
+										 , sectionName="profile")
 
 
 @app.route("/projects")
@@ -34,7 +35,8 @@ def projects_route():
 	siteRoot = os.path.realpath(os.path.dirname(__file__))
 	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
 	data=json.load(open(jsonUrl))
-	return render_template("projects.html", projectsData=data["projects"])
+	return render_template("projects.html", projectsData=data["projects"]
+										  , sectionName="projects")
 
 
 @app.route("/api/profile")

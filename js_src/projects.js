@@ -2,7 +2,12 @@
 mysite.projects = {
 
 	initProjects: function() {
-			$('.block-button').click(function(evt) {
+		// var section=$("#sectionName").data();
+		mysite.projects.setupPreviewButtons();
+	},
+
+	setupPreviewButtons: function() {
+		$('.block-button').click(function(evt) {
 			evt.preventDefault();
 			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
 			url="/api/projects";
@@ -23,8 +28,6 @@ mysite.projects = {
 			}
 		});
 
-
-
 		var preview1=document.getElementById("Weather Animator_a");
 		var preview2=document.getElementById("Weather Animator_b");
 
@@ -42,17 +45,17 @@ mysite.projects = {
 			console.log("PING!");
 			TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
 		});
-		btn1.addEventListener("click", function(evt){
-			evt.preventDefault();
-			console.log("PING_1");
-			TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
-		});
+		// btn1.addEventListener("click", function(evt){
+		// 	evt.preventDefault();
+		// 	console.log("PING_1");
+		// 	TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
+		// });
 
-		btn2.addEventListener("click", function(evt){
-			evt.preventDefault();
-			console.log("PING_2");
-			TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
-		});
+		// btn2.addEventListener("click", function(evt){
+		// 	evt.preventDefault();
+		// 	console.log("PING_2");
+		// 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
+		// });
 
 
 		function next01(){
@@ -74,7 +77,9 @@ mysite.projects = {
 			preview1.classList.remove("bottom");
 			preview1.classList.add("top");
 		}
+	
 	}
+		
 };
 
 mysite.projects.initProjects();

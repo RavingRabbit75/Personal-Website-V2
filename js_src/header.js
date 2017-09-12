@@ -1,6 +1,11 @@
 var mysite={};
 
 mysite.header={
+	initHeader: function(someString) {
+		mysite.header.startTime();
+		mysite.header.setupHeaderBtns();
+		mysite.header.animateInSectionIndicator();
+	},
 
 	setupHeaderBtns: function() {
 		var profileBtn=document.getElementById("profile-btn");
@@ -25,6 +30,21 @@ mysite.header={
 		function sectionMouseOut(evt) {
 			TweenMax.to(evt.target, 0.25, {color:"#efc978"});
 		}
+	},
+
+	animateInSectionIndicator: function() {
+		var section=$("#sectionName").data();
+		switch(section.name) {
+			case "profile":
+				var sectionIndicator=document.getElementById("profile-btn-indicator");
+				break;
+			case "projects":
+				var sectionIndicator=document.getElementById("projects-btn-indicator");
+				break;
+			default:
+
+		}
+		TweenMax.to(sectionIndicator, 1.0, {width:"100%", ease: Power4.easeOut});
 	},
 
 	startTime: function() {
@@ -110,8 +130,6 @@ mysite.header={
 			return i;
 		}
 	}
-	// TweenMax.min.js
-	
 
 	// var width1 = $("#profile-btn").width();
 	// console.log(width1);
@@ -133,5 +151,4 @@ mysite.header={
 	// }});
 	
 };
-mysite.header.startTime();
-mysite.header.setupHeaderBtns();
+
