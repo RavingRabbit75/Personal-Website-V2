@@ -99,6 +99,26 @@
           "path": "images/projects/simpleTodo_02.jpg",
           "width": "253",
           "height": "450"
+        },
+        {
+          "path": "images/projects/simpleTodo_01.jpg",
+          "width": "253",
+          "height": "450"
+        },
+        {
+          "path": "images/projects/simpleTodo_02.jpg",
+          "width": "253",
+          "height": "450"
+        },
+        {
+          "path": "images/projects/simpleTodo_01.jpg",
+          "width": "253",
+          "height": "450"
+        },
+        {
+          "path": "images/projects/simpleTodo_02.jpg",
+          "width": "253",
+          "height": "450"
         }
       ]
     },
@@ -126,6 +146,21 @@
         },
         {
           "path": "images/projects/gapBanner_02.jpg",
+          "width": "300",
+          "height": "600"
+        },
+        {
+          "path": "images/projects/gapBanner_03.jpg",
+          "width": "300",
+          "height": "600"
+        },
+        {
+          "path": "images/projects/gapBanner_02.jpg",
+          "width": "300",
+          "height": "600"
+        },
+        {
+          "path": "images/projects/gapBanner_03.jpg",
           "width": "300",
           "height": "600"
         },

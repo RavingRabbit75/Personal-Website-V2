@@ -101,33 +101,44 @@
 					{% endif %}
 					</div>
 				</div>
-				<div style="text-align: center;">
+
+				{% if project.imagesLayout=="single" and project.images|length > 1 
+					  or project.imagesLayout=="double" and project.images|length > 2 
+					  or project.imagesLayout=="triple" and project.images|length > 3 %}
+				<div class="preview-btns-container">
 					<div class="preview-block-buttons">
 						<div class="preview-block-buttons-row">
 							{% if project.imagesLayout=="single" %}
-								{% for image in project.images %}
-									<div class="block-button-wrapper">
-										<div id="{{ 'btn'+loop.index|string+'_'+project.name }}" data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
-									</div>
-								{% endfor %}
+								{% if project.images|length > 1 %}
+									{% for image in project.images %}
+										<div class="block-button-wrapper">
+											<div id="{{ 'btn'+loop.index|string+'_'+project.name }}" data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
+										</div>
+									{% endfor %}
+								{% endif %}
 							{% elif project.imagesLayout=="double" %}
-								{% for image in project.images|batch(2, '&nbsp;') %}
-									<div class="block-button-wrapper">
-										<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
-									</div>
-								{% endfor %}
+								{% if project.images|length > 2 %}
+									{% for image in project.images|batch(2, '&nbsp;') %}
+										<div class="block-button-wrapper">
+											<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
+										</div>
+									{% endfor %}
+								{% endif %}
 							{% elif project.imagesLayout=="triple" %}
-								{% for image in project.images|batch(3, '&nbsp;') %}
-									<div class="block-button-wrapper">
-										<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
-									</div>
-								{% endfor %}
+								{% if project.images|length > 3 %}
+									{% for image in project.images|batch(3, '&nbsp;') %}
+										<div class="block-button-wrapper">
+											<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
+										</div>
+									{% endfor %}
+								{% endif %}
 							{% endif %}
 						</div>
-						<div class="current-image-indicator"></div>		
+						<div class="current-image-indicator"></div>
 					</div>
-					
 				</div>
+				{% endif %}
+
 				<div class="project-text-builtwith">
 					Built with:
 				</div>

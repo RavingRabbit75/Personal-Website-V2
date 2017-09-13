@@ -851,6 +851,10 @@ body {
     max-height: 450px;
 }
 
+.preview-btns-container {
+    text-align: center;
+}
+
 .preview-block-buttons {
     position: relative;
     padding: 0;

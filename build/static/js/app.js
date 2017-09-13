@@ -263,7 +263,6 @@ mysite.projects = {
 		
 };
 
-// mysite.projects.initProjects();
 
 
 
