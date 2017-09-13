@@ -28,15 +28,16 @@ mysite.projects = {
 			// }
 		});
 
-		$(".block-button").on("mouseover", function(evt) {
+		$(".block-button-wrapper").on("mouseover", function(evt) {
 			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
-			TweenMax.set(evt.target, {transformOrigin: "0 100% 0", scale:1});
-			TweenMax.to(evt.target, 0.75, {height: "15px", ease: Power4.easeOut});
+			var block=evt.target.getElementsByClassName("block-button");
+			TweenMax.to(block, 0.75, {height: "15px", ease: Power4.easeOut});
 		});
 
-		$(".block-button").on("mouseout", function(evt) {
+		$(".block-button-wrapper").on("mouseout", function(evt) {
 			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
-			TweenMax.to(evt.target, 0.4, {height: "5px", ease: Power2.easeIn});
+			var block=evt.target.getElementsByClassName("block-button");
+			TweenMax.to(block, 0.4, {height: "5px", ease: Power2.easeIn});
 		});
 
 		var preview1=document.getElementById("Weather Animator_a");

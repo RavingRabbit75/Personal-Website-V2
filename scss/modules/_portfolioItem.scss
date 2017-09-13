@@ -167,8 +167,6 @@
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
-  // text-align: left;
-  // 
 }
 
 .preview-block-buttons-row {
@@ -176,7 +174,6 @@
   height: 20px;
   width: auto;
   bottom: 0;
-  // border: 1px dashed yellow;
 }
 
 
@@ -185,10 +182,11 @@
   font-size: 0;
   display: inline-block;
   width: 38px;
-  top: 18px;
-  left: -2px;
+  height: 14px;
+  top: 8px;
   margin-left: 2px;
   margin-right: 2px;
+  cursor: pointer;
 }
 
 
@@ -199,9 +197,10 @@
   float: left;
   height: 5px;
   width: 38px;
-  bottom: 0;
+  left: -2px;
+  bottom: 4px;
   background-color: $light-tan;
-  cursor: pointer;
+  pointer-events: none;
 }
 
 .current-image-indicator {

@@ -874,10 +874,11 @@ body {
     font-size: 0;
     display: inline-block;
     width: 38px;
-    top: 18px;
-    left: -2px;
+    height: 14px;
+    top: 8px;
     margin-left: 2px;
     margin-right: 2px;
+    cursor: pointer;
 }
 
 .block-button {
@@ -887,9 +888,10 @@ body {
     float: left;
     height: 5px;
     width: 38px;
-    bottom: 0;
+    left: -2px;
+    bottom: 4px;
     background-color: #efc978;
-    cursor: pointer;
+    pointer-events: none;
 }
 
 .current-image-indicator {
