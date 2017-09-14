@@ -143,23 +143,13 @@ mysite.header={
 	}
 
 	// var width1 = $("#profile-btn").width();
-	// console.log(width1);
-
-	// TweenMax.to(profileBtn, 2, {opacity:0});
-
 
 	// function doSomething2(evt) {
 	// 	console.log(evt.target);
 	// 	window.history.pushState("object or string", "Title", "/new-url");
 	// }
 
-	// $.ajax({url: "/api/projects", success: function(result){
-	// 	$("#dud").append("<span>Crap</span>");
-	//     $("#dud").append(result["0"]["name"]);
-	//     $("#dud").append("<span>"+result["0"].name+"</span>");
-	//     var dud = document.getElementById("dud");
-	//     dud.addEventListener("click", doSomething2);
-	// }});
+	
 	
 };
 

@@ -70,6 +70,11 @@
           "path": "images/projects/spaceBomber_01.jpg",
           "width": "550",
           "height": "400"
+        },
+        {
+          "path": "images/projects/spaceBomber_01.jpg",
+          "width": "550",
+          "height": "400"
         }
       ]
     },
@@ -101,22 +106,22 @@
           "height": "450"
         },
         {
-          "path": "images/projects/simpleTodo_01.jpg",
+          "path": "images/projects/simpleTodo_03.jpg",
           "width": "253",
           "height": "450"
         },
         {
-          "path": "images/projects/simpleTodo_02.jpg",
+          "path": "images/projects/simpleTodo_04.jpg",
           "width": "253",
           "height": "450"
         },
         {
-          "path": "images/projects/simpleTodo_01.jpg",
+          "path": "images/projects/simpleTodo_05.jpg",
           "width": "253",
           "height": "450"
         },
         {
-          "path": "images/projects/simpleTodo_02.jpg",
+          "path": "images/projects/simpleTodo_06.jpg",
           "width": "253",
           "height": "450"
         }

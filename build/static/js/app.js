@@ -143,23 +143,13 @@ mysite.header={
 	}
 
 	// var width1 = $("#profile-btn").width();
-	// console.log(width1);
-
-	// TweenMax.to(profileBtn, 2, {opacity:0});
-
 
 	// function doSomething2(evt) {
 	// 	console.log(evt.target);
 	// 	window.history.pushState("object or string", "Title", "/new-url");
 	// }
 
-	// $.ajax({url: "/api/projects", success: function(result){
-	// 	$("#dud").append("<span>Crap</span>");
-	//     $("#dud").append(result["0"]["name"]);
-	//     $("#dud").append("<span>"+result["0"].name+"</span>");
-	//     var dud = document.getElementById("dud");
-	//     dud.addEventListener("click", doSomething2);
-	// }});
+	
 	
 };
 
@@ -173,35 +163,44 @@ mysite.projects = {
 
 	setupPreviewButtons: function() {
 
-		$('.block-button').click(function(evt) {
+		$('.block-button-wrapper').click(function(evt) {
 			
-			console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
-			// url="/api/projects";
-			// data={"imageidx":evt.target.dataset.imageidx, "prjname":evt.target.dataset.prjname};
-			// $.get({
-			//   url: url,
-			//   data: data,
-			//   success: processData,
-			//   dataType: "json"
-			// });
+			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
 
-			// function processData(data) {
-								
-			// }
+			url="/api/projects";
+			data={"imageidx":evt.target.dataset.imageidx, "prjname":evt.target.dataset.prjname};
+			$.get({
+			  url: url,
+			  data: data,
+			  success: processData,
+			  dataType: "json"
+			});
 
-			// function moveCurrentPreviews() {
-			// 	TweenMax.to(evt.target, 0.25, {opacity:0});
-			// }
+			function processData(returnedJSON) {
+				// console.log(returnedJSON);
+				console.log(data['prjname']);
+				var hiddenPreviews = $("div[id*='" + data.prjname + "'].bottom").find(".image");
+				
+				for(let x=0; x<hiddenPreviews.length; x++) {
+					console.log(returnedJSON[x].path);
+					console.log(hiddenPreviews[x].src);
+
+				}
+				// hiddenPreviews[0].src="{{ url_for('static', filename=returnedJSON[0].path) }}";
+				hiddenPreviews[0].src="static/"+returnedJSON[0].path;
+			}
+
+			function moveCurrentPreviews() {
+				TweenMax.to(evt.target, 0.25, {opacity:0});
+			}
 		});
 
 		$(".block-button-wrapper").on("mouseover", function(evt) {
-			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
 			var block=evt.target.getElementsByClassName("block-button");
 			TweenMax.to(block, 0.75, {height: "15px", ease: Power4.easeOut});
 		});
 
 		$(".block-button-wrapper").on("mouseout", function(evt) {
-			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
 			var block=evt.target.getElementsByClassName("block-button");
 			TweenMax.to(block, 0.4, {height: "5px", ease: Power2.easeIn});
 		});
@@ -233,6 +232,14 @@ mysite.projects = {
 		// btn2.addEventListener("click", function(evt){
 		// 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
 		// });
+
+		// $.ajax({url: "/api/projects", success: function(result){
+	// 	$("#dud").append("<span>Crap</span>");
+	//     $("#dud").append(result["0"]["name"]);
+	//     $("#dud").append("<span>"+result["0"].name+"</span>");
+	//     var dud = document.getElementById("dud");
+	//     dud.addEventListener("click", doSomething2);
+	// }});
 
 
 		function next01(){

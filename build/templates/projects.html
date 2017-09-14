@@ -51,12 +51,12 @@
 							<div id="{{ project.name + '_' + 'b' }}" class="previews-row2 bottom">
 								<div class="preview-double-wrapper2">
 									<div class="project-image shadow-off">
-										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
 									</div>
 								</div>
 								<div class="preview-double-wrapper2 project-image-buffer">
 									<div class="project-image shadow-off">
-										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
+										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
 									</div>
 								</div>
 							</div>
@@ -111,24 +111,24 @@
 							{% if project.imagesLayout=="single" %}
 								{% if project.images|length > 1 %}
 									{% for image in project.images %}
-										<div class="block-button-wrapper">
-											<div id="{{ 'btn'+loop.index|string+'_'+project.name }}" data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
+										<div id="{{ 'btn'+loop.index|string+'_'+project.name }}" data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button-wrapper">
+											<div class="block-button"></div>
 										</div>
 									{% endfor %}
 								{% endif %}
 							{% elif project.imagesLayout=="double" %}
 								{% if project.images|length > 2 %}
 									{% for image in project.images|batch(2, '&nbsp;') %}
-										<div class="block-button-wrapper">
-											<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
+										<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button-wrapper">
+											<div class="block-button"></div>
 										</div>
 									{% endfor %}
 								{% endif %}
 							{% elif project.imagesLayout=="triple" %}
 								{% if project.images|length > 3 %}
 									{% for image in project.images|batch(3, '&nbsp;') %}
-										<div class="block-button-wrapper">
-											<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button"></div>
+										<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button-wrapper">
+											<div class="block-button"></div>
 										</div>
 									{% endfor %}
 								{% endif %}
