@@ -36,6 +36,9 @@ def projects_route():
 	siteRoot = os.path.realpath(os.path.dirname(__file__))
 	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
 	data=json.load(open(jsonUrl))
+	for project in data["projects"]:
+		project["projid"]=project["name"].replace(" ","-")
+
 	return render_template("projects.html", projectsData=data["projects"]
 										  , baseContent=data["baseContent"]
 										  , sectionName="projects")
@@ -51,7 +54,7 @@ def api_profile():
 
 @app.route("/api/projects")
 def api_projects():
-	projectName = request.args.get('prjname', 0, type=str)
+	projectName = request.args.get('projname', 0, type=str)
 	imageIndex = request.args.get('imageidx', 0, type=str)
 
 	siteRoot = os.path.realpath(os.path.dirname(__file__))

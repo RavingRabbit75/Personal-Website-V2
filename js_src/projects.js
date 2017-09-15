@@ -5,15 +5,27 @@ mysite.projects = {
 		mysite.projects.setupPreviewButtons();
 	},
 
+	disablePreviewButtons: function(projid) {
+		// var btns = document.getElementById("Weather Animator");
+		var btns = $("#"+projid);
+
+	},
+
+	enablePreviewButtons: function(projid) {
+
+	},
+
 	setupPreviewButtons: function() {
 		const mq = window.matchMedia( "(min-width: 500px)" );
 
 		$('.block-button-wrapper').click(function(evt) {
-			
-			// console.log(evt.target.dataset.imageidx, evt.target.dataset.prjname);
+			// mysite.projects.disablePreviewButtons(evt.target.dataset.projId);
 
 			url="/api/projects";
-			data={"imageidx":evt.target.dataset.imageidx, "prjname":evt.target.dataset.prjname};
+			var projid = evt.target.dataset.projid;
+			var projname = evt.target.dataset.projid.replace(/-/g, ' ');
+
+			data={"imageidx":evt.target.dataset.imageidx, "projname":projname};
 			$.get({
 			  url: url,
 			  data: data,
@@ -22,9 +34,7 @@ mysite.projects = {
 			});
 
 			function processData(returnedJSON) {
-				// console.log(returnedJSON);
-				console.log(data['prjname']);
-				var hiddenPreviews = $("div[id*='" + data.prjname + "'].bottom").find(".image");
+				var hiddenPreviews = $("div[id*='" + projid + "'].bottom").find(".image");
 				for(let x=0; x<hiddenPreviews.length; x++) {
 					hiddenPreviews[x].src="static/"+returnedJSON[x].path;
 				}
@@ -40,13 +50,13 @@ mysite.projects = {
 				} else if (layoutNumber===3) {
 					layout="triple";
 				}
-				var currentPreviews = $("div[id*='" + data.prjname + "'].top");
-				var currentHeight = $("div[id*='" + data.prjname + "'].top").height();
-				var currentWrapper = $("div[id*='" + data.prjname + "'].top").find(".shadow-on"); // 1-3
+
+				var currentPreviews = $("div[id*='" + projid + "'].top");
+				var currentHeight = $("div[id*='" + projid + "'].top").height();
+				var currentWrapper = $("div[id*='" + projid + "'].top").find(".shadow-on"); // 1-3
 				
-				var hiddenPreviews = $("div[id*='" + data.prjname + "'].bottom");
-				var hiddenWrapper = $("div[id*='" + data.prjname + "'].bottom").find(".shadow-off"); // 1-3
-				var topPosition = currentPreviews.offset().top;
+				var hiddenPreviews = $("div[id*='" + projid + "'].bottom");
+				var hiddenWrapper = $("div[id*='" + projid + "'].bottom").find(".shadow-off"); // 1-3
 
 				TweenMax.to(currentPreviews, 0.75, {top: "-"+currentHeight+"px"});
 				for(let x=0; x<hiddenWrapper.length; x++) {
@@ -102,8 +112,7 @@ mysite.projects = {
 		// console.log(projectData);
 		var listOfButtons=[];
 		for (let i=0; i<projectData.length; i++) {
-			// console.log(projectData[i].name);
-			var targetDiv=document.getElementById(projectData[i].name).getElementsByClassName("block-button");
+			var targetDiv=document.getElementById(projectData[i].projid).getElementsByClassName("block-button");
 			listOfButtons.push(targetDiv);
 		}
 

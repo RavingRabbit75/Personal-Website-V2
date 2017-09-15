@@ -3,7 +3,7 @@
 {% block content %}
 <meta id="sectionName" data-name="{{sectionName}}">
 {% for project in projectsData %}
-<div id="{{ project.name }}" class="item-container">
+<div id="{{ project.projid }}" class="item-container">
 	<div class="item-title">
 		{{ project.name }}
 	</div>
@@ -19,14 +19,14 @@
 					<div class="project-slot-clipper">
 					{% if project.imagesLayout=="single" %}
 						<div class="wrapper">
-							<div id="{{ project.name + '_' + 'a'}}" class="previews-row top">
+							<div id="{{ project.projid + '_' + 'a'}}" class="previews-row top">
 								<div class="preview-single-wrapper shadow-on">
 									<div class="project-image">
 										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
 									</div>
 								</div>
 							</div>
-							<div id="{{ project.name + '_' + 'b' }}" class="previews-row2 bottom">
+							<div id="{{ project.projid + '_' + 'b' }}" class="previews-row2 bottom">
 								<div class="preview-single-wrapper2 shadow-off">
 									<div class="project-image">
 										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
@@ -36,7 +36,7 @@
 						</div>
 					{% elif project.imagesLayout=="double" %}
 						<div class="wrapper">
-							<div id="{{ project.name + '_' + 'a'}}" class="previews-row top">
+							<div id="{{ project.projid + '_' + 'a'}}" class="previews-row top">
 								<div class="preview-double-wrapper shadow-on">
 									<div class="project-image">
 										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
@@ -48,7 +48,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="{{ project.name + '_' + 'b' }}" class="previews-row2 bottom">
+							<div id="{{ project.projid + '_' + 'b' }}" class="previews-row2 bottom">
 								<div class="preview-double-wrapper2 shadow-off">
 									<div class="project-image">
 										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
@@ -63,7 +63,7 @@
 						</div>
 					{% elif project.imagesLayout=="triple" %}
 						<div class="wrapper">
-							<div id="{{ project.name + '_' + 'a'}}" class="previews-row top">
+							<div id="{{ project.projid + '_' + 'a'}}" class="previews-row top">
 								<div class="preview-triple-wrapper shadow-on">
 									<div class="project-image">
 										<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
@@ -80,7 +80,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="{{ project.name + '_' + 'b' }}" class="previews-row2 bottom">
+							<div id="{{ project.projid + '_' + 'b' }}" class="previews-row2 bottom">
 								<div class="preview-triple-wrapper2 shadow-off">
 									<div class="project-image">
 										<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
@@ -111,7 +111,7 @@
 							{% if project.imagesLayout=="single" %}
 								{% if project.images|length > 1 %}
 									{% for image in project.images %}
-										<div id="{{ 'btn'+loop.index|string+'_'+project.name }}" data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button-wrapper">
+										<div id="{{ 'btn'+loop.index|string+'_'+project.projid }}" data-imageidx="{{ loop.index }}" data-projid="{{ project.projid }}" class="block-button-wrapper">
 											<div class="block-button"></div>
 										</div>
 									{% endfor %}
@@ -119,7 +119,7 @@
 							{% elif project.imagesLayout=="double" %}
 								{% if project.images|length > 2 %}
 									{% for image in project.images|batch(2, '&nbsp;') %}
-										<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button-wrapper">
+										<div data-imageidx="{{ loop.index }}" data-projid="{{ project.projid }}" class="block-button-wrapper">
 											<div class="block-button"></div>
 										</div>
 									{% endfor %}
@@ -127,7 +127,7 @@
 							{% elif project.imagesLayout=="triple" %}
 								{% if project.images|length > 3 %}
 									{% for image in project.images|batch(3, '&nbsp;') %}
-										<div data-imageidx="{{ loop.index }}" data-prjname="{{ project.name }}" class="block-button-wrapper">
+										<div data-imageidx="{{ loop.index }}" data-projid="{{ project.projid }}" class="block-button-wrapper">
 											<div class="block-button"></div>
 										</div>
 									{% endfor %}
