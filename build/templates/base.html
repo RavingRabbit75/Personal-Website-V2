@@ -23,15 +23,15 @@
 				FULL STACK WEB DEVELOPER with a focus on front-end
 			</div>
 			<div id="header-icon-links" class="text-center font-icons">
-				<a class="icon-link" href="mailto:me@raychow.com" ><div class="divspan header-icon-size">
+				<a class="icon-link" href="mailto:{{ baseContent.email }}" ><div class="divspan header-icon-size">
 					<img class="iconposition" src="{{url_for('static', filename='images/icon_mail.svg')}}" alt="">
 					<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_mail_over.svg')}}" alt="">
 				</div></a>
-				<a class="icon-link" href="https://www.linkedin.com/in/ray-chow" target="blank"><div class="divspan header-icon-size iconmiddle">
+				<a class="icon-link" href="{{ baseContent.linkedinProfile }}" target="blank"><div class="divspan header-icon-size iconmiddle">
 					<img class="iconposition" src="{{url_for('static', filename='images/icon_linkedin.svg')}}" alt="">
 					<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_linkedin_over.svg')}}" alt="">
 				</div></a>
-				<a class="icon-link" href="https://github.com/RavingRabbit75" target="blank"><div class="divspan header-icon-size">
+				<a class="icon-link" href="{{ baseContent.githubProfile }}" target="blank"><div class="divspan header-icon-size">
 					<img class="iconposition" src="{{url_for('static', filename='images/icon_github.svg')}}" alt="">
 					<img class="iconposition iconover" src="{{url_for('static', filename='images/icon_github_over.svg')}}" alt="">
 				</div></a>
@@ -57,15 +57,15 @@
 
 	<div id="footer">
 		<div id="header-icon-links" class="text-center font-icons">
-			<a class="" href="mailto:me@raychow.com"><div class="divspan header-icon-size">
+			<a class="" href="mailto:{{ baseContent.email }}"><div class="divspan header-icon-size">
 				<img class="iconposition" src="{{url_for('static', filename='images/iconFooter_mail.svg')}}" alt="">
 				<img class="iconposition iconover" src="{{url_for('static', filename='images/iconFooter_mail_over.svg')}}" alt="">
 			</div></a>
-			<a class="" href="https://www.linkedin.com/in/ray-chow" target="blank"><div class="divspan header-icon-size iconmiddle">
+			<a class="" href="{{ baseContent.linkedinProfile }}" target="blank"><div class="divspan header-icon-size iconmiddle">
 				<img class="iconposition" src="{{url_for('static', filename='images/iconFooter_linkedin.svg')}}" alt="">
 				<img class="iconposition iconover" src="{{url_for('static', filename='images/iconFooter_linkedin_over.svg')}}" alt="">
 			</div></a>
-			<a class="" href="https://github.com/RavingRabbit75" target="blank"><div class="divspan header-icon-size">
+			<a class="" href="{{ baseContent.githubProfile }}" target="blank"><div class="divspan header-icon-size">
 				<img class="iconposition" src="{{url_for('static', filename='images/iconFooter_github.svg')}}" alt="">
 				<img class="iconposition iconover" src="{{url_for('static', filename='images/iconFooter_github_over.svg')}}" alt="">
 			</div></a>

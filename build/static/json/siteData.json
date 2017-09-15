@@ -250,5 +250,10 @@
     		"location": ""
     	}
     ] 
+  },
+  "baseContent": {
+    "email": "me@raychow.com",
+    "linkedinProfile": "https://www.linkedin.com/in/ray-chow",
+    "githubProfile": "https://github.com/RavingRabbit75"
   }
 }

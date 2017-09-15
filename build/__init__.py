@@ -27,6 +27,7 @@ def profile_route():
 										 , skillsExposure=data["profile"]["skills"]["exposure"]
 										 , professionalExperience=data["profile"]["experience"]
 										 , educationList=data["profile"]["education"]
+										 , baseContent=data["baseContent"]
 										 , sectionName="profile")
 
 
@@ -36,6 +37,7 @@ def projects_route():
 	jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
 	data=json.load(open(jsonUrl))
 	return render_template("projects.html", projectsData=data["projects"]
+										  , baseContent=data["baseContent"]
 										  , sectionName="projects")
 
 
