@@ -49,8 +49,6 @@ mysite.projects = {
 				var topPosition = currentPreviews.offset().top;
 
 				TweenMax.to(currentPreviews, 0.75, {top: "-"+currentHeight+"px"});
-				console.log(hiddenWrapper.length);
-				console.log(hiddenWrapper);
 				for(let x=0; x<hiddenWrapper.length; x++) {
 					TweenMax.to(hiddenWrapper[x], 0.3, {padding: "0px", delay: .7});
 					if(x===hiddenWrapper.length-1) {
@@ -63,13 +61,11 @@ mysite.projects = {
 				function setClasses() {
 					currentPreviews[0].classList.remove("top", "previews-row");
 					currentPreviews[0].classList.add("bottom", "previews-row2");
-					console.log(currentPreviews.length);
 
 					for(let x=0; x<currentWrapper.length; x++) {
 						currentWrapper[x].classList.remove("shadow-on");
 						currentWrapper[x].classList.add("shadow-off");
 					}
-					console.log(currentWrapper.length);
 
 					currentPreviews.css({top: "5px"});
 					currentWrapper.css({padding: "8px", boxShadow: "0 0 0 rgba(0, 0, 0, .4)"});
@@ -81,18 +77,13 @@ mysite.projects = {
 						hiddenWrapper[x].classList.remove("shadow-off");
 						hiddenWrapper[x].classList.add("shadow-on");
 					}
-					currentPreviews.insertAfter(hiddenPreviews);
+					// currentPreviews.insertAfter(hiddenPreviews);
 				}
-				
-				// hiddenPreviews
-
 				// if (mq.matches) {
 				//   // window width is at least 500px
 				// } else {
 				//   // window width is less than 500px
 				// }
-				
-				
 			}
 		});
 
@@ -116,53 +107,6 @@ mysite.projects = {
 			listOfButtons.push(targetDiv);
 		}
 
-		// var btn1=document.getElementById("btn1_Weather Animator");
-		// var btn2=document.getElementById("btn2_Weather Animator");
-
-		// $('#btn1_Weather Animator').click(function(evt) {
-		// 	TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
-		// });
-
-		// $('#btn2_Weather Animator').click(function(evt) {
-		// 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
-		// });
-		// btn1.addEventListener("click", function(evt){
-		// 	TweenMax.to(preview1, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next01});
-		// });
-
-		// btn2.addEventListener("click", function(evt){
-		// 	TweenMax.to(preview2, 0.75, {top: "-400px", ease: Power2.easeOut, onComplete: next02});
-		// });
-
-		// $.ajax({url: "/api/projects", success: function(result){
-	// 	$("#dud").append("<span>Crap</span>");
-	//     $("#dud").append(result["0"]["name"]);
-	//     $("#dud").append("<span>"+result["0"].name+"</span>");
-	//     var dud = document.getElementById("dud");
-	//     dud.addEventListener("click", doSomething2);
-	// }});
-
-
-		function next01(){
-			preview1.classList.remove("top");
-			preview1.style.top="0px";
-			preview1.style.boxShadow="0 0 0px rgba(0, 0, 0, .0)";
-			
-			preview1.classList.add("bottom");
-
-			preview2.classList.remove("bottom");
-			preview2.classList.add("top");
-		}
-
-		function next02(){
-			preview2.classList.remove("top");
-			preview2.style.top="0px";
-			preview2.classList.add("bottom");
-			
-			preview1.classList.remove("bottom");
-			preview1.classList.add("top");
-		}
-	
 	},
 
 	movePreviewIndicator: function() {
