@@ -194,6 +194,14 @@
   cursor: pointer;
 }
 
+.disable-btn {
+  pointer-events: none;
+}
+
+.enable-btn {
+  pointer-events: auto;
+}
+
 
 .block-button {
   margin-left: 2px;

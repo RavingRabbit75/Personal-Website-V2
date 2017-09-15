@@ -162,25 +162,30 @@ mysite.projects = {
 	},
 
 	disablePreviewButtons: function(projid) {
-		// var btns = document.getElementById("Weather Animator");
-		var btns = $("#"+projid);
-
+		var buttons = $("#"+projid).find('.block-button-wrapper');
+		for(let x=0; x<buttons.length; x++){
+			buttons[x].classList.remove("enable-btn");
+			buttons[x].classList.add("disable-btn");
+		}
+		
 	},
 
 	enablePreviewButtons: function(projid) {
-
+		var buttons = $("#"+projid).find('.block-button-wrapper');
+		for(let x=0; x<buttons.length; x++){
+			buttons[x].classList.remove("disable-btn");
+			buttons[x].classList.add("enable-btn");
+		}
 	},
 
 	setupPreviewButtons: function() {
-		const mq = window.matchMedia( "(min-width: 500px)" );
 
 		$('.block-button-wrapper').click(function(evt) {
-			// mysite.projects.disablePreviewButtons(evt.target.dataset.projId);
-
-			url="/api/projects";
 			var projid = evt.target.dataset.projid;
 			var projname = evt.target.dataset.projid.replace(/-/g, ' ');
+			mysite.projects.disablePreviewButtons(projid);
 
+			url="/api/projects";
 			data={"imageidx":evt.target.dataset.imageidx, "projname":projname};
 			$.get({
 			  url: url,
@@ -243,13 +248,11 @@ mysite.projects = {
 						hiddenWrapper[x].classList.remove("shadow-off");
 						hiddenWrapper[x].classList.add("shadow-on");
 					}
-					// currentPreviews.insertAfter(hiddenPreviews);
+
+
+					mysite.projects.enablePreviewButtons(projid);
 				}
-				// if (mq.matches) {
-				//   // window width is at least 500px
-				// } else {
-				//   // window width is less than 500px
-				// }
+			
 			}
 		});
 
