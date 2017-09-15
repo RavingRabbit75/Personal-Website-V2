@@ -42,34 +42,46 @@ mysite.projects = {
 				}
 				var currentPreviews = $("div[id*='" + data.prjname + "'].top");
 				var currentHeight = $("div[id*='" + data.prjname + "'].top").height();
-				var currentWrapper = $("div[id*='" + data.prjname + "'].top").find(".shadow-on");
+				var currentWrapper = $("div[id*='" + data.prjname + "'].top").find(".shadow-on"); // 1-3
+				
 				var hiddenPreviews = $("div[id*='" + data.prjname + "'].bottom");
-				var hiddenWrapper = $("div[id*='" + data.prjname + "'].bottom").find(".shadow-off");
+				var hiddenWrapper = $("div[id*='" + data.prjname + "'].bottom").find(".shadow-off"); // 1-3
 				var topPosition = currentPreviews.offset().top;
-				// console.log(currentPreviews.offset().top)
 
 				TweenMax.to(currentPreviews, 0.75, {top: "-"+currentHeight+"px"});
-				TweenMax.to(hiddenWrapper, 0.3, {padding: "0px", delay: .7});
-				TweenMax.to(hiddenWrapper, 0.3, {boxShadow: "0 0 5px rgba(0, 0, 0, .4)", delay: 1, onComplete: setClasses});
+				console.log(hiddenWrapper.length);
+				console.log(hiddenWrapper);
+				for(let x=0; x<hiddenWrapper.length; x++) {
+					TweenMax.to(hiddenWrapper[x], 0.3, {padding: "0px", delay: .7});
+					if(x===hiddenWrapper.length-1) {
+						TweenMax.to(hiddenWrapper[x], 0.3, {boxShadow: "0 0 5px rgba(0, 0, 0, .4)", delay: 1, onComplete: setClasses});
+					} else {
+						TweenMax.to(hiddenWrapper[x], 0.3, {boxShadow: "0 0 5px rgba(0, 0, 0, .4)", delay: 1});
+					}
+				}
 
-				// console.log(currentPreviews[0].classList);
 				function setClasses() {
 					currentPreviews[0].classList.remove("top", "previews-row");
 					currentPreviews[0].classList.add("bottom", "previews-row2");
-					console.log(currentPreviews.offset().top);
-					currentWrapper[0].classList.remove("shadow-on");
-					currentWrapper[0].classList.add("shadow-off");
+					console.log(currentPreviews.length);
+
+					for(let x=0; x<currentWrapper.length; x++) {
+						currentWrapper[x].classList.remove("shadow-on");
+						currentWrapper[x].classList.add("shadow-off");
+					}
+					console.log(currentWrapper.length);
+
 					currentPreviews.css({top: "5px"});
-					currentWrapper.css({padding: "8px", boxShadow: "0 0 0 rgba(0, 0, 0, .4)"})
-					console.log(currentPreviews.offset().top);
+					currentWrapper.css({padding: "8px", boxShadow: "0 0 0 rgba(0, 0, 0, .4)"});
 
 					hiddenPreviews[0].classList.remove("bottom", "previews-row2");
 					hiddenPreviews[0].classList.add("top", "previews-row");
-					hiddenWrapper[0].classList.remove("shadow-off");
-					hiddenWrapper[0].classList.add("shadow-on");
 
+					for(let x=0; x<currentWrapper.length; x++) {
+						hiddenWrapper[x].classList.remove("shadow-off");
+						hiddenWrapper[x].classList.add("shadow-on");
+					}
 					currentPreviews.insertAfter(hiddenPreviews);
-
 				}
 				
 				// hiddenPreviews
