@@ -178,6 +178,12 @@ mysite.projects = {
 		}
 	},
 
+	disableSelectedButton: function(projid, imageidx) {
+		var button = $("#btn"+imageidx+"_"+projid);
+		button[0].classList.remove("enable-btn");
+		button[0].classList.add("disable-btn");
+	},
+
 	setupPreviewButtons: function() {
 
 		$('.block-button-wrapper').click(function(evt) {
@@ -251,6 +257,7 @@ mysite.projects = {
 
 
 					mysite.projects.enablePreviewButtons(projid);
+					mysite.projects.disableSelectedButton(projid, data["imageidx"]);
 				}
 			
 			}
