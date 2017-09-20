@@ -224,6 +224,18 @@
   width: 38px;
 }
 
+.loading {
+  @include font-smoothing-prefix();
+  font-family: 'Raleway', sans-serif;
+  font-size: 11pt;
+  position: relative;
+  text-align: center;
+  color: $white;
+  height: 0;
+  top: -10px;
+  visibility: hidden;
+}
+
 
 @media only screen and (min-width: 600px) {
   .project-image-slot {

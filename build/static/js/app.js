@@ -184,12 +184,19 @@ mysite.projects = {
 		button[0].classList.add("disable-btn");
 	},
 
+
 	setupPreviewButtons: function() {
 
 		$('.block-button-wrapper').click(function(evt) {
 			var projid = evt.target.dataset.projid;
 			var projname = evt.target.dataset.projid.replace(/-/g, ' ');
 			mysite.projects.disablePreviewButtons(projid);
+
+			var notice = $("#"+projid).find(".loading");
+			var tl = new TimelineMax();
+			tl.to(notice, 0.75, {alpha:0.1, repeatDelay:0, repeat:-1, yoyo:true});
+
+			showLoadingNotice(tl);
 
 			url="/api/projects";
 			data={"imageidx":evt.target.dataset.imageidx, "projname":projname};
@@ -205,6 +212,8 @@ mysite.projects = {
 				for(let x=0; x<hiddenPreviews.length; x++) {
 					hiddenPreviews[x].src="static/"+returnedJSON[x].path;
 				}
+
+				hideLoadingNotice(tl);
 				moveCurrentPreviews(returnedJSON.length);
 			}
 
@@ -275,6 +284,17 @@ mysite.projects = {
 				function next02() {
 					TweenMax.to(indicator, 0.5, {width: "38px", x: newBaseXLoc+"px"});
 				}
+			}
+
+			function showLoadingNotice(timeline) {
+				notice[0].style.visibility="visible";
+				timeline.play();
+			}
+
+			function hideLoadingNotice(timeline) {
+				notice[0].style.visibility="hidden";
+				timeline.stop();
+				timeline.pause(0, true);
 			}
 
 		});
