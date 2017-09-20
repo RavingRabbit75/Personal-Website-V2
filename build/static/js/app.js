@@ -225,6 +225,7 @@ mysite.projects = {
 				var hiddenPreviews = $("div[id*='" + projid + "'].bottom");
 				var hiddenWrapper = $("div[id*='" + projid + "'].bottom").find(".shadow-off"); // 1-3
 
+				movePreviewIndicator();
 				TweenMax.to(currentPreviews, 0.75, {top: "-"+currentHeight+"px"});
 				for(let x=0; x<hiddenWrapper.length; x++) {
 					TweenMax.to(hiddenWrapper[x], 0.3, {padding: "0px", delay: .7});
@@ -255,12 +256,27 @@ mysite.projects = {
 						hiddenWrapper[x].classList.add("shadow-on");
 					}
 
-
 					mysite.projects.enablePreviewButtons(projid);
 					mysite.projects.disableSelectedButton(projid, data["imageidx"]);
 				}
 			
 			}
+
+			function movePreviewIndicator() {
+				var indicator = $("#"+projid).find(".current-image-indicator");
+				var newBaseXLoc=42*(data["imageidx"]-1);
+				var currentXCenterPos=indicator.position().left + 19 + "px";
+				TweenMax.to(indicator, 0.4, {width: "0", x: currentXCenterPos, onComplete: next01});
+
+				function next01() {
+					var newXCenterPos = newBaseXLoc + 19 + "px";
+					TweenMax.to(indicator, 0, {x: newXCenterPos, onComplete: next02});
+				}
+				function next02() {
+					TweenMax.to(indicator, 0.5, {width: "38px", x: newBaseXLoc+"px"});
+				}
+			}
+
 		});
 
 		$(".block-button-wrapper").on("mouseover", function(evt) {
@@ -275,16 +291,12 @@ mysite.projects = {
 
 		var preview1=document.getElementById("Weather Animator_a");
 		var preview2=document.getElementById("Weather Animator_b");
-		// console.log(projectData);
 		var listOfButtons=[];
 		for (let i=0; i<projectData.length; i++) {
 			var targetDiv=document.getElementById(projectData[i].projid).getElementsByClassName("block-button");
 			listOfButtons.push(targetDiv);
 		}
 
-	},
-
-	movePreviewIndicator: function() {
 
 	}
 		
