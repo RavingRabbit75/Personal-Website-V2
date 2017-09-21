@@ -209,12 +209,19 @@ mysite.projects = {
 
 			function processData(returnedJSON) {
 				var hiddenPreviews = $("div[id*='" + projid + "'].bottom").find(".image");
+				var imagesLoaded=0;
+
 				for(let x=0; x<hiddenPreviews.length; x++) {
 					hiddenPreviews[x].src="static/"+returnedJSON[x].path;
+					hiddenPreviews[x].addEventListener("load", function(){
+						imagesLoaded++;
+						if(imagesLoaded>=hiddenPreviews.length) {
+							hideLoadingNotice(tl);
+							moveCurrentPreviews(returnedJSON.length);
+						}
+					});
 				}
-
-				hideLoadingNotice(tl);
-				moveCurrentPreviews(returnedJSON.length);
+				
 			}
 
 			function moveCurrentPreviews(layoutNumber) {
