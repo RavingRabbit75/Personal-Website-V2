@@ -33,19 +33,19 @@
           "height": "400"
         },
         {
-          "path": "images/projects/weather_01.jpg",
+          "path": "images/projects/weather_03.jpg",
           "width": "550",
           "height": "400"
         },
         {
-          "path": "images/projects/weather_02.jpg",
+          "path": "images/projects/weather_04.jpg",
           "width": "550",
           "height": "400"
         }
       ]
     },
     {
-      "name": "Space Defender",
+      "name": "Space Bomber",
       "role": "Software Engineer",
       "tech": [
         "Python",
@@ -70,7 +70,7 @@
           "height": "400"
         },
         {
-          "path": "images/projects/spaceBomber_01.jpg",
+          "path": "images/projects/spaceBomber_02.jpg",
           "width": "550",
           "height": "400"
         }
@@ -92,26 +92,6 @@
       "liveLink": "https://play.google.com/store/apps/details?id=com.raychow.simpletodo&hl=en",
       "imagesLayout": "double",
       "images": [
-        {
-          "path": "images/projects/simpleTodo_01.jpg",
-          "width": "253",
-          "height": "450"
-        },
-        {
-          "path": "images/projects/simpleTodo_02.jpg",
-          "width": "253",
-          "height": "450"
-        },
-        {
-          "path": "images/projects/simpleTodo_01.jpg",
-          "width": "253",
-          "height": "450"
-        },
-        {
-          "path": "images/projects/simpleTodo_02.jpg",
-          "width": "253",
-          "height": "450"
-        },
         {
           "path": "images/projects/simpleTodo_01.jpg",
           "width": "253",
@@ -158,17 +138,17 @@
           "height": "600"
         },
         {
-          "path": "images/projects/gapBanner_02.jpg",
+          "path": "images/projects/gapBanner_04.jpg",
           "width": "300",
           "height": "600"
         },
         {
-          "path": "images/projects/gapBanner_03.jpg",
+          "path": "images/projects/gapBanner_05.jpg",
           "width": "300",
           "height": "600"
         },
         {
-          "path": "images/projects/gapBanner_03.jpg",
+          "path": "images/projects/gapBanner_06.jpg",
           "width": "300",
           "height": "600"
         }
