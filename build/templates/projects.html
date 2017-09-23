@@ -154,6 +154,14 @@
 				<div class="project-text-description">
 					{{ project.description }}
 				</div>
+				<div class="project-text-accomplishments">
+					<ul>
+						{% for accomplishment in project.accomplishments %}
+							<li>• {{ accomplishment }}</li>
+						{% endfor %}	
+					</ul>
+					
+				</div>
 				<div class="project-links">
 					<a href="{{ project.liveLink }}" target="_blank"><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_link.svg')}}" alt=""></div></a>
 					<a href="{{ project.githubLink }}" target="_blank"><div class="project-links-icons"><img src="{{url_for('static', filename='images/icon_github.svg')}}" alt=""></div></a>

@@ -728,6 +728,21 @@ body {
     color: #fff;
 }
 
+.project-text-accomplishments {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11pt;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.project-text-accomplishments ul {
+    list-style: none;
+    padding-left: 10px;
+    text-indent: -10px;
+}
+
 .project-links {
     margin-top: 20px;
     font-size: 0;
