@@ -13,8 +13,7 @@
         "GSAP",
         "PixiJS"
       ],
-      "description": "Weather Animator is a weather app with several goals in mind. First was a simple weather visualizer of sorts. When displaying weather information it also plays animations that reflect the current weather of the associated location. Second, to allow users to setup notifications for specific weather conditions.",
-      "shortDescription": "System for users to track weather patterns, receive SMS notifications, and provide visualizations of current conditions.",
+      "description": "System for users to track weather patterns, receive SMS notifications, and provide visualizations of current conditions.",
       "accomplishments": [
       	"Integrated Open Weather and Google Maps Time Zone API into Python Flask RESTful backend to provide users with local sunset and sunrise times and current weather conditions.",
       	"Achieved smooth rendering at 60fps of custom animations of different weather conditions within HTML5 Canvas element utilizing JavaScript, Pixi.js and GreenSock."
@@ -56,8 +55,7 @@
         "Socket IO",
         "ReactJS"
       ],
-      "description": "",
-      "shortDescription": "“Battleship meets Space Invaders” in an online experience where players battle to defend their place in the cosmos.",
+      "description": "“Battleship meets Space Invaders” in an online experience where players battle to defend their place in the cosmos.",
       "accomplishments": [
       	"Minimized front-end codebase by ~25% utilizing ReactJS for modular and componentized user interface (UI).",
       	"Allowed for real-time player interaction during battle sequences by incorporating Socket.IO into Python Flask."
@@ -86,8 +84,7 @@
         "Android SDK",
         "SQLite"
       ],
-      "description": "",
-      "shortDescription": "Mobile system designed to help busy professionals and time-conscious individuals to better track tasks and reminders.",
+      "description": "Mobile system designed to help busy professionals and time-conscious individuals to better track tasks and reminders.",
       "accomplishments": [
         "Constructed push notification to alert users of upcoming tasks utilizing Java and Android SDK, with persistence of users events achieved utilizing SQLite database."
       ],
@@ -133,12 +130,13 @@
       "tech": [
         "HTML",
         "CSS",
-        "Javascript"
+        "Javascript",
+        "GSAP"
       ],
-      "description": "",
-      "shortDescription": "Mobile system designed to help busy professionals and time-conscious individuals to better track tasks and reminders.",
+      "description": "Mobile system designed to help busy professionals and time-conscious individuals to better track tasks and reminders.",
       "accomplishments": [
-        "Constructed push notification to alert users of upcoming tasks utilizing Java and Android SDK, with persistence of users events achieved utilizing SQLite database."
+        "Built banners ",
+        ""
       ],
       "githubLink": "https://github.com/RavingRabbit75/SimpleTodo2",
       "liveLink": "https://play.google.com/store/apps/details?id=com.raychow.simpletodo&hl=en",
