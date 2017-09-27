@@ -8,7 +8,7 @@ var uglify = require("gulp-uglify");
 var cleanCSS = require("gulp-clean-css");
 
 gulp.task("sass", function(){
-	return gulp.src("./scss/styles.scss")
+	return gulp.src("./scss/*.scss")
 	.pipe(sass())
 	.on("error", function(error){
 		console.error("\x1b[31m\x1b[1m%s\x1b[0m", "ERROR occured:");
@@ -41,7 +41,7 @@ gulp.task("processJS", function(){
 });
 
 gulp.task("processCSS", function(){
-	return gulp.src("./scss/styles.scss")
+	return gulp.src("./scss/*.scss")
 	.pipe(sass())
 	.on("error", function(error){
 		console.error("\x1b[31m\x1b[1m%s\x1b[0m", "ERROR occured:");

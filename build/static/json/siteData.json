@@ -105,7 +105,7 @@
       ]
     },
     {
-      "name": "GAP HTML Banner",
+      "name": "HTML Banners",
       "role": "Web Developer",
       "tech": [
         "HTML",
@@ -113,15 +113,27 @@
         "Javascript",
         "GSAP"
       ],
-      "description": "Mobile system designed to help busy professionals and time-conscious individuals to better track tasks and reminders.",
-      "accomplishments": [
-        "Built banners ",
-        ""
-      ],
-      "githubLink": "https://github.com/RavingRabbit75/SimpleTodo2",
-      "liveLink": "https://play.google.com/store/apps/details?id=com.raychow.simpletodo&hl=en",
+      "description": "Series of interactive banners that were built during my time at AKQA. GSAP was used for the animation tweens and sequencing.",
+      "accomplishments": [],
+      "githubLink": "",
+      "liveLink": "projects/htmlbanners",
       "imagesLayout": "triple",
       "images": [
+        {
+          "path": "images/projects/realSimple_banner_01.jpg",
+          "width": "300",
+          "height": "600"
+        },
+        {
+          "path": "images/projects/realSimple_banner_02.jpg",
+          "width": "300",
+          "height": "600"
+        },
+        {
+          "path": "images/projects/realSimple_banner_03.jpg",
+          "width": "300",
+          "height": "600"
+        },
         {
           "path": "images/projects/gapBanner_01.jpg",
           "width": "300",
@@ -138,17 +150,17 @@
           "height": "600"
         },
         {
-          "path": "images/projects/gapBanner_04.jpg",
+          "path": "images/projects/maserati_banner_01.jpg",
           "width": "300",
           "height": "600"
         },
         {
-          "path": "images/projects/gapBanner_05.jpg",
+          "path": "images/projects/maserati_banner_02.jpg",
           "width": "300",
           "height": "600"
         },
         {
-          "path": "images/projects/gapBanner_06.jpg",
+          "path": "images/projects/maserati_banner_03.jpg",
           "width": "300",
           "height": "600"
         }

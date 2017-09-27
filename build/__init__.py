@@ -1,7 +1,5 @@
 import os
-from flask import Flask, jsonify, render_template, redirect, url_for, json, request
-
-
+from flask import Flask, jsonify, render_template, redirect, url_for, json, request, send_from_directory
 
 app = Flask(__name__)
 
@@ -42,6 +40,20 @@ def projects_route():
 	return render_template("projects.html", projectsData=data["projects"]
 										  , baseContent=data["baseContent"]
 										  , sectionName="projects")
+
+
+@app.route("/projects/htmlbanners")
+def projects_sublinks_route():
+	# siteRoot = os.path.realpath(os.path.dirname(__file__))
+	# directory=os.path.join(siteRoot, "static/links/")
+	print("SHIT", url_for('static', filename='links/links.css'))
+	return app.send_static_file("links/html_banners.html")
+
+
+# @app.route('/projects/<string:page_name>/')
+# def render_static(page_name):
+
+#     return render_template('links/{0}/{1}.html'.format(page_name, page_name))
 
 
 @app.route("/api/profile")

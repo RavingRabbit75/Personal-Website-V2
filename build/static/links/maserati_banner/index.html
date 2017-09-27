@@ -1,0 +1,425 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="”ad.size”" content="width=300,height=600">
+    <link rel="stylesheet" type="text/css" href="/static/links/links.css" >
+    <style>
+
+        body {
+            margin: 0;
+            text-align: center;
+        }
+
+        a {
+            border: 0;
+            margin: 0;
+            outline: 0;
+        }
+
+        #container {
+            width: 300px;
+            height: 600px;
+            border: 1px solid black;
+            position: relative;
+            display: inline-block;
+            box-sizing: border-box;
+            pointer-events: none;
+            cursor: pointer;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        #container2 {
+            position: absolute;
+            width: 300px;
+            height: 600px;
+            pointer-events: auto;
+        }
+
+        /*#bottomRight_gradientShadow {
+            background-image: url("bottomRight_gradientShadow.png");
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            width: 227px;
+            height: 227px;
+        }
+
+        #bottomRight_gradientShadow2 {
+            background-image: url("bottomRight_gradientShadow.png");
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            width: 227px;
+            height: 227px;
+            opacity: 0;
+        }*/
+
+        #maserati_logo {
+            background-image: url("graphics_300x600.png");
+            background-position: 0px -90px;
+            position: absolute;
+            width: 106px;
+            height: 65px;
+            left: 97px;
+            top: 17px;
+        }
+
+        #image_01 {
+            background-image: url("image_01.jpg");
+            left: -20px;
+            position: absolute;
+            width: 320px;
+            height: 600px;
+        }
+
+        #image_02 {
+            background-image: url("image_02.jpg");
+            left: -20px;
+            position: absolute;
+            width: 320px;
+            height: 600px;
+            opacity: 0;
+        }
+
+        #image_03 {
+            background-image: url("image_03.jpg");
+            left: -20px;
+            position: absolute;
+            width: 320px;
+            height: 600px;
+            opacity: 0;
+        }
+
+        #image_04 {
+            background-image: url("image_04.jpg");
+            left: -20px;
+            position: absolute;
+            width: 320px;
+            height: 600px;
+            opacity: 0;
+        }
+
+        #image_05 {
+            background-image: url("image_05.jpg");
+            position: absolute;
+            width: 300px;
+            height: 600px;
+            opacity: 0;
+        }
+
+        #copy_01, #copy_02, #copy_03, #copy_04, #copy_05, #startingPriceCopy  {
+            background-image: url("graphics_300x600.png");
+            position: absolute;
+            opacity: 0;
+        }
+
+        #copy_01 {
+            background-position: 0px 0px;
+            width: 113px;
+            height: 15px;
+            left: 93px;
+            top: 161px;
+            opacity: 1;
+        }
+
+        #copy_02 {
+            background-position: 0px -15px;
+            width: 109px;
+            height: 15px;
+            left: 95px;
+            top: 161px;
+        }
+
+        #copy_03 {
+            background-position: 0px -30px;
+            width: 127px;
+            height: 15px;
+            left: 87px;
+            top: 161px;
+        }
+
+        #copy_04 {
+            background-position: 0px -45px;
+            width: 224px;
+            height: 15px;
+            left: 38px;
+            top: 186px;
+        }
+
+        #copy_05 {
+            background-position: 0px -60px;
+            width: 171px;
+            height: 14px;
+            left: 64px;
+            top: 161px;
+        }
+
+        #startingPriceCopy {
+            background-position: 0px -74px;
+            width: 96px;
+            height: 16px;
+            left: 102px;
+            top: 184px;
+            opacity: 0;
+        }
+
+        #cta {
+            position: absolute;
+            width: 142px;
+            height: 25px;
+            left: 79px;
+            top: 207px;
+        }
+        #ctaOff {
+            background-image: url("graphics_300x600.png");
+            background-position: 0px -358px;
+            position: absolute;
+            width: 142px;
+            height: 25px;
+            opacity: 0;
+        }
+
+        #ctaOver {
+            background-image: url("graphics_300x600.png");
+            background-position: 0px -383px;
+            position: absolute;
+            width: 142px;
+            height: 25px;
+            opacity: 0;
+        }
+
+        #openLegalBtn {
+            background-image: url("graphics_300x600.png");
+            background-position: 0px -338px;
+            position: absolute;
+            width: 31px;
+            height: 10px;
+            left: 260px;
+            top: 581px;
+            display: none;
+            opacity: 0;
+            pointer-events: auto;
+        }
+
+        #legalPanel {
+            position: absolute;
+            width: 300px;
+            height: 600px;
+            opacity: 0.0;
+            pointer-events: auto;
+        }
+        #bluePane {
+            position: absolute;
+            background-color: #001f5a;
+            width: 300px;
+            height: 600px;
+            opacity: 0.8;
+        }
+
+        #legalCopy {
+            background-image: url("graphics_300x600.png");
+            background-position: 0px -164px;
+            position: absolute;
+            width: 257px;
+            height: 173px;
+            left: 21px;
+            top: 137px;
+            opacity: 1;
+        }
+
+        #closeLegalBtn {
+            background-image: url("graphics_300x600.png");
+            background-position: 0px -348px;
+            position: absolute;
+            width: 30px;
+            height: 10px;
+            left: 261px;
+            top: 10px;
+            pointer-events: auto;
+        }
+
+    </style>
+
+
+    <script>
+        var clickTag = "http://put_url_here";
+    </script>
+</head>
+
+<body>
+    <div class="title">
+        <span>Maserati Banner</span>
+    </div>
+    <div id="container">
+        <div id="container2">
+            <div id="image_01"></div>
+            <div id="copy_01"></div>
+            <div id="image_02"></div>
+            <div id="copy_02"></div>
+            <div id="image_03"></div>
+            <div id="image_04"></div>
+            <div id="copy_03"></div>
+            <div id="copy_04"></div>
+            <div id="image_05"></div>
+            <div id="copy_05"></div>
+            <div id="startingPriceCopy"></div>
+            <div id="cta">
+                <div id="ctaOff"></div>
+                <div id="ctaOver"></div>
+            </div>
+
+            <!-- <div id="bottomRight_gradientShadow"></div>
+            <div id="bottomRight_gradientShadow2"></div> -->
+            <div id="maserati_logo"></div>
+        </div>
+        <div id="openLegalBtn"></div>
+        <div id="legalPanel">
+            <div id="bluePane"></div>
+            <div id="legalCopy"></div>
+            <div id="closeLegalBtn"></div>
+        </div>
+
+    </div>
+
+
+</body>
+
+<script src="https://s0.2mdn.net/ads/studio/cached_libs/easepack_1.18.0_ed5816e732515f56d96a67f6a2a15ccb_min.js"></script>
+<script src="https://s0.2mdn.net/ads/studio/cached_libs/cssplugin_1.18.0_71489205621d46cbe88348eeb8fe493f_min.js"></script>
+<script src="https://s0.2mdn.net/ads/studio/cached_libs/tweenlite_1.18.0_56fa823cfbbef1c2f4d4346f0f0e6c3c_min.js"></script>
+
+
+<script>
+    var container2 = document.getElementById("container2");
+    var openLegalBtn = document.getElementById("openLegalBtn");
+    var closeLegalBtn = document.getElementById("closeLegalBtn");
+    container2.addEventListener("click", bannerClick, false);
+
+    function init() {
+        TweenLite.set(image_01, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(image_02, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(image_03, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(image_04, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(image_05, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(copy_01, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(copy_02, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(copy_03, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(copy_04, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(copy_05, {rotationZ: 0.01, force3D:true});
+        TweenLite.set(startingPriceCopy, {rotationZ: 0.01, force3D:true});
+
+
+        TweenLite.set(legalPanel, {opacity:1, y:600});
+        TweenLite.to(image_01, 4, {x:20, y:0, ease: Power0.easeNone});
+
+        TweenLite.to(copy_01, 0.5, {opacity:0, ease: Power0.easeNone, delay:1.2});
+        TweenLite.delayedCall(1.7, frame02);
+    }
+
+    function frame02() {
+        TweenLite.to(image_02, 1.0, {opacity:1, ease: Power0.easeNone});
+        TweenLite.to(image_02, 4, {x:20, y:0, ease: Power0.easeNone});
+        TweenLite.to(copy_02, 0.5, {opacity:1, ease: Power0.easeNone, delay:0.5});
+
+        TweenLite.to(copy_02, 0.5, {opacity:0, ease: Power0.easeNone, delay:2.5});
+        TweenLite.delayedCall(3, frame03);
+    }
+
+    function frame03() {
+        TweenLite.to(image_03, 1, {opacity:1, ease: Power0.easeNone});
+        TweenLite.to(image_03, 4, {x:20, y:0, ease: Power0.easeNone});
+        TweenLite.to(copy_03, 0.5, {opacity:1, ease: Power0.easeNone, delay:0.5});
+
+        // TweenLite.to(copy_03, 1.3, {y:-106, ease: Sine.easeInOut, delay:2.0});
+
+        TweenLite.set(copy_04, {y:105});
+        TweenLite.to(copy_04, 1.3, {y:0, ease: Sine.easeInOut, delay:2.0});
+        TweenLite.to(copy_04, 0.5, {opacity:1, ease: Power0.easeNone, delay:3.2});
+        TweenLite.delayedCall(2.8, frame04);
+    }
+
+    function frame04() {
+        TweenLite.to(image_04, 1, {opacity:1, ease: Power0.easeNone});
+        TweenLite.to(image_04, 4, {x:20, y:0, ease: Power0.easeNone});
+
+        TweenLite.delayedCall(3, frame05);
+    }
+
+    function frame05() {
+        TweenLite.to(image_05, 1, {opacity:1, ease: Power0.easeNone});
+        TweenLite.to(copy_05, 0.5, {opacity:1, ease: Power0.easeNone, delay:1});
+        TweenLite.to(startingPriceCopy, 0.5, {opacity:1, ease: Power0.easeNone, delay:1.5});
+        TweenLite.delayedCall(2.5, frame06);
+    }
+
+    function frame06() {
+        TweenLite.to(copy_05, 0.5, {y: -10, ease: Sine.easeInOut, onComplete: turnOff3D});
+        TweenLite.to(startingPriceCopy, 0.5, {y: -10, ease: Sine.easeInOut});
+        TweenLite.to(ctaOff, 0.5, {opacity:1, ease: Power0.easeNone, delay:0.3});
+
+        openLegalBtn.style.display = "block";
+        TweenLite.to(openLegalBtn, 0.5, {opacity:1, ease: Power0.easeNone, delay:0.8});
+        setUpCTA();
+    }
+
+
+    function turnOff3D() {
+        TweenLite.set(copy_05, {rotationZ: 0.00, force3D:false});
+    }
+
+    function setUpCTA() {
+        container2.addEventListener("mouseover", bannerRollOver,false);
+        container2.addEventListener("mouseout", bannerRollOff, false);
+
+        openLegalBtn.addEventListener("click", showLegal, false);
+
+        closeLegalBtn.addEventListener("click", closeLegal, true);
+    }
+
+    function bannerRollOver(event) {
+        TweenLite.to(ctaOver, 0.3, {opacity:1, ease: Power0.easeNone});
+    }
+
+    function bannerRollOff(event) {
+        TweenLite.to(ctaOver, 0.3, {opacity:0, ease: Power0.easeNone});
+    }
+
+    function bannerClick(event) {
+        
+    }
+
+    function showLegal(event) {
+        TweenLite.to(openLegalBtn, 0.3, {opacity:0, ease: Power0.easeNone, onComplete:turnOffLegalBtn});
+        function turnOffLegalBtn() {
+            openLegalBtn.style.display = "none";
+        }
+
+        TweenLite.to(cta, 0.3, {opacity:0, ease: Power0.easeNone});
+        // TweenLite.to(maserati_logo, 0.3, {opacity:0, ease: Power0.easeNone});
+        TweenLite.to(startingPriceCopy, 0.3, {opacity:0, ease: Power0.easeNone});
+        TweenLite.to(copy_05, 0.3, {opacity:0, ease: Power0.easeNone});
+
+        event.stopPropagation();
+        TweenLite.to(legalPanel, 1, {y:0});
+    }
+
+    function closeLegal(event) {
+        event.stopPropagation();
+        TweenLite.to(legalPanel, 1, {y:600});
+
+        openLegalBtn.style.display = "block";
+        TweenLite.to(openLegalBtn, 0.3, {opacity:1, ease: Power0.easeNone, delay:0.9});
+        TweenLite.to(cta, 0.3, {opacity:1, ease: Power0.easeNone, delay:0.3});
+        // TweenLite.to(maserati_logo, 0.3, {opacity:1, ease: Power0.easeNone, delay:0.9});
+        TweenLite.to(startingPriceCopy, 0.3, {opacity:1, ease: Power0.easeNone, delay:0.3});
+        TweenLite.to(copy_05, 0.3, {opacity:1, ease: Power0.easeNone, delay:0.3});
+    }
+
+    window.onload = init();
+
+</script>
+
+</html>
