@@ -212,14 +212,17 @@ mysite.projects = {
 				var imagesLoaded=0;
 
 				for(let x=0; x<hiddenPreviews.length; x++) {
-					hiddenPreviews[x].src="static/"+returnedJSON[x].path;
-					hiddenPreviews[x].addEventListener("load", function(){
+					hiddenPreviews[x].src="";
+					function hiddenPreviewsHandler() {
 						imagesLoaded++;
+						hiddenPreviews[x].removeEventListener("load", hiddenPreviewsHandler);
 						if(imagesLoaded>=hiddenPreviews.length) {
 							hideLoadingNotice(tl);
 							moveCurrentPreviews(returnedJSON.length);
 						}
-					});
+					}
+					hiddenPreviews[x].addEventListener("load", hiddenPreviewsHandler);
+					hiddenPreviews[x].src="static/"+returnedJSON[x].path;
 				}
 				
 			}
