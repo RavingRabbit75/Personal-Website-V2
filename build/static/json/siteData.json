@@ -205,7 +205,7 @@
     	{"name": "AKQA",
     	 "title": "Web Developer",
     	 "location": "San Francisco, CA",
-    	 "years": "2015-2016",
+    	 "years": "2015–2016",
     	 "accomplishments": [
     		"Built 30+ web banners utilizing JavaScript, HTML5 and CSS3 to greatly improve web presence for major worldwide brands with contracts valued at over $1.5 million.",
     		"Crafted compelling image and text animations with JavaScript and GreenSock on > 80% of brand web content to improve user engagement and advertisement click through.",
@@ -224,7 +224,7 @@
     	{"name": "Organic",
     	 "title": "Senior Web Designer",
     	 "location": "San Francisco, CA",
-    	 "years": "2008-2014 ",
+    	 "years": "2008–2014 ",
     	 "accomplishments": [
     		"Created 100+ web banners and dynamic animations for 5+ brand microsites utilizing ActionScript and HTML.",
     		"Optimized banner creation time by over 66% through engineering modular general-use particle system used in 4+ projects to produce visual effects such a smoke and bubbles.",
