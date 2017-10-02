@@ -12,7 +12,7 @@ else:
 
 @app.route("/")
 def root_route():
-	return redirect("/profile")
+	return redirect("/projects")
 
 
 @app.route("/profile")
