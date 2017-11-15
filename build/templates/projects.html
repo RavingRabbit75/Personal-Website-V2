@@ -173,12 +173,12 @@
 					Built with:
 				</div>
 				<div class="project-text">
-					{% for tech in project.tech %}
+					{%- for tech in project.tech -%}
 						{{ tech }}{% if not loop.last %}, {% endif %}
-					{% endfor %}
+					{%- endfor -%}
 				</div>
 				<div class="project-text-description">
-					{{ project.description }}
+					{{- project.description -}}
 				</div>
 				<div class="project-text-accomplishments">
 					<ul>

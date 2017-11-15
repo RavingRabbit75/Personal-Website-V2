@@ -2,6 +2,8 @@ import os
 from flask import Flask, jsonify, render_template, redirect, url_for, json, request, send_from_directory
 
 app = Flask(__name__)
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 if os.environ.get("ENV") == "production":
 	debug=False
