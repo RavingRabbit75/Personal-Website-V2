@@ -42,8 +42,8 @@ mysite.projects = {
 
 			showLoadingNotice(tl);
 
-			url="/api/projects";
-			data={"imageidx":evt.target.dataset.imageidx, "projname":projname};
+			var url="/api/projects";
+			var data={"imageidx":evt.target.dataset.imageidx, "projname":projname};
 			$.get({
 			  url: url,
 			  data: data,
