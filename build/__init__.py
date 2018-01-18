@@ -1,16 +1,25 @@
 import os
 from flask import Flask, jsonify, render_template, redirect, url_for, json, request, send_from_directory
+from flask_restful import Api
+from build.resources import Skill
+from build.resources import SkillList
+from build.resources import ExperienceList
 
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
+api=Api(app)
+
 if os.environ.get("ENV") == "production":
 	debug=False
-
 else:
 	debug=True
 
+
+api.add_resource(Skill, "/api/profile/skill/<string:name>")
+api.add_resource(SkillList, "/api/profile/skills")
+api.add_resource(ExperienceList, "/api/profile/experience")
 
 @app.route("/")
 def root_route():
