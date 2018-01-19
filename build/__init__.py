@@ -5,6 +5,7 @@ from build.resources import Skill
 from build.resources import SkillList
 from build.resources import ExperienceList
 
+
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
