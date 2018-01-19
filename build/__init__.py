@@ -1,9 +1,9 @@
 import os
 from flask import Flask, jsonify, render_template, redirect, url_for, json, request, send_from_directory
 from flask_restful import Api
-from build.resources import Skill
 from build.resources import SkillList
 from build.resources import ExperienceList
+from build.resources import EducationList
 
 
 app = Flask(__name__)
@@ -18,9 +18,10 @@ else:
 	debug=True
 
 
-api.add_resource(Skill, "/api/profile/skill/<string:name>")
 api.add_resource(SkillList, "/api/profile/skills")
 api.add_resource(ExperienceList, "/api/profile/experience")
+api.add_resource(EducationList, "/api/profile/education")
+
 
 @app.route("/")
 def root_route():
