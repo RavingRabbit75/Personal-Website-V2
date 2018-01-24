@@ -1,26 +1,40 @@
 import os
-from flask import Flask, jsonify, render_template, redirect, url_for, json, request, send_from_directory
+from flask import Flask, Blueprint, jsonify, render_template, redirect, url_for, json, request, send_from_directory
 from flask_restful import Api
 from build.resources import SkillList
 from build.resources import ExperienceList
 from build.resources import EducationList
+from build.resources import Projects
 
-
-app = Flask(__name__)
-app.jinja_env.trim_blocks = True
-app.jinja_env.lstrip_blocks = True
-
-api=Api(app)
+from other_api.todo.resources import TodoList
 
 if os.environ.get("ENV") == "production":
 	debug=False
 else:
 	debug=True
 
+app = Flask(__name__)
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
-api.add_resource(SkillList, "/api/profile/skills")
-api.add_resource(ExperienceList, "/api/profile/experience")
-api.add_resource(EducationList, "/api/profile/education")
+api_bp = Blueprint("api", __name__)
+api = Api(api_bp)
+api.add_resource(SkillList, "/profile/skills")
+api.add_resource(ExperienceList, "/profile/experience")
+api.add_resource(EducationList, "/profile/education")
+# api.add_resource(Project, "/projects/new")
+api.add_resource(Projects, "/projects/<int:id>")
+
+app.register_blueprint(api_bp, url_prefix="/api/v1")
+
+
+# separate test api
+api_todo_bp = Blueprint("api_todo", __name__)
+api_todo = Api(api_todo_bp)
+api_todo.add_resource(TodoList, "/todos")
+
+app.register_blueprint(api_todo_bp, url_prefix="/api_todo/v1")
+
 
 
 @app.route("/")

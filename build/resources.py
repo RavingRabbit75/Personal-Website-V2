@@ -1,4 +1,4 @@
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 import psycopg2
 from flask import request
 
@@ -92,6 +92,7 @@ class ExperienceList(Resource):
 		return {"experience" : experience}, 200
 
 
+	# 
 	@auth.login_required
 	def put(self):
 		experienceData=request.get_json()["experienceData"]
@@ -124,4 +125,75 @@ class EducationList(Resource):
 		return {"education" : education}, 200
 
 	def put(self):
-		pass
+		educationData = request.get_json()["educationData"]
+		cur.execute("DELETE FROM education;")
+		for single_edu in educationData:
+			cur.execute("INSERT INTO education (primary_desc, secondary_desc, year) VALUES (%s, %s, %s);", (single_edu["primaryDescription"], single_edu["secondaryDescription"], single_edu["year"]))
+
+		conn.commit()
+		return {"message": "update successful"}, 200
+
+
+
+class Projects(Resource):
+
+	# SELECT column_name(s)
+	# FROM table1
+	# INNER JOIN table2 ON table1.column_name = table2.column_name;
+
+	def get(self, id):
+		projectData = {
+			"name" : None,
+			"role" : None,
+			"builtwith" : None,
+			"description" : None,
+			"layouttype" : -1,
+			"priority" : -1,
+			"enabled" : True,
+			"filters" : [],
+			"points" : [],
+			"previews" : [],
+			"urls" : [],
+			"zipFile" : None
+		}
+
+		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
+		project = cur.fetchone()
+		projectData["name"]=project[1]
+		projectData["role"]=project[2]
+		projectData["builtwith"]=project[3]
+		projectData["description"]=project[4]
+		projectData["layouttype"]=project[5]
+		projectData["priority"]=project[6]
+		projectData["enabled"]=project[7]
+
+		# cur.execute("SELECT name, substring(project_point, 1, 20), project_points.project_id FROM projects INNER JOIN project_points ON projects.id = project_points.project_id;")
+
+		cur.execute("SELECT f.filter_tag from filters as f INNER JOIN project_to_filters as pf ON f.id = pf.filter_id INNER JOIN projects as p ON pf.project_id = p.id WHERE p.id = %s;", (str(id)))
+
+		for filterTag in cur:
+			projectData["filters"].append(filterTag[0])
+
+
+		cur.execute("SELECT project_point from project_points as pps WHERE pps.project_id = %s;", (str(id)))
+		for projectPoint in cur:
+			projectData["points"].append(projectPoint[0])
+
+
+		#  urlpath | project_id | grouping 
+		cur.execute("SELECT urlpath, grouping from project_previews as pp WHERE pp.project_id = %s;", (str(id)))
+		for preview in cur:
+			projectData["previews"].append(preview)
+
+
+		# type | url | project_id 
+		cur.execute("SELECT type, url from project_urls as pu WHERE pu.project_id = %s;", (str(id)))
+		for projectURL in cur:
+			projectData["urls"].append(projectURL)
+
+
+		# cur.execute("")
+
+		return {
+			"projectData": projectData
+		}, 200
