@@ -43,7 +43,9 @@ class SkillList(Resource):
 		skillsData=request.get_json()["skillsData"]
 		cur.execute("DELETE FROM skills_technology;")
 		for skill in skillsData:
-			cur.execute("INSERT INTO skills_technology (skill, level) VALUES (%s, %s);", (skill["skill"],skill["level"]) )
+			cur.execute("""INSERT INTO skills_technology (skill, level) 
+						   VALUES (%s, %s);""", 
+						   (skill["skill"],skill["level"]) )
 
 		conn.commit()
 		return {"message": "update successful"}, 200
@@ -52,7 +54,16 @@ class SkillList(Resource):
 class ExperienceList(Resource):
 
 	def get(self):
-		cur.execute("SELECT experience.exp_id, experience.company, experience.position, experience.location, experience.years, accomplishments.exp_id, accomplishments.accomplishment FROM experience, accomplishments where experience.exp_id = accomplishments.exp_id;")
+		cur.execute("""SELECT experience.exp_id, 
+							  experience.company, 
+							  experience.position, 
+							  experience.location, 
+							  experience.years, 
+							  accomplishments.exp_id, 
+							  accomplishments.accomplishment 
+					   FROM experience, accomplishments 
+					   where experience.exp_id = accomplishments.exp_id;""")
+
 		experience=[]
 
 		# current format of returned sql query row
@@ -99,9 +110,21 @@ class ExperienceList(Resource):
 		cur.execute("DELETE FROM accomplishments;")
 		cur.execute("DELETE FROM experience;")
 		for single_exp in experienceData:
-			cur.execute("INSERT INTO experience (exp_id, company, position, location, years) VALUES (%s, %s, %s, %s, %s);", (single_exp["exp_id"], single_exp["company"], single_exp["position"], single_exp["location"], single_exp["years"]))
+			cur.execute("""INSERT INTO experience 
+							(exp_id, company, position, location, years) 
+						   VALUES (%s, %s, %s, %s, %s);""", 
+						   (single_exp["exp_id"], 
+						   	single_exp["company"], 
+						   	single_exp["position"], 
+						   	single_exp["location"], 
+						   	single_exp["years"]))
+
 			for single_acc in single_exp["accomplishments"]:
-				cur.execute("INSERT INTO accomplishments (exp_id, accomplishment) VALUES (%s, %s);", (single_exp["exp_id"], single_acc))
+				cur.execute("""INSERT INTO accomplishments 
+								(exp_id, accomplishment) 
+							   VALUES (%s, %s);""", 
+							   (single_exp["exp_id"], 
+							   	single_acc))
 
 
 		conn.commit()
@@ -111,7 +134,10 @@ class ExperienceList(Resource):
 class EducationList(Resource):
 
 	def get(self):
-		cur.execute("SELECT primary_desc, secondary_desc, year FROM education;")
+		cur.execute("""SELECT primary_desc, 
+							  secondary_desc, 
+							  year FROM education;""")
+
 		education=[]
 		for single_edu in cur:
 			education.append(
@@ -128,7 +154,12 @@ class EducationList(Resource):
 		educationData = request.get_json()["educationData"]
 		cur.execute("DELETE FROM education;")
 		for single_edu in educationData:
-			cur.execute("INSERT INTO education (primary_desc, secondary_desc, year) VALUES (%s, %s, %s);", (single_edu["primaryDescription"], single_edu["secondaryDescription"], single_edu["year"]))
+			cur.execute("""INSERT INTO education 
+							(primary_desc, secondary_desc, year) 
+						   VALUES (%s, %s, %s);""", 
+						   (single_edu["primaryDescription"], 
+						   	single_edu["secondaryDescription"], 
+						   	single_edu["year"]))
 
 		conn.commit()
 		return {"message": "update successful"}, 200
@@ -167,27 +198,43 @@ class Projects(Resource):
 		projectData["priority"]=project[6]
 		projectData["enabled"]=project[7]
 
-		# cur.execute("SELECT name, substring(project_point, 1, 20), project_points.project_id FROM projects INNER JOIN project_points ON projects.id = project_points.project_id;")
+		# cur.execute("""SELECT name, substring(project_point, 1, 20), project_points.project_id 
+		# 			   FROM projects 
+		# 			   INNER JOIN project_points 
+		# 			   ON projects.id = project_points.project_id;""")
 
-		cur.execute("SELECT f.filter_tag from filters as f INNER JOIN project_to_filters as pf ON f.id = pf.filter_id INNER JOIN projects as p ON pf.project_id = p.id WHERE p.id = %s;", (str(id)))
+		cur.execute("""SELECT f.filter_tag 
+					   FROM filters as f 
+					   INNER JOIN project_to_filters as pf ON f.id = pf.filter_id 
+					   INNER JOIN projects as p ON pf.project_id = p.id 
+					   WHERE p.id = %s;""", (str(id)))
 
 		for filterTag in cur:
 			projectData["filters"].append(filterTag[0])
 
 
-		cur.execute("SELECT project_point from project_points as pps WHERE pps.project_id = %s;", (str(id)))
+		cur.execute("""SELECT project_point 
+					   FROM project_points as pps 
+					   WHERE pps.project_id = %s;""", (str(id)))
+
 		for projectPoint in cur:
 			projectData["points"].append(projectPoint[0])
 
 
 		#  urlpath | project_id | grouping 
-		cur.execute("SELECT urlpath, grouping from project_previews as pp WHERE pp.project_id = %s;", (str(id)))
+		cur.execute("""SELECT urlpath, grouping 
+					   FROM project_previews as pp 
+					   WHERE pp.project_id = %s;""", (str(id)))
+
 		for preview in cur:
 			projectData["previews"].append(preview)
 
 
 		# type | url | project_id 
-		cur.execute("SELECT type, url from project_urls as pu WHERE pu.project_id = %s;", (str(id)))
+		cur.execute("""SELECT type, url 
+					   FROM project_urls as pu 
+					   WHERE pu.project_id = %s;""", (str(id)))
+		
 		for projectURL in cur:
 			projectData["urls"].append(projectURL)
 
