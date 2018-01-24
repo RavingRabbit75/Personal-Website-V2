@@ -1,3 +1,4 @@
+import os
 from flask_restful import Resource, reqparse
 import psycopg2
 from flask import request
@@ -31,13 +32,13 @@ cur = conn.cursor()
 class SkillList(Resource):
 	
 	def get(self):
-		from IPython import embed; embed()
 		cur.execute("SELECT * FROM skills_technology;")
 		skills=[]
 		for skill in cur:
 			skills.append({"skill" : skill[1], "level" : skill[2]})
 
 		return {"skills" : skills}, 200
+
 
 	@auth.login_required
 	def put (self):
@@ -104,7 +105,6 @@ class ExperienceList(Resource):
 		return {"experience" : experience}, 200
 
 
-	# 
 	@auth.login_required
 	def put(self):
 		experienceData=request.get_json()["experienceData"]
@@ -151,6 +151,8 @@ class EducationList(Resource):
 
 		return {"education" : education}, 200
 
+
+	@auth.login_required
 	def put(self):
 		educationData = request.get_json()["educationData"]
 		cur.execute("DELETE FROM education;")
@@ -181,7 +183,6 @@ class Projects(Resource):
 			"description" : None,
 			"layouttype" : -1,
 			"priority" : -1,
-			"zipFile" : None,
 			"enabled" : True,
 			"filters" : [],
 			"points" : [],
@@ -197,8 +198,7 @@ class Projects(Resource):
 		projectData["description"]=project[4]
 		projectData["layouttype"]=project[5]
 		projectData["priority"]=project[6]
-		projectData["zip"]=project[7]
-		projectData["enabled"]=project[8]
+		projectData["enabled"]=project[7]
 
 		# cur.execute("""SELECT name, substring(project_point, 1, 20), project_points.project_id 
 		# 			   FROM projects 
@@ -244,3 +244,48 @@ class Projects(Resource):
 		return {
 			"projectData": projectData
 		}, 200
+
+
+	@auth.login_required
+	def put(self, id):
+		pass
+
+
+	@auth.login_required
+	def delete(self, id):
+
+		cur.execute("SELECT * FROM project_previews WHERE project_id=%s;", (str(id)))
+		deleteImgsArr=[]
+		for preview in cur:
+			deleteImgsArr.append(preview)
+
+		siteRoot = os.path.realpath(os.path.dirname(__file__))
+
+
+		def checkIfAllFilesExist(imgsArr):
+			for preview in imgsArr:
+				fullPath = os.path.join(siteRoot, "static/images/projects/", preview[1])
+				if not os.path.isfile(fullPath):
+					return (False, preview[1])
+
+			return (True, None)
+
+		fileStatus = checkIfAllFilesExist(deleteImgsArr)
+		if fileStatus[0]:
+			for preview in deleteImgsArr:
+				fullPath = os.path.join(siteRoot, "static/images/projects/", preview[1])
+				os.remove(fullPath)
+
+			cur.execute("DELETE FROM project_points WHERE project_id=%s;", (str(id)))
+			cur.execute("DELETE FROM project_urls WHERE project_id=%s;", (str(id)))
+			cur.execute("DELETE FROM project_to_filters WHERE project_id=%s;", (str(id)))
+			cur.execute("DELETE FROM project_previews WHERE project_id=%s;", (str(id)))
+			cur.execute("DELETE FROM projects WHERE id=%s;", (str(id)))
+			conn.commit()
+
+		else:
+			return {"file missing" : fileStatus[1]}, 404
+		
+
+		return {"Deletion Successful" : str(id)}
+
