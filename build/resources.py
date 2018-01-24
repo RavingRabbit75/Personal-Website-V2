@@ -31,6 +31,7 @@ cur = conn.cursor()
 class SkillList(Resource):
 	
 	def get(self):
+		from IPython import embed; embed()
 		cur.execute("SELECT * FROM skills_technology;")
 		skills=[]
 		for skill in cur:
@@ -180,12 +181,12 @@ class Projects(Resource):
 			"description" : None,
 			"layouttype" : -1,
 			"priority" : -1,
+			"zipFile" : None,
 			"enabled" : True,
 			"filters" : [],
 			"points" : [],
 			"previews" : [],
-			"urls" : [],
-			"zipFile" : None
+			"urls" : []
 		}
 
 		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
@@ -196,7 +197,8 @@ class Projects(Resource):
 		projectData["description"]=project[4]
 		projectData["layouttype"]=project[5]
 		projectData["priority"]=project[6]
-		projectData["enabled"]=project[7]
+		projectData["zip"]=project[7]
+		projectData["enabled"]=project[8]
 
 		# cur.execute("""SELECT name, substring(project_point, 1, 20), project_points.project_id 
 		# 			   FROM projects 
@@ -234,12 +236,10 @@ class Projects(Resource):
 		cur.execute("""SELECT type, url 
 					   FROM project_urls as pu 
 					   WHERE pu.project_id = %s;""", (str(id)))
-		
+
 		for projectURL in cur:
 			projectData["urls"].append(projectURL)
 
-
-		# cur.execute("")
 
 		return {
 			"projectData": projectData
