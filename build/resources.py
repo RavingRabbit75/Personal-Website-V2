@@ -191,6 +191,11 @@ class Projects(Resource):
 		}
 
 		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
+		if cur.fetchone() == None:
+			return {
+				"message": "item not found"
+			}, 404
+
 		project = cur.fetchone()
 		projectData["name"]=project[1]
 		projectData["role"]=project[2]
@@ -246,9 +251,7 @@ class Projects(Resource):
 		}, 200
 
 
-	@auth.login_required
-	def put(self, id):
-		pass
+
 
 
 	@auth.login_required
