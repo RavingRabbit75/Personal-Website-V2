@@ -1,10 +1,14 @@
 import os
 from flask import Flask, Blueprint, jsonify, render_template, redirect, url_for, json, request, send_from_directory
 from flask_restful import Api
+
+
 from build.resources import SkillList
 from build.resources import ExperienceList
 from build.resources import EducationList
 from build.resources import Projects
+from build.resources import Project
+from build.resources import ProjectImages
 
 from other_api.todo.resources import TodoList
 
@@ -22,10 +26,18 @@ api = Api(api_bp)
 api.add_resource(SkillList, "/profile/skills")
 api.add_resource(ExperienceList, "/profile/experience")
 api.add_resource(EducationList, "/profile/education")
-# api.add_resource(Project, "/projects/new")
-api.add_resource(Projects, "/projects/<int:id>")
+api.add_resource(Projects, "/projects")
+api.add_resource(Project, "/project/<int:id>")
+api.add_resource(ProjectImages, "/projects/<int:id>/upload")
 
 app.register_blueprint(api_bp, url_prefix="/api/v1")
+
+
+# setup for uploading files
+siteRoot = os.path.realpath(os.path.dirname(__file__ + "/../../"))
+UPLOAD_FOLDER = "temp_upload"
+uploadPath = os.path.join(siteRoot, UPLOAD_FOLDER)
+app.config['UPLOADED_PHOTOS_DEST'] = uploadPath
 
 
 # separate test api
@@ -34,7 +46,6 @@ api_todo = Api(api_todo_bp)
 api_todo.add_resource(TodoList, "/todos")
 
 app.register_blueprint(api_todo_bp, url_prefix="/api_todo/v1")
-
 
 
 @app.route("/")

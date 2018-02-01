@@ -1,12 +1,13 @@
 import os
 from flask_restful import Resource, reqparse
 import psycopg2
-from flask import request
+from flask import request, current_app as app
+
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 from flask_httpauth import HTTPBasicAuth
 
 auth = HTTPBasicAuth()
-
 users = {
 	"ray" : "monkey"
 }
@@ -169,6 +170,28 @@ class EducationList(Resource):
 
 
 
+class Project(Resource):
+
+	def get(self, id):
+		pass
+
+
+	@auth.login_required
+	def post(self):
+		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
+		if cur.fetchone() == None:
+			return {
+				"message": "item not found"
+			}, 404
+
+		# projectData=request.get_json()["projectData"]
+
+
+		return {"message": "POST DONE"}, 200
+
+
+
+
 class Projects(Resource):
 
 	# SELECT column_name(s)
@@ -253,6 +276,20 @@ class Projects(Resource):
 
 
 
+	# @auth.login_required
+	def put(self, id):
+		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
+		if cur.fetchone() == None:
+			return {
+				"message": "item not found"
+			}, 404
+
+		# projectData=request.get_json()["projectData"]
+
+		return {"message": "PUT DONE"}, 200
+
+
+
 
 	@auth.login_required
 	def delete(self, id):
@@ -292,3 +329,43 @@ class Projects(Resource):
 
 		return {"Deletion Successful" : str(id)}
 
+
+
+class ProjectImages(Resource):
+
+	@auth.login_required
+	def post (self, id):
+		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
+		if cur.fetchone() == None:
+			return {
+				"message": "item not found"
+			}, 404
+
+		else:
+			cur.execute("SELECT * from project_previews WHERE project_id=%s;", (str(id)))
+			previews=[]
+			for imagePreview in cur:
+				previews.append(imagePreview[1])
+
+			if "image" in request.files:
+				imageList = request.files.getlist("image")
+
+				for image in imageList:
+					if image.filename not in previews:
+						return {"file not allowed" : image.filename}, 404
+
+				uploadPath = app.config.get('UPLOADED_PHOTOS_DEST')
+
+				for image in imageList:
+					fullPath = os.path.join(uploadPath, image.filename)
+					if os.path.exists(fullPath):
+						os.remove(fullPath)
+
+				photos = UploadSet('photos', IMAGES)
+				configure_uploads(app, photos)
+
+				for image in imageList:
+					filename = photos.save(image)
+					print(filename)
+
+		return {"message": "POST DONE"}, 200
