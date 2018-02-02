@@ -43,6 +43,11 @@ class SkillList(Resource):
 
 	@auth.login_required
 	def put (self):
+		if not validateJsonReqBody(request.get_json(), "skillsData"):
+			return {
+				"error" : "incorrect json body structure"
+			}, 400
+
 		skillsData=request.get_json()["skillsData"]
 		cur.execute("DELETE FROM skills_technology;")
 		for skill in skillsData:
@@ -105,6 +110,11 @@ class ExperienceList(Resource):
 
 	@auth.login_required
 	def put(self):
+		if not validateJsonReqBody(request.get_json(), "experienceData"):
+			return {
+				"error" : "incorrect json body structure"
+			}, 400
+
 		experienceData=request.get_json()["experienceData"]
 		cur.execute("DELETE FROM accomplishments;")
 		cur.execute("DELETE FROM experience;")
@@ -152,6 +162,10 @@ class EducationList(Resource):
 
 	@auth.login_required
 	def put(self):
+		if not validateJsonReqBody(request.get_json(), "educationData"):
+			return {
+				"error" : "incorrect json body structure"
+			}, 400
 		educationData = request.get_json()["educationData"]
 		cur.execute("DELETE FROM education;")
 		for single_edu in educationData:
@@ -195,6 +209,18 @@ class Projects(Resource):
 
 	@auth.login_required
 	def post(self):
+		if (not validateJsonReqBody(request.get_json(), "projectData") or
+		   not validateJsonReqBody(request.get_json(), "projectData", "name") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "role") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "tech") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "description") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "accomplishments") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "imagesLayout") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "priority") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "images")):
+			return {
+				"error" : "incorrect json body structure"
+			}, 400
 		project=request.get_json()["projectData"]
 
 		techString = ', '.join(project["tech"])
@@ -222,7 +248,6 @@ class Projects(Resource):
 		sqlString = """INSERT INTO project_urls (type, url, project_id) VALUES (%s, %s, %s);"""
 
 		if "githubLink" in project:
-
 			cur.execute(sqlString, ("githubLink", project["githubLink"], newId))
 
 		if "liveLink" in project:
@@ -485,7 +510,7 @@ class Filters(Resource):
 
 
 class Filter(Resource):
-	
+
 	def get(self, id):
 		sqlString="SELECT * FROM filters WHERE id={0}".format(str(id))
 		cur.execute(sqlString)
@@ -550,5 +575,24 @@ def cursorToList(cursorObj):
 
 # takes json body and checks for specified body structure
 # will take multiple args: each successive key is nested in prior key
-def validateJsonReqBody(jsonBody,):
-	pass
+def validateJsonReqBody(jsonBody, *args):
+
+	def checkForKey(body, key):
+		if key in body:
+			return body[key]
+		else:
+			return None
+
+	counter=0;
+	result = checkForKey(jsonBody, args[counter])
+	while counter<len(args):
+		if result!= None:
+			counter+=1
+			if counter >= len(args):
+				return True
+			else:
+				result=checkForKey(result, args[counter])
+		else:
+			return False
+
+	
