@@ -329,7 +329,9 @@ class Project(Resource):
 				"message": "item not found"
 			}, 404
 
-		# projectData=request.get_json()["projectData"]
+		projectData=request.get_json()["projectData"]
+		# UPDATE projects SET name='Flash Cards', role='developer' WHERE id={0};
+
 
 		return {"message": "PUT DONE"}, 200
 
@@ -422,3 +424,131 @@ class ProjectImages(Resource):
 			"message": "POST DONE",
 			"files saved": filesSaved
 		}, 200
+
+
+class Filters(Resource):
+
+	def get(self):
+		sqlString="SELECT * FROM filters;"
+		cur.execute(sqlString)
+		numberOfFilters = cur.rowcount
+		if numberOfFilters == 0:
+			return {
+				"message" : "no filters available"
+			}, 404
+
+		filters=[]
+
+		for filt in cur:
+			filters.append(filt)
+
+		return {
+			"message" : "success",
+			"total filters" : numberOfFilters,
+			"filters" : filters
+		}, 200
+
+
+	def post(self):
+		filtersData=request.get_json()["filtersData"]
+		if "add" not in filtersData:
+			return {
+				"error" : "incorrect json body structure"
+			}, 400
+
+		sqlString="SELECT filter_tag FROM filters;"
+		cur.execute(sqlString)
+		currentFilters = cursorToList(cur)
+
+		for filt in currentFilters:
+			for currFiltToAdd in filtersData["add"]:
+				if currFiltToAdd.lower() == filt[0].lower():
+					return {
+						"error" : "filter already exists",
+						"filter" : currFiltToAdd
+					}, 409
+
+
+		sqlString = "INSERT INTO filters (filter_tag) VALUES (%s) RETURNING id;"
+
+		idsToReturn=[]
+		for newFilter in filtersData["add"]:
+			cur.execute(sqlString, (newFilter,))
+			idsToReturn.append( {"filter" : newFilter, "id": cur.fetchone()[0]} )
+
+		conn.commit()
+
+		return {
+			"message" : "success",
+			"filters add" : idsToReturn
+		}, 200
+
+
+class Filter(Resource):
+	
+	def get(self, id):
+		sqlString="SELECT * FROM filters WHERE id={0}".format(str(id))
+		cur.execute(sqlString)
+		if cur.rowcount==0:
+			return {
+				"error" : "filter not found"
+			}, 404
+
+		queriedFilter = cur.fetchone()
+
+		return {
+			"message" : "success",
+			"filter" : queriedFilter[1],
+			"id" : queriedFilter[0]
+		}, 200
+
+
+	def delete(self, id):
+		sqlString="SELECT * FROM filters WHERE id={0}".format(str(id))
+		cur.execute(sqlString)
+		if cur.rowcount==0:
+			return {
+				"error" : "filter not found"
+			}, 404
+
+		filterToDelete = cur.fetchone()
+
+		sqlString="SELECT * FROM project_to_filters WHERE filter_id={0}".format(str(id))
+		cur.execute(sqlString)
+		if cur.rowcount!=0:
+			return {
+				"error" : "filter is tied to one or more projects"
+			}, 412
+
+		sqlString="DELETE FROM filters WHERE id={0}".format(filterToDelete[0])
+		cur.execute(sqlString)
+		conn.commit()
+
+		return {
+			"message" : "delete successful",
+			"deleted filter" : {"id": filterToDelete[0], "filter": filterToDelete[1]}
+		}, 200
+
+
+
+
+
+############## Utility Functions ##################
+
+
+# takes psycopg2 cursor sql query results and puts into list for convenience and safety
+def cursorToList(cursorObj):
+	if cursorObj.rowcount==0:
+		raise ValueError('Cursor has a row count of 0')
+
+	newList=[]
+	for item in cursorObj:
+		newList.append(item)
+
+	return newList
+
+
+# takes json body and checks for specified body structure
+# will take multiple args: each successive key is nested in prior key
+def validateJsonReqBody(jsonBody,):
+	pass

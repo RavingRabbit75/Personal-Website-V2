@@ -2,20 +2,23 @@ import os
 from flask import Flask, Blueprint, jsonify, render_template, redirect, url_for, json, request, send_from_directory
 from flask_restful import Api
 
-
 from build.resources import SkillList
 from build.resources import ExperienceList
 from build.resources import EducationList
 from build.resources import Projects
 from build.resources import Project
 from build.resources import ProjectImages
+from build.resources import Filters
+from build.resources import Filter
 
 from other_api.todo.resources import TodoList
+
 
 if os.environ.get("ENV") == "production":
 	debug=False
 else:
 	debug=True
+
 
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
@@ -29,6 +32,8 @@ api.add_resource(EducationList, "/profile/education")
 api.add_resource(Projects, "/projects")
 api.add_resource(Project, "/project/<int:id>")
 api.add_resource(ProjectImages, "/projects/<int:id>/upload")
+api.add_resource(Filters, "/projects/filters")
+api.add_resource(Filter, "/projects/filter/<int:id>")
 
 app.register_blueprint(api_bp, url_prefix="/api/v1")
 
