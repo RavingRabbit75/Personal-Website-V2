@@ -84,13 +84,10 @@ class ExperienceList(Resource):
 				tempDict["accomplishments"] = []
 				tempDict["accomplishments"].append(single_exp[6])
 			else:
-				print(tempDict["exp_id"], single_exp[5])
 				if tempDict["exp_id"] == single_exp[5]:
-					print("append next accomplishment")
 					tempDict["accomplishments"].append(single_exp[6])
 
 				else:
-					print("append and reset")
 					experience.append(tempDict)
 					tempDict = {}
 					tempDict["exp_id"] = single_exp[0]
@@ -170,29 +167,78 @@ class EducationList(Resource):
 
 
 
-class Project(Resource):
+class Projects(Resource):
 
-	def get(self, id):
-		pass
+	def get(self):
+		cur.execute("SELECT * FROM projects;")
+		if cur.rowcount == 0:
+			return {
+				"message": "no projects found"
+			}, 404
+		
+		projectList=[]
+		for project in cur:
+			projectList.append({
+					"id" : project[0],
+					"name" : project[1],
+					"role" : project[2],
+					"builtwith" : project[3],
+					"description" : project[4],
+					"layouttype" : project[5],
+					"priority" : project[6],
+					"enabled" : project[7]
+				})
+
+		return {"projects": projectList}, 200
+
 
 
 	@auth.login_required
 	def post(self):
-		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
-		if cur.fetchone() == None:
-			return {
-				"message": "item not found"
-			}, 404
+		project=request.get_json()["projectData"]
 
-		# projectData=request.get_json()["projectData"]
+		techString = ', '.join(project["tech"])
 
+		sqlString = """INSERT INTO projects 
+						(name, role, builtWith, description, layoutType, priority, enabled) 
+						VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id;"""
 
+		cur.execute(sqlString, 
+						(project["name"], 
+						project["role"], 
+						techString,
+						project["description"],
+						project["imagesLayout"],
+						project["priority"],
+						True)
+					)
+		newId = cur.fetchone()[0]
+		sqlString = """INSERT INTO project_points (project_point, project_id) VALUES (%s, %s);"""
+
+		for accomplishment in project["accomplishments"]:
+			newPoint = (accomplishment, newId)
+			cur.execute(sqlString, newPoint)
+
+		sqlString = """INSERT INTO project_urls (type, url, project_id) VALUES (%s, %s, %s);"""
+
+		if "githubLink" in project:
+
+			cur.execute(sqlString, ("githubLink", project["githubLink"], newId))
+
+		if "liveLink" in project:
+			cur.execute(sqlString, ("liveLink", project["liveLink"], newId))
+
+		sqlString = """INSERT INTO project_previews (urlpath, project_id, grouping) VALUES (%s, %s, %s);"""
+		for image in project["images"]:
+			cur.execute(sqlString, (image["path"], newId, image["grouping"]))
+
+		conn.commit()
 		return {"message": "POST DONE"}, 200
 
 
 
 
-class Projects(Resource):
+class Project(Resource):
 
 	# SELECT column_name(s)
 	# FROM table1
@@ -212,9 +258,8 @@ class Projects(Resource):
 			"previews" : [],
 			"urls" : []
 		}
-
-		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
-		if cur.fetchone() == None:
+		cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
+		if cur.rowcount == 0:
 			return {
 				"message": "item not found"
 			}, 404
@@ -237,7 +282,7 @@ class Projects(Resource):
 					   FROM filters as f 
 					   INNER JOIN project_to_filters as pf ON f.id = pf.filter_id 
 					   INNER JOIN projects as p ON pf.project_id = p.id 
-					   WHERE p.id = %s;""", (str(id)))
+					   WHERE p.id = {0};""".format(str(id)))
 
 		for filterTag in cur:
 			projectData["filters"].append(filterTag[0])
@@ -245,7 +290,7 @@ class Projects(Resource):
 
 		cur.execute("""SELECT project_point 
 					   FROM project_points as pps 
-					   WHERE pps.project_id = %s;""", (str(id)))
+					   WHERE pps.project_id = {0};""".format(str(id)))
 
 		for projectPoint in cur:
 			projectData["points"].append(projectPoint[0])
@@ -254,7 +299,7 @@ class Projects(Resource):
 		#  urlpath | project_id | grouping 
 		cur.execute("""SELECT urlpath, grouping 
 					   FROM project_previews as pp 
-					   WHERE pp.project_id = %s;""", (str(id)))
+					   WHERE pp.project_id = {0};""".format(str(id)))
 
 		for preview in cur:
 			projectData["previews"].append(preview)
@@ -263,7 +308,7 @@ class Projects(Resource):
 		# type | url | project_id 
 		cur.execute("""SELECT type, url 
 					   FROM project_urls as pu 
-					   WHERE pu.project_id = %s;""", (str(id)))
+					   WHERE pu.project_id = {0};""".format(str(id)))
 
 		for projectURL in cur:
 			projectData["urls"].append(projectURL)
@@ -278,8 +323,8 @@ class Projects(Resource):
 
 	# @auth.login_required
 	def put(self, id):
-		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
-		if cur.fetchone() == None:
+		cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
+		if cur.rowcount == 0:
 			return {
 				"message": "item not found"
 			}, 404
@@ -294,7 +339,10 @@ class Projects(Resource):
 	@auth.login_required
 	def delete(self, id):
 
-		cur.execute("SELECT * FROM project_previews WHERE project_id=%s;", (str(id)))
+		cur.execute("SELECT * FROM project_previews WHERE project_id={0};".format(str(id)))
+		if cur.rowcount == 0:
+			return {"message": "item not found"}, 404
+
 		deleteImgsArr=[]
 		for preview in cur:
 			deleteImgsArr.append(preview)
@@ -316,11 +364,11 @@ class Projects(Resource):
 				fullPath = os.path.join(siteRoot, "static/images/projects/", preview[1])
 				os.remove(fullPath)
 
-			cur.execute("DELETE FROM project_points WHERE project_id=%s;", (str(id)))
-			cur.execute("DELETE FROM project_urls WHERE project_id=%s;", (str(id)))
-			cur.execute("DELETE FROM project_to_filters WHERE project_id=%s;", (str(id)))
-			cur.execute("DELETE FROM project_previews WHERE project_id=%s;", (str(id)))
-			cur.execute("DELETE FROM projects WHERE id=%s;", (str(id)))
+			cur.execute("DELETE FROM project_points WHERE project_id={0};".format(str(id)))
+			cur.execute("DELETE FROM project_urls WHERE project_id={0};".format(str(id)))
+			cur.execute("DELETE FROM project_to_filters WHERE project_id={0};".format(str(id)))
+			cur.execute("DELETE FROM project_previews WHERE project_id={0};".format(str(id)))
+			cur.execute("DELETE FROM projects WHERE id={0};".format(str(id)))
 			conn.commit()
 
 		else:
@@ -335,14 +383,14 @@ class ProjectImages(Resource):
 
 	@auth.login_required
 	def post (self, id):
-		cur.execute("SELECT * from projects WHERE id=%s;", (str(id)))
-		if cur.fetchone() == None:
+		cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
+		if cur.rowcount == 0:
 			return {
 				"message": "item not found"
 			}, 404
 
 		else:
-			cur.execute("SELECT * from project_previews WHERE project_id=%s;", (str(id)))
+			cur.execute("SELECT * from project_previews WHERE project_id={0};".format(str(id)))
 			previews=[]
 			for imagePreview in cur:
 				previews.append(imagePreview[1])
@@ -364,8 +412,13 @@ class ProjectImages(Resource):
 				photos = UploadSet('photos', IMAGES)
 				configure_uploads(app, photos)
 
+				filesSaved=[]
 				for image in imageList:
 					filename = photos.save(image)
-					print(filename)
+					filesSaved.append(filename)
 
-		return {"message": "POST DONE"}, 200
+
+		return {
+			"message": "POST DONE",
+			"files saved": filesSaved
+		}, 200
