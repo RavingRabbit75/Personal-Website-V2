@@ -236,7 +236,7 @@ class Projects(Resource):
 						project["description"],
 						project["imagesLayout"],
 						project["priority"],
-						True)
+						False)
 					)
 		newId = cur.fetchone()[0]
 		sqlString = """INSERT INTO project_points (project_point, project_id) VALUES (%s, %s);"""
@@ -346,7 +346,7 @@ class Project(Resource):
 
 
 
-	# @auth.login_required
+	@auth.login_required
 	def put(self, id):
 		cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
 		if cur.rowcount == 0:
@@ -354,9 +354,56 @@ class Project(Resource):
 				"message": "item not found"
 			}, 404
 
-		projectData=request.get_json()["projectData"]
-		# UPDATE projects SET name='Flash Cards', role='developer' WHERE id={0};
+		if (not validateJsonReqBody(request.get_json(), "projectData") or
+		   not validateJsonReqBody(request.get_json(), "projectData", "name") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "role") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "tech") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "description") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "accomplishments") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "imagesLayout") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "priority") or 
+		   not validateJsonReqBody(request.get_json(), "projectData", "images")):
+			return {
+				"error" : "incorrect json body structure"
+			}, 400
 
+		project=request.get_json()["projectData"]
+
+		techString = ', '.join(project["tech"])
+
+		sqlString = """UPDATE projects 
+					   SET name='{0}', 
+					   	   role='{1}',
+					   	   builtWith='{2}',
+					   	   description='{3}',
+					   	   layoutType={4},
+					   	   priority={5} 
+					   WHERE id={6};""".format(project["name"], project["role"], techString, project["description"], project["imagesLayout"], project["priority"], str(id))
+
+		cur.execute(sqlString)
+
+		cur.execute("DELETE FROM project_points WHERE project_id={0};".format(str(id)))
+
+		for point in project["accomplishments"]:
+			cur.execute("""INSERT INTO project_points (project_point, project_id) 
+						   VALUES (%s, %s);""", (point, id) )
+		
+
+		cur.execute("DELETE FROM project_urls WHERE project_id={0};".format(str(id)))
+		sqlString = """INSERT INTO project_urls (type, url, project_id) VALUES (%s, %s, %s);"""
+
+		if "githubLink" in project:
+			cur.execute(sqlString, ("githubLink", project["githubLink"], str(id)))
+
+		if "liveLink" in project:
+			cur.execute(sqlString, ("liveLink", project["liveLink"], str(id)))
+
+		
+		# sqlString = """INSERT INTO project_previews (urlpath, project_id, grouping) VALUES (%s, %s, %s);"""
+		# for image in project["images"]:
+		# 	cur.execute(sqlString, (image["path"], newId, image["grouping"]))
+
+		conn.commit()
 
 		return {"message": "PUT DONE"}, 200
 
