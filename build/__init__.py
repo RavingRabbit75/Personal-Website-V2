@@ -7,6 +7,8 @@ from build.resources import ExperienceList
 from build.resources import EducationList
 from build.resources import Projects
 from build.resources import Project
+from build.resources import ProjectFilters
+from build.resources import ProjectFilter
 from build.resources import ProjectImages
 from build.resources import Filters
 from build.resources import Filter
@@ -31,6 +33,8 @@ api.add_resource(ExperienceList, "/profile/experience")
 api.add_resource(EducationList, "/profile/education")
 api.add_resource(Projects, "/projects")
 api.add_resource(Project, "/project/<int:id>")
+api.add_resource(ProjectFilters, "/project/<int:id>/filters")
+api.add_resource(ProjectFilter, "/project/<int:prj_id>/filter/<int:filt_id>")
 api.add_resource(ProjectImages, "/projects/<int:id>/upload")
 api.add_resource(Filters, "/projects/filters")
 api.add_resource(Filter, "/projects/filter/<int:id>")

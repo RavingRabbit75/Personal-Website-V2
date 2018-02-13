@@ -498,6 +498,71 @@ class ProjectImages(Resource):
 		}, 200
 
 
+class ProjectFilters(Resource):
+
+	def get(self, id):
+		cur.execute("SELECT name FROM projects WHERE id={0};".format(str(id)))
+		if cur.rowcount == 0:
+			return {
+				"message": "project not related to filter search not found"
+			}, 404
+
+		projectName = cur.fetchone()[0]
+
+		cur.execute("""SELECT pf.id, f.filter_tag
+						FROM project_to_filters as pf
+						INNER JOIN filters as f ON pf.filter_id = f.id
+						WHERE project_id={0};""".format(str(id)))
+
+		if cur.rowcount == 0:
+			return {
+				"message": "no filters found for this project",
+				"project": projectName
+			}, 404
+
+		filtersForProject = []
+		for filt in cur:
+			filtersForProject.append(filt)
+
+		return {
+			"project": projectName,
+			"pf_id & filter name": filtersForProject
+		}, 200
+
+
+class ProjectFilter(Resource):
+
+	def delete(self, prj_id, filt_id):
+		cur.execute("""SELECT p.name, pf.filter_id, f.filter_tag FROM projects as p 
+						INNER JOIN project_to_filters as pf ON p.id = pf.project_id
+						INNER JOIN filters as f ON pf.filter_id = f.id 
+						WHERE project_id={0} 
+						AND filter_id={1}""".format(str(prj_id), str(filt_id)))
+
+		if cur.rowcount == 0:
+			return {
+				"message": "project filter not found"
+			}, 404
+
+		row = cur.fetchone()
+		projName = row[0]
+		filter_id = row[1]
+		filterName = row[2]
+
+		cur.execute("""DELETE FROM project_to_filters 
+						WHERE project_id={0} 
+						AND filter_id={1};""".format(str(prj_id), str(filt_id)))
+		
+		conn.commit()
+
+		return {
+			"message" : "Deletion Successful",
+			"project": projName,
+			"filter": filterName,
+			"filter_id": filter_id
+		}
+
+
 class Filters(Resource):
 
 	def get(self):
