@@ -530,9 +530,78 @@ class ProjectFilters(Resource):
         }, 200
 
 
-    def post(self):
-        pass
+    @auth.login_required
+    def post(self, id):
+        if not validateJsonReqBody(request.get_json(), "projectName") or not validateJsonReqBody(request.get_json(), "filtersToAdd"):
+            return {
+                "error" : "incorrect json body structure"
+            }, 400
 
+        projectNameFromReq = request.get_json()["projectName"]
+        filtersToAddFromReq = request.get_json()["filtersToAdd"]
+
+        cur.execute("SELECT name FROM projects WHERE id={0} AND name='{1}';".format(str(id), projectNameFromReq))
+        if cur.rowcount == 0:
+            return {
+                "message": "project to add filter is not found"
+            }, 404
+        
+        allfilters =[]
+        cur.execute("SELECT * FROM filters;")
+        for filt in cur:
+            allfilters.append(filt)
+
+        
+        allFiltersNames=[]
+        for row in allfilters:
+            allFiltersNames.append(row[1])
+
+        for filt in filtersToAddFromReq:
+            if filt not in allFiltersNames:
+                return {
+                    "message": "filter is not in the main filter list"
+                }, 404
+
+
+        cur.execute("""SELECT pf.project_id, pf.filter_id, f.filter_tag FROM project_to_filters as pf 
+                        INNER JOIN filters as f ON pf.filter_id = f.id 
+                        WHERE project_id={0};""".format(str(id)))
+
+        projectFilters = []
+        for pf in cur:
+            projectFilters.append(pf[2])
+
+        for filt in filtersToAddFromReq:
+            if filt in projectFilters:
+                return {
+                    "message": "filter already exists in this project"
+                }
+
+        # filtersToAddFromReq ["Python", "Java"]
+        filterIDs = []
+        for filt in filtersToAddFromReq:
+            for filt2 in allfilters:
+                if filt == filt2[1]:
+                    filterIDs.append(filt2[0])
+
+        for filtID in filterIDs:
+            cur.execute("INSERT INTO project_to_filters (project_id, filter_id) VALUES (%s, %s);", (str(id), filtID))
+        
+        conn.commit()
+
+        filterResults=[]
+
+        for filt in filtersToAddFromReq:
+            cur.execute("""SELECT pf.id, f.filter_tag FROM project_to_filters as pf 
+                            INNER JOIN filters as f ON pf.filter_id = f.id 
+                            WHERE project_id={0} AND f.filter_tag='{1}';""".format(str(id), filt))
+            filterResults.append(cur.fetchone())
+
+        return {
+            "message": "New filters added",
+            "project name": projectNameFromReq,
+            "filters added": filterResults
+        }, 200
 
 
 class ProjectFilter(Resource):
@@ -543,7 +612,7 @@ class ProjectFilter(Resource):
                         INNER JOIN project_to_filters as pf ON p.id = pf.project_id
                         INNER JOIN filters as f ON pf.filter_id = f.id 
                         WHERE project_id={0} 
-                        AND filter_id={1}""".format(str(prj_id), str(filt_id)))
+                        AND filter_id={1};""".format(str(prj_id), str(filt_id)))
 
         if cur.rowcount == 0:
             return {
