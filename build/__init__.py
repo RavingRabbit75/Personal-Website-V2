@@ -2,16 +2,16 @@ import os
 from flask import Flask, Blueprint, jsonify, render_template, redirect, url_for, json, request, send_from_directory
 from flask_restful import Api
 
-from build.resources import SkillList
-from build.resources import ExperienceList
-from build.resources import EducationList
-from build.resources import Projects
-from build.resources import Project
-from build.resources import ProjectFilters
-from build.resources import ProjectFilter
-from build.resources import ProjectImages
-from build.resources import Filters
-from build.resources import Filter
+from build.resourcesProfile import SkillList
+from build.resourcesProfile import ExperienceList
+from build.resourcesProfile import EducationList
+from build.resourcesProjects import Projects
+from build.resourcesProjects import Project
+from build.resourcesProjects import ProjectImages
+from build.resourcesFilters import ProjectFilters
+from build.resourcesFilters import ProjectFilter
+from build.resourcesFilters import Filters
+from build.resourcesFilters import Filter
 
 from other_api.todo.resources import TodoList
 
