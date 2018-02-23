@@ -12,7 +12,7 @@ auth = HTTPBasicAuth()
 @auth.verify_password
 def get_pw(username, client_password):
     
-    cur.execute("SELECT * FROM users WHERE username='{0}';".format(str(username)))
+    cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
     if cur.rowcount==0:
         return False
 

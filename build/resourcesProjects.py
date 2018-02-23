@@ -16,7 +16,7 @@ auth = HTTPBasicAuth()
 @auth.verify_password
 def get_pw(username, client_password):
     
-    cur.execute("SELECT * FROM users WHERE username='{0}';".format(str(username)))
+    cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
     if cur.rowcount==0:
         return False
 
@@ -339,6 +339,7 @@ class ProjectImages(Resource):
 
 
 class ProjectEnabled(Resource):
+
     @auth.login_required
     def put (self, id):
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
@@ -377,4 +378,3 @@ class ProjectEnabled(Resource):
             "enabled": updatedProject[2],
             "message": "Success!"
         }, 200
-        

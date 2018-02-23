@@ -13,6 +13,8 @@ from build.resourcesFilters import ProjectFilters
 from build.resourcesFilters import ProjectFilter
 from build.resourcesFilters import Filters
 from build.resourcesFilters import Filter
+from build.resourcesUsers import Users
+from build.resourcesUsers import User
 
 from other_api.todo.resources import TodoList
 
@@ -40,6 +42,8 @@ api.add_resource(ProjectImages, "/projects/<int:id>/upload")
 api.add_resource(Filters, "/projects/filters")
 api.add_resource(Filter, "/projects/filter/<int:id>")
 api.add_resource(ProjectEnabled, "/projects/<int:id>/enabled")
+api.add_resource(Users, "/users")
+api.add_resource(User, "/user/<int:id>")
 
 app.register_blueprint(api_bp, url_prefix="/api/v1")
 
