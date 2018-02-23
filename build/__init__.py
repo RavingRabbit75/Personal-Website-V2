@@ -8,6 +8,7 @@ from build.resourcesProfile import EducationList
 from build.resourcesProjects import Projects
 from build.resourcesProjects import Project
 from build.resourcesProjects import ProjectImages
+from build.resourcesProjects import ProjectEnabled
 from build.resourcesFilters import ProjectFilters
 from build.resourcesFilters import ProjectFilter
 from build.resourcesFilters import Filters
@@ -38,6 +39,7 @@ api.add_resource(ProjectFilter, "/project/<int:prj_id>/filter/<int:filt_id>")
 api.add_resource(ProjectImages, "/projects/<int:id>/upload")
 api.add_resource(Filters, "/projects/filters")
 api.add_resource(Filter, "/projects/filter/<int:id>")
+api.add_resource(ProjectEnabled, "/projects/<int:id>/enabled")
 
 app.register_blueprint(api_bp, url_prefix="/api/v1")
 

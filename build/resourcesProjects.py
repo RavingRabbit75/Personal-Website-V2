@@ -1,5 +1,5 @@
 import os
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 import psycopg2
 from flask import request, current_app as app
 
@@ -336,3 +336,45 @@ class ProjectImages(Resource):
             "files saved": filesSaved
         }, 200
 
+
+
+class ProjectEnabled(Resource):
+    @auth.login_required
+    def put (self, id):
+        cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
+        if cur.rowcount == 0:
+            return {
+                "message": "item not found"
+            }, 404
+
+        if not Utils.validateJsonReqBody(request.get_json(), "enabled"):
+            return {
+                "error": "incorrect json body structure",
+                "message": "needs to have the key 'enabled'"
+            }, 400
+
+        if request.get_json()["enabled"] is not True and request.get_json()["enabled"] is not False:
+            return {
+                "error": "incorrect json body structure",
+                "message": "needs to have the key 'enabled' with value of true or false"
+            }, 400
+
+        projectEnabled=request.get_json()["enabled"]
+
+        sqlString = """UPDATE projects 
+                       SET enabled={0} 
+                       WHERE id={1};""".format(projectEnabled, str(id))
+
+        cur.execute(sqlString)
+        conn.commit()
+
+        cur.execute("SELECT id, name, enabled from projects WHERE id={0};".format(str(id)))
+        updatedProject = cur.fetchone()
+
+        return {
+            "project_id": updatedProject[0],
+            "project": updatedProject[1],
+            "enabled": updatedProject[2],
+            "message": "Success!"
+        }, 200
+        
