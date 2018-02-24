@@ -54,7 +54,8 @@ app.register_blueprint(api_bp, url_prefix="/api/v1")
 
 # setup for uploading files
 siteRoot = os.path.realpath(os.path.dirname(__file__ + "/../../"))
-UPLOAD_FOLDER = "temp_upload"
+# UPLOAD_FOLDER = "temp_upload"
+UPLOAD_FOLDER = "build/static/images/projects"
 uploadPath = os.path.join(siteRoot, UPLOAD_FOLDER)
 app.config['UPLOADED_PHOTOS_DEST'] = uploadPath
 

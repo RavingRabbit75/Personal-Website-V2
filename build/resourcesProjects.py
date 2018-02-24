@@ -237,10 +237,6 @@ class Project(Resource):
         if "liveLink" in project:
             cur.execute(sqlString, ("liveLink", project["liveLink"], str(id)))
 
-        
-        # sqlString = """INSERT INTO project_previews (urlpath, project_id, grouping) VALUES (%s, %s, %s);"""
-        # for image in project["images"]:
-        #   cur.execute(sqlString, (image["path"], newId, image["grouping"]))
 
         conn.commit()
 
