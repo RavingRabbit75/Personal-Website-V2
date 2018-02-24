@@ -9,6 +9,8 @@ from build.resourcesProjects import Projects
 from build.resourcesProjects import Project
 from build.resourcesProjects import ProjectImages
 from build.resourcesProjects import ProjectEnabled
+from build.resourcesProjects import ProjectPriorities
+from build.resourcesProjects import ProjectPriority
 from build.resourcesFilters import ProjectFilters
 from build.resourcesFilters import ProjectFilter
 from build.resourcesFilters import Filters
@@ -38,10 +40,12 @@ api.add_resource(Projects, "/projects")
 api.add_resource(Project, "/project/<int:id>")
 api.add_resource(ProjectFilters, "/project/<int:id>/filters")
 api.add_resource(ProjectFilter, "/project/<int:prj_id>/filter/<int:filt_id>")
-api.add_resource(ProjectImages, "/projects/<int:id>/upload")
+api.add_resource(ProjectImages, "/project/<int:id>/uploadImage")
+api.add_resource(ProjectPriorities, "/projects/priorities")
+api.add_resource(ProjectPriority, "/project/<int:id>/priority")
 api.add_resource(Filters, "/projects/filters")
 api.add_resource(Filter, "/projects/filter/<int:id>")
-api.add_resource(ProjectEnabled, "/projects/<int:id>/enabled")
+api.add_resource(ProjectEnabled, "/project/<int:id>/enabled")
 api.add_resource(Users, "/users")
 api.add_resource(User, "/user/<int:id>")
 

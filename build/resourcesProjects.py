@@ -373,8 +373,84 @@ class ProjectEnabled(Resource):
         updatedProject = cur.fetchone()
 
         return {
+            "message": "Success!",
             "project_id": updatedProject[0],
             "project": updatedProject[1],
-            "enabled": updatedProject[2],
-            "message": "Success!"
+            "enabled": updatedProject[2]
+        }, 200
+
+
+
+
+class ProjectPriorities(Resource):
+
+    @auth.login_required
+    def get(self):
+        cur.execute("SELECT id, name, priority from projects;")
+
+        prjPriorities = []
+
+        for prjPriority in cur:
+            prjPriorities.append(prjPriority)
+
+        return {
+            "project_priorities": prjPriorities
+        }, 200
+
+
+
+class ProjectPriority(Resource):
+
+    @auth.login_required
+    def get (self, id):
+        cur.execute("SELECT id, name, priority from projects WHERE id={0};".format(str(id)))
+        if cur.rowcount == 0:
+            return {
+                "message": "item not found"
+            }, 404
+
+        prjPriority = cur.fetchone()
+
+        return {
+            "project_priority": prjPriority
+        }, 200
+
+
+    @auth.login_required
+    def put (self, id):
+        cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
+        if cur.rowcount == 0:
+            return {
+                "message": "item not found"
+            }, 404
+
+        if not Utils.validateJsonReqBody(request.get_json(), "priority"):
+            return {
+                "error": "incorrect json body structure",
+                "message": "needs to have the key 'priority'"
+            }, 400
+
+        if type(request.get_json()["priority"]) is not int:
+            return {
+                "error": "incorrect json body structure",
+                "message": "needs to have the key 'priority' and value of type integer"
+            }, 400
+
+        priority=request.get_json()["priority"]
+
+        sqlString = """UPDATE projects 
+                       SET priority={0} 
+                       WHERE id={1};""".format(priority, str(id))
+
+        cur.execute(sqlString)
+        conn.commit()
+
+        cur.execute("SELECT id, name, priority from projects WHERE id={0};".format(str(id)))
+        updatedProject = cur.fetchone()
+
+        return {
+            "message": "Success!",
+            "project_id": updatedProject[0],
+            "project": updatedProject[1],
+            "priority": updatedProject[2]
         }, 200
