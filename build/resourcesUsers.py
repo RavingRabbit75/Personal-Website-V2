@@ -50,4 +50,16 @@ class User(Resource):
 
     @auth.login_required
     def get(self, id):
-        pass
+        cur.execute("SELECT * FROM users WHERE id={0};".format(str(id)))
+
+        if cur.rowcount == 0:
+            return {
+                "message": "user not found"
+            }, 404
+
+        user = cur.fetchone()
+
+        return {
+            "username": user[1],
+            "id": user[0]
+        }, 200
