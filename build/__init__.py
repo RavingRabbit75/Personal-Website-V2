@@ -113,10 +113,10 @@ def projects_sublinks_route():
 	return app.send_static_file("links/html_banners.html")
 
 
-# @app.route('/projects/<string:page_name>/')
-# def render_static(page_name):
-
-#     return render_template('links/{0}/{1}.html'.format(page_name, page_name))
+@app.route('/subsites/<string:page_name>/')
+def render_static(page_name):
+	pass
+    
 
 
 @app.route("/api/profile")

@@ -53,6 +53,11 @@ class SubSites(Resource):
 
 	@auth.login_required
 	def post(self):
+
+        if "image" in request.files:
+            imageList = request.files.getlist("image")
+
+
 		zfile=zipfile.ZipFile("realSimple_banner.zip")
 
 		# zfile.extractall("destination", "realSimple_banner/")

@@ -59,7 +59,17 @@ class User(Resource):
 
         user = cur.fetchone()
 
+        cur.execute("""SELECT subsite_id, user_id, name, path_name, zipfile, public 
+                        FROM subsites_to_users as stu 
+                        INNER JOIN subsites ON stu.subsite_id = subsites.id 
+                        WHERE user_id={0}""".format(str(id)))
+
+        subsites=[]
+        for subsite in cur:
+            subsites.append(subsite)
+
         return {
+            "user id": user[0],
             "username": user[1],
-            "id": user[0]
+            "subsites": subsites
         }, 200
