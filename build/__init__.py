@@ -61,10 +61,13 @@ app.register_blueprint(api_bp, url_prefix="/api/v1")
 
 # setup for uploading files
 siteRoot = os.path.realpath(os.path.dirname(__file__ + "/../../"))
-# UPLOAD_FOLDER = "temp_upload"
-UPLOAD_FOLDER = "build/static/images/projects"
-uploadPath = os.path.join(siteRoot, UPLOAD_FOLDER)
-app.config['UPLOADED_PHOTOS_DEST'] = uploadPath
+IMAGES_UPLOAD_FOLDER = "build/static/images/projects"
+imagesUploadPath = os.path.join(siteRoot, IMAGES_UPLOAD_FOLDER)
+app.config['UPLOADED_PHOTOS_DEST'] = imagesUploadPath
+
+ZIP_UPLOAD_FOLDER = "build/project_zip_files"
+zipsUploadPath = os.path.join(siteRoot, ZIP_UPLOAD_FOLDER)
+app.config['UPLOADED_ZIPS_DEST'] = zipsUploadPath
 
 
 # separate test api
