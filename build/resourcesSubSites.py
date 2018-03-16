@@ -87,7 +87,7 @@ class SubSites(Resource):
 
         sqlString = """INSERT INTO subsites 
                         (name, path_name, zipfile, public) 
-                        VALUES (%s, %s, %s, %s) RETURNING id, name;"""
+                        VALUES (%s, %s, %s, %s) RETURNING id, name, path_name;"""
 
         cur.execute(sqlString, 
                         (newSiteData["name"], 
@@ -98,9 +98,16 @@ class SubSites(Resource):
 
         newSite = cur.fetchone()
         conn.commit()
+
+        subsitesPath = app.config.get('SUBSITES_PATH')
+        fullPath = os.path.join(subsitesPath, newSite[2])
+        if not os.path.exists(fullPath):
+            os.makedirs(fullPath)
+
         return {
             "id" : newSite[0],
             "name" : newSite[1],
+            "pathName" : newSite[2],
             "message" : "New site created"
         }, 200
 

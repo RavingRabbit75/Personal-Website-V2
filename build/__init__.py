@@ -69,6 +69,9 @@ ZIP_UPLOAD_FOLDER = "build/project_zip_files"
 zipsUploadPath = os.path.join(siteRoot, ZIP_UPLOAD_FOLDER)
 app.config['UPLOADED_ZIPS_DEST'] = zipsUploadPath
 
+subsitesSubPath = "build/subsites"
+subsitesFullPath = os.path.join(siteRoot, subsitesSubPath)
+app.config['SUBSITES_PATH'] = subsitesFullPath
 
 # separate test api
 api_todo_bp = Blueprint("api_todo", __name__)
