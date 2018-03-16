@@ -105,7 +105,7 @@ class ProjectFilters(Resource):
             if filt in projectFilters:
                 return {
                     "message": "filter already exists in this project"
-                }
+                }, 409
 
         # filtersToAddFromReq ["Python", "Java"]
         filterIDs = []

@@ -1,6 +1,7 @@
 import os
 from flask_restful import Resource
 import psycopg2
+from flask import request
 import zipfile
 
 
@@ -53,20 +54,57 @@ class SubSites(Resource):
 
 	@auth.login_required
 	def post(self):
+		if (not Utils.validateJsonReqBody(request.get_json(), "siteData") or
+		   not Utils.validateJsonReqBody(request.get_json(), "siteData", "name") or 
+		   not Utils.validateJsonReqBody(request.get_json(), "siteData", "pathName") or 
+		   not Utils.validateJsonReqBody(request.get_json(), "siteData", "zipFile") or
+		   not Utils.validateJsonReqBody(request.get_json(), "siteData", "public")):
+			return {
+				"error" : "incorrect json body structure"
+			}, 400
 
-		if "image" in request.files:
-			imageList = request.files.getlist("image")
+		cur.execute("SELECT path_name, zipfile FROM subsites;")
+		newSiteData = request.get_json()["siteData"]
+
+		sites=[]
+		if cur.rowcount != 0:
+			for site in cur:
+				sites.append(site)
+
+		for site in sites:
+			if site[0] == newSiteData["pathName"]:
+				return {
+					"pathName" : newSiteData["pathName"],
+					"message" : "A site with the above path name already exists"
+				}, 409
+
+			if site[1] == newSiteData["zipFile"]:
+				return {
+					"zipFile" : newSiteData["zipFile"],
+					"message" : "A site with the above zip file already exists"
+				}, 409
 
 
-		zfile=zipfile.ZipFile("realSimple_banner.zip")
+		sqlString = """INSERT INTO subsites 
+						(name, path_name, zipfile, public) 
+						VALUES (%s, %s, %s, %s) RETURNING id, name;"""
 
-		# zfile.extractall("destination", "realSimple_banner/")
+		cur.execute(sqlString, 
+						(newSiteData["name"], 
+						newSiteData["pathName"], 
+						newSiteData["zipFile"],
+						False)
+					)
 
-		for file in zfile.namelist():
-			if file.startswith("realSimple_banner/"):
-				zfile.extract(file, "destination")
+		newSite = cur.fetchone()
+		conn.commit()
+		return {
+			"id" : newSite[0],
+			"name" : newSite[1],
+			"message" : "New site created"
+		}, 200
 
-		zfile.close()
+
 
 
 class SubSite(Resource):
@@ -95,3 +133,18 @@ class SubSite(Resource):
 	def delete(self, id):
 		pass
 
+
+class SubSiteUploadZip(Resource):
+
+	@auth.login_required
+	def post(self, id):
+		# zfile=zipfile.ZipFile("realSimple_banner.zip")
+
+		# zfile.extractall("destination", "realSimple_banner/")
+
+		# for file in zfile.namelist():
+		# 	if file.startswith("realSimple_banner/"):
+		# 		zfile.extract(file, "destination")
+
+		# zfile.close()
+		pass

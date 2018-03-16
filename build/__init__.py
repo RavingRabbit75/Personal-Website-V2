@@ -19,6 +19,7 @@ from build.resourcesUsers import Users
 from build.resourcesUsers import User
 from build.resourcesSubSites import SubSites
 from build.resourcesSubSites import SubSite
+from build.resourcesSubSites import SubSiteUploadZip
 
 
 from other_api.todo.resources import TodoList
@@ -53,6 +54,7 @@ api.add_resource(Users, "/users")
 api.add_resource(User, "/user/<int:id>")
 api.add_resource(SubSites, "/subsites")
 api.add_resource(SubSite, "/subsite/<int:id>")
+api.add_resource(SubSiteUploadZip, "/subsite/<int:id>/uploadZip")
 
 app.register_blueprint(api_bp, url_prefix="/api/v1")
 
