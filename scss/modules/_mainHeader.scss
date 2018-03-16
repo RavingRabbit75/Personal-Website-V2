@@ -170,11 +170,13 @@
   }
 }
 
-
+#hero-images-box {
+  width: 100%;
+  overflow: hidden;
+}
 
 #hero-images {
   height: 250px;
-  // height: auto;
   width: 370px;
   margin-top: 30px;
   margin-bottom: 0;

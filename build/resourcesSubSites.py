@@ -14,17 +14,17 @@ auth = HTTPBasicAuth()
 
 @auth.verify_password
 def get_pw(username, client_password):
-    
-    cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
-    if cur.rowcount==0:
-        return False
+	
+	cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
+	if cur.rowcount==0:
+		return False
 
-    return bcrypt.checkpw(client_password.encode("utf-8"), cur.fetchone()[2].encode("utf-8"))
+	return bcrypt.checkpw(client_password.encode("utf-8"), cur.fetchone()[2].encode("utf-8"))
 
 
 def connect():
-    c=psycopg2.connect("dbname=raychow_db")
-    return c
+	c=psycopg2.connect("dbname=raychow_db")
+	return c
 
 conn = connect()
 cur = conn.cursor()
@@ -54,8 +54,8 @@ class SubSites(Resource):
 	@auth.login_required
 	def post(self):
 
-        if "image" in request.files:
-            imageList = request.files.getlist("image")
+		if "image" in request.files:
+			imageList = request.files.getlist("image")
 
 
 		zfile=zipfile.ZipFile("realSimple_banner.zip")
