@@ -1,4 +1,5 @@
 import os
+import shutil
 from flask_restful import Resource
 import psycopg2
 from flask import request, current_app as app
@@ -99,11 +100,6 @@ class SubSites(Resource):
         newSite = cur.fetchone()
         conn.commit()
 
-        subsitesPath = app.config.get('SUBSITES_PATH')
-        fullPath = os.path.join(subsitesPath, newSite[2])
-        if not os.path.exists(fullPath):
-            os.makedirs(fullPath)
-
         return {
             "id" : newSite[0],
             "name" : newSite[1],
@@ -149,22 +145,25 @@ class SubSiteUploadZip(Resource):
         if cur.rowcount == 0:
             return {
                 "message": "sub-site not found"
-            }, 404
+            }, 422
         
         siteData=cur.fetchone()
 
-        if "zipFile" in request.files:
-            zipList = request.files.getlist("zipFile")
-            if len(zipList) != 1:
-                return {
-                    "error": "only one zip file allowed"
-                }, 400
-            
-            if zipList[0].filename != siteData[3]:
-                # from IPython import embed; embed()
-                return {
-                    "error": "uploaded zip file not allowed"
-                }, 404
+        if "zipFile" not in request.files:
+            return {
+                "error": "zip file missing"
+            }, 422
+
+        zipList = request.files.getlist("zipFile")
+        if len(zipList) != 1:
+            return {
+                "error": "only one zip file allowed"
+            }, 422
+        
+        if zipList[0].filename != siteData[3]:
+            return {
+                "error": "uploaded zip file not allowed"
+            }, 422
 
         uploadPath = app.config.get('UPLOADED_ZIPS_DEST')
 
@@ -172,15 +171,25 @@ class SubSiteUploadZip(Resource):
         if os.path.exists(fullPath):
             os.remove(fullPath)
 
-        zipList[0].save(os.path.join(uploadPath, zipList[0].filename))
+        folderName = zipList[0].filename.split(".")[0]
 
-        # zfile=zipfile.ZipFile("realSimple_banner.zip")
+        zipSavePath=os.path.join(uploadPath, zipList[0].filename)
+        zipList[0].save(zipSavePath)
 
-        # zfile.extractall("destination", "realSimple_banner/")
+        subsitesPath = app.config.get('SUBSITES_PATH')
 
-        # for file in zfile.namelist():
-        #   if file.startswith("realSimple_banner/"):
-        #       zfile.extract(file, "destination")
+        if os.path.exists(os.path.join(subsitesPath, folderName)):
+            shutil.rmtree(os.path.join(subsitesPath, folderName))
 
-        # zfile.close()
+        zfile=zipfile.ZipFile(zipSavePath)
+
+        for file in zfile.namelist():
+          if file.startswith(folderName+"/"):
+              zfile.extract(file, subsitesPath)
+        
+        zfile.close()
+
+        return {
+            "message": "update successful"
+        }, 200
         

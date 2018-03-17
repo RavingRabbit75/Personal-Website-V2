@@ -5,3 +5,5 @@ test_command.sh
 site_json_temp/
 test_zip_files/
 temp_upload/
+
+build/subsites
