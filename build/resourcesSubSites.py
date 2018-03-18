@@ -129,8 +129,39 @@ class SubSite(Resource):
 
     @auth.login_required
     def put(self, id):
-        pass
+        if not Utils.validateJsonReqBody(request.get_json(), "public"):
+            return {
+                "error" : "incorrect json body structure"
+            }, 400
 
+        cur.execute("SELECT * from subsites WHERE id={0};".format(str(id)))
+        if cur.rowcount == 0:
+            return {
+                "message": "sub-site not found"
+            }, 404
+
+        siteStatus=None
+        if request.get_json()["public"] is False:
+            siteStatus=False
+
+        elif request.get_json()["public"] is True:
+            siteStatus=True
+
+        else:
+            return {
+                "error": "invalid value"
+            }, 400
+
+        sqlString = """UPDATE subsites 
+                       SET public={0} 
+                       WHERE id={1};""".format(siteStatus, str(id))
+
+        cur.execute(sqlString)
+        conn.commit()
+
+        return {
+            "message": "update successful"
+        }, 200
 
     @auth.login_required
     def delete(self, id):
