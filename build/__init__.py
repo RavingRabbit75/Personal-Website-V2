@@ -60,6 +60,8 @@ api.add_resource(SubSiteUploadZip, "/subsite/<int:id>/uploadZip")
 app.register_blueprint(api_bp, url_prefix="/api/v1")
 
 
+app = Flask(__name__, static_folder='static')  
+
 # setup for uploading files
 siteRoot = os.path.realpath(os.path.dirname(__file__ + "/../../"))
 IMAGES_UPLOAD_FOLDER = "build/static/images/projects"
@@ -70,7 +72,7 @@ ZIP_UPLOAD_FOLDER = "build/project_zip_files"
 zipsUploadPath = os.path.join(siteRoot, ZIP_UPLOAD_FOLDER)
 app.config['UPLOADED_ZIPS_DEST'] = zipsUploadPath
 
-subsitesSubPath = "build/subsites"
+subsitesSubPath = "build/static/subsites"
 subsitesFullPath = os.path.join(siteRoot, subsitesSubPath)
 app.config['SUBSITES_PATH'] = subsitesFullPath
 
@@ -126,13 +128,22 @@ def projects_sublinks_route():
 def render_static(page_name):
     results = SS.findSubsite(page_name)
     # (2,'Random Agency Previews','randomAgency_previews','randomAgency_previews.zip',False)
+    print(page_name, results)
+    # from IPython import embed; embed()
     if results is None:
         return render_template("404.html"), 404
 
     if results[4] is False:
         return render_template("404.html"), 401
 
-    return app.send_static_file("subsites/" + page_name + "/index.html")
+    pathName=results[3].split(".")[0]
+
+    # subsitesPath = app.config.get('SUBSITES_PATH')
+    # pathToFiles=os.path.join(subsitesPath, pathName, "index.html")
+    # from IPython import embed; embed()
+    # return app.send_static_file("subsites/" + pathName + "/index.html")
+    # return send_from_directory(app.static_folder, "subsites/" + pathName + "/index.html")
+    return render_template
     
 
 @app.route("/api/profile")

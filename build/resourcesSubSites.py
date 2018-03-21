@@ -163,9 +163,50 @@ class SubSite(Resource):
             "message": "update successful"
         }, 200
 
+
     @auth.login_required
     def delete(self, id):
-        pass
+        if (not Utils.validateJsonReqBody(request.get_json(), "siteData") or
+            not Utils.validateJsonReqBody(request.get_json(), "siteData", "name") or
+            not Utils.validateJsonReqBody(request.get_json(), "siteData", "pathName") or
+            not Utils.validateJsonReqBody(request.get_json(), "siteData", "delete")):
+            return {
+                "error" : "incorrect json body structure"
+            }, 400
+
+        cur.execute("SELECT * from subsites WHERE id={0};".format(str(id)))
+        if cur.rowcount == 0:
+            return {
+                "message": "sub-site not found"
+            }, 404
+
+        requestedSiteData = request.get_json()["siteData"]
+        siteToDelete = cur.fetchone()
+        
+        if (requestedSiteData["name"]!=siteToDelete[1] or
+            requestedSiteData["pathName"]!=siteToDelete[2]):
+            return {
+                "error": "invalid VALUES"
+            }, 400
+
+        uploadPath = app.config.get('UPLOADED_ZIPS_DEST')
+
+        fullPath = os.path.join(uploadPath, siteToDelete[3])
+        if os.path.exists(fullPath):
+            os.remove(fullPath)
+
+        folderName = siteToDelete[3].split(".")[0]
+        subsitesPath = app.config.get('SUBSITES_PATH')
+
+        if os.path.exists(os.path.join(subsitesPath, folderName)):
+            shutil.rmtree(os.path.join(subsitesPath, folderName))
+
+        cur.execute("DELETE FROM subsites WHERE id={0};".format(str(id)))
+        conn.commit()
+
+        return {
+            "message": "delete successful"
+        }, 200
 
 
 class SubSiteUploadZip(Resource):
