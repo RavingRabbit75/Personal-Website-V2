@@ -7,3 +7,9 @@ test_zip_files/
 temp_upload/
 
 build/static/subsites
+build/project_zip_files/
+
+__pycache__/
+*.pyc
+	
+node_modules/
