@@ -1,0 +1,14 @@
+
+#panel {
+	height: 100px;
+	border: 1px dashed green;
+	margin: 5px;
+}
+
+.box {
+	height: 50px;
+	width: 50px;
+	border: 1px solid grey;
+	margin: 5px;
+	display: inline-block;
+}

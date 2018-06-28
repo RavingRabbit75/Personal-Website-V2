@@ -1,0 +1,9 @@
+/* */
+/* CREATE THIS FILE IN ./src/main.css */
+/* */
+
+
+section {
+	width: 100%;
+	border: 1px solid purple;
+}

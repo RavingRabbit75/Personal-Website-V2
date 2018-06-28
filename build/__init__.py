@@ -149,7 +149,16 @@ def render_subsiteFiles(subsite, resource):
     static_file_path = "subsites/" + pathName + "/" + resource
     return app.send_static_file(static_file_path)
 
+
+@app.route("/testReact")
+def testReact_route():
+    return render_template("./react/index.html")
+
     
+
+###########################################
+# API Routes
+
 @app.route("/api/profile")
 def api_profile():
     siteRoot = os.path.realpath(os.path.dirname(__file__))
@@ -195,6 +204,7 @@ def api_projects():
         return jsonify(nextImages)
     
     return jsonify({"results":"No project found"})
+
 
 
 @app.errorhandler(404)
