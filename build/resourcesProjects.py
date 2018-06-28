@@ -1,7 +1,7 @@
 import os
 from flask_restful import Resource
 import psycopg2
-from flask import request, current_app as app
+from flask import request, current_app as app, make_response, jsonify
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -53,7 +53,8 @@ class Projects(Resource):
                     "enabled" : project[7]
                 })
 
-        return {"projects": projectList}, 200
+        response = make_response(jsonify({"projects": projectList}), 200)
+        return response
 
 
 
@@ -108,7 +109,8 @@ class Projects(Resource):
             cur.execute(sqlString, (image["path"], newId, image["grouping"]))
 
         conn.commit()
-        return {"message": "POST DONE"}, 200
+        response = make_response(jsonify({"message": "POST DONE"}), 200)
+        return response
 
 
 
@@ -179,10 +181,8 @@ class Project(Resource):
         for projectURL in cur:
             projectData["urls"].append(projectURL)
 
-
-        return {
-            "projectData": projectData
-        }, 200
+        response = make_response(jsonify({"projectData": projectData}), 200)
+        return response
 
 
     @auth.login_required
@@ -239,8 +239,8 @@ class Project(Resource):
 
 
         conn.commit()
-
-        return {"message": "PUT DONE"}, 200
+        response = make_response(jsonify({"message": "PUT DONE"}), 200)
+        return response
 
 
 
@@ -284,7 +284,8 @@ class Project(Resource):
             return {"file missing" : fileStatus[1]}, 404
         
 
-        return {"Deletion Successful" : str(id)}
+        response = make_response(jsonify({"Deletion Successful" : str(id)}), 200)
+        return response
 
 
 
@@ -327,10 +328,11 @@ class ProjectImages(Resource):
                     filesSaved.append(filename)
 
 
-        return {
+        response = make_response(jsonify({
             "message": "POST DONE",
             "files saved": filesSaved
-        }, 200
+        }), 200)
+        return response
 
 
 
@@ -368,14 +370,13 @@ class ProjectEnabled(Resource):
         cur.execute("SELECT id, name, enabled from projects WHERE id={0};".format(str(id)))
         updatedProject = cur.fetchone()
 
-        return {
+        response = make_response(jsonify({
             "message": "Success!",
             "project_id": updatedProject[0],
             "project": updatedProject[1],
             "enabled": updatedProject[2]
-        }, 200
-
-
+        }), 200)
+        return response
 
 
 class ProjectPriorities(Resource):
@@ -389,9 +390,8 @@ class ProjectPriorities(Resource):
         for prjPriority in cur:
             prjPriorities.append(prjPriority)
 
-        return {
-            "project_priorities": prjPriorities
-        }, 200
+        response = make_response(jsonify({"project_priorities": prjPriorities}), 200)
+        return response
 
 
 
@@ -407,9 +407,8 @@ class ProjectPriority(Resource):
 
         prjPriority = cur.fetchone()
 
-        return {
-            "project_priority": prjPriority
-        }, 200
+        response = make_response(jsonify({"project_priority": prjPriority}), 200)
+        return response
 
 
     @auth.login_required
@@ -444,9 +443,10 @@ class ProjectPriority(Resource):
         cur.execute("SELECT id, name, priority from projects WHERE id={0};".format(str(id)))
         updatedProject = cur.fetchone()
 
-        return {
+        response = make_response(jsonify({
             "message": "Success!",
             "project_id": updatedProject[0],
             "project": updatedProject[1],
             "priority": updatedProject[2]
-        }, 200
+        }), 200)
+        return response

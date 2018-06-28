@@ -1,6 +1,6 @@
 from flask_restful import Resource
 import psycopg2
-from flask import request
+from flask import request, jsonify, make_response
 
 from flask_httpauth import HTTPBasicAuth
 import bcrypt
@@ -35,7 +35,8 @@ class SkillList(Resource):
         for skill in cur:
             skills.append({"skill" : skill[1], "level" : skill[2]})
 
-        return {"skills" : skills}, 200
+        response = make_response(jsonify({"skills" : skills}), 200)
+        return response
 
 
     @auth.login_required
@@ -53,7 +54,8 @@ class SkillList(Resource):
                            (skill["skill"],skill["level"]) )
 
         conn.commit()
-        return {"message": "update successful"}, 200
+        response = make_response(jsonify({"message": "update successful"}), 200)
+        return response
 
 
 class ExperienceList(Resource):
@@ -101,8 +103,8 @@ class ExperienceList(Resource):
                     tempDict["accomplishments"].append(single_exp[6])
 
         experience.append(tempDict)
-
-        return {"experience" : experience}, 200
+        response = make_response(jsonify({"experience" : experience}), 200)
+        return response
 
 
     @auth.login_required
@@ -132,9 +134,9 @@ class ExperienceList(Resource):
                                (single_exp["exp_id"], 
                                 single_acc))
 
-
         conn.commit()
-        return {"message": "update successful"}, 200
+        response = make_response(jsonify({"message": "update successful"}), 200)
+        return response
 
 
 class EducationList(Resource):
@@ -153,8 +155,9 @@ class EducationList(Resource):
                     "year": single_edu[2]
                 }
             )
-
-        return {"education" : education}, 200
+            
+        response = make_response(jsonify({"education" : education}), 200)
+        return response
 
 
     @auth.login_required
@@ -174,4 +177,5 @@ class EducationList(Resource):
                             single_edu["year"]))
 
         conn.commit()
-        return {"message": "update successful"}, 200
+        response = make_response(jsonify({"message": "update successful"}), 200)
+        return response

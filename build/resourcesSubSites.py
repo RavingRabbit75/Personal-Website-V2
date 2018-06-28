@@ -47,10 +47,11 @@ class SubSites(Resource):
         for subsite in cur:
             subSitesList.append(subsite)
 
-        return {
+        response = make_response(jsonify({
             "number of subsites": len(subSitesList),
             "subsites": subSitesList
-        }, 200
+        }), 200)
+        return response
 
 
     @auth.login_required
@@ -100,14 +101,13 @@ class SubSites(Resource):
         newSite = cur.fetchone()
         conn.commit()
 
-        return {
+        response = make_response(jsonify({
             "id" : newSite[0],
             "name" : newSite[1],
             "pathName" : newSite[2],
             "message" : "New site created"
-        }, 200
-
-
+        }), 200)
+        return response
 
 
 class SubSite(Resource):
@@ -122,9 +122,8 @@ class SubSite(Resource):
 
         subsite=cur.fetchone()
 
-        return {
-            "subsite": subsite
-        }, 200
+        response = make_response(jsonify({"subsite": subsite}), 200)
+        return response
 
 
     @auth.login_required
@@ -159,9 +158,8 @@ class SubSite(Resource):
         cur.execute(sqlString)
         conn.commit()
 
-        return {
-            "message": "update successful"
-        }, 200
+        response = make_response(jsonify({"message": "update successful"}), 200)
+        return response
 
 
     @auth.login_required
@@ -204,9 +202,8 @@ class SubSite(Resource):
         cur.execute("DELETE FROM subsites WHERE id={0};".format(str(id)))
         conn.commit()
 
-        return {
-            "message": "delete successful"
-        }, 200
+        response = make_response(jsonify({"message": "delete successful"}), 200)
+        return response
 
 
 class SubSiteUploadZip(Resource):
@@ -261,7 +258,6 @@ class SubSiteUploadZip(Resource):
         
         zfile.close()
 
-        return {
-            "message": "update successful"
-        }, 200
+        response = make_response(jsonify({"message": "update successful"}), 200)
+        return response
         

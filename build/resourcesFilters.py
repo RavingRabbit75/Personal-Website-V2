@@ -53,10 +53,11 @@ class ProjectFilters(Resource):
         for filt in cur:
             filtersForProject.append(filt)
 
-        return {
+        response = make_response(jsonify({
             "project": projectName,
             "pf_id & filter name": filtersForProject
-        }, 200
+        }), 200)
+        return response
 
 
     @auth.login_required
@@ -127,11 +128,12 @@ class ProjectFilters(Resource):
                             WHERE project_id={0} AND f.filter_tag='{1}';""".format(str(id), filt))
             filterResults.append(cur.fetchone())
 
-        return {
+        response = make_response(jsonify({
             "message": "New filters added",
             "project name": projectNameFromReq,
             "filters added": filterResults
-        }, 200
+        }), 200)
+        return response
 
 
 class ProjectFilter(Resource):
@@ -160,12 +162,13 @@ class ProjectFilter(Resource):
         
         conn.commit()
 
-        return {
+        response = make_response(jsonify({
             "message" : "Deletion Successful",
             "project": projName,
             "filter": filterName,
             "filter_id": filter_id
-        }
+        }), 200)
+        return response
 
 
 class Filters(Resource):
@@ -184,11 +187,12 @@ class Filters(Resource):
         for filt in cur:
             filters.append(filt)
 
-        return {
+        response = make_response(jsonify({
             "message" : "success",
             "total filters" : numberOfFilters,
             "filters" : filters
-        }, 200
+        }), 200)
+        return response
 
 
     def post(self):
@@ -223,10 +227,11 @@ class Filters(Resource):
 
         conn.commit()
 
-        return {
+        response = make_response(jsonify({
             "message" : "success",
             "filters add" : idsToReturn
-        }, 200
+        }), 200)
+        return response
 
 
 class Filter(Resource):
@@ -241,11 +246,12 @@ class Filter(Resource):
 
         queriedFilter = cur.fetchone()
 
-        return {
+        response = make_response(jsonify({
             "message" : "success",
             "filter" : queriedFilter[1],
             "id" : queriedFilter[0]
-        }, 200
+        }), 200)
+        return response
 
 
     def delete(self, id):
@@ -269,7 +275,8 @@ class Filter(Resource):
         cur.execute(sqlString)
         conn.commit()
 
-        return {
+        response = make_response(jsonify({
             "message" : "delete successful",
             "deleted filter" : {"id": filterToDelete[0], "filter": filterToDelete[1]}
-        }, 200
+        }), 200)
+        return response

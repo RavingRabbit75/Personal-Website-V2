@@ -1,6 +1,6 @@
 from flask_restful import Resource
 import psycopg2
-from flask import request, current_app as app
+from flask import request, current_app as app, make_response, jsonify
 from flask_httpauth import HTTPBasicAuth
 import bcrypt
 
@@ -40,10 +40,11 @@ class Users(Resource):
         for user in cur:
             userList.append(user)
 
-        return {
+        response = make_response(jsonify({
             "number of users": len(userList),
             "users": userList
-        }, 200
+        }), 200)
+        return response
 
 
 class User(Resource):
@@ -68,8 +69,9 @@ class User(Resource):
         for subsite in cur:
             subsites.append(subsite)
 
-        return {
+        response = make_response(jsonify({
             "user id": user[0],
             "username": user[1],
             "subsites": subsites
-        }, 200
+        }), 200)
+        return response
