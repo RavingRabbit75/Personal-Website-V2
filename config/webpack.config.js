@@ -13,9 +13,11 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        use: [
+          {
+            loader: "babel-loader"
+          }
+        ]
       },
       { 
         test: /index_dev\.html$/,
@@ -30,7 +32,21 @@ module.exports = {
             loader: "extract-loader"
           },
           {
-            loader: "html-loader"
+            loader: "html-loader",
+            options: {
+              attrs: ["img:src"]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(jpg|gif|png|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "imgs/[name].[ext]"
+            }
           }
         ]
       },

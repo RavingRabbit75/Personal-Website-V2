@@ -18,7 +18,7 @@ module.exports = {
         }
       },
       {
-        test: /\.html$/,
+        test: /index\.html$/,
         use: [
           {
             loader: "file-loader",
@@ -32,6 +32,17 @@ module.exports = {
           },
           {
             loader: "html-loader"
+          }
+        ]
+      },
+      {
+        test: /\.(jpg|gif|png|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "imgs/[name].[ext]"
+            }
           }
         ]
       },

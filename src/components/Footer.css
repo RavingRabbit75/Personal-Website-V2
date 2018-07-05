@@ -1,0 +1,38 @@
+.footer {
+	margin-top: 100px;
+	margin-bottom: 40px;
+}
+
+.header-icon-links {
+	margin-bottom: 25px;
+}
+
+.header-icon-size {
+	height: 36px;
+	width: 36px;
+	position: relative;
+}
+  
+.iconposition {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.iconover {
+	opacity: 0;
+}
+
+.iconmiddle {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.divspan {
+	display: inline-block;
+	overflow: hidden;
+}
+
+.text-center {
+	text-align: center;
+}
