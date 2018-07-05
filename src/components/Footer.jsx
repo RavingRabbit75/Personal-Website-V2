@@ -1,5 +1,6 @@
 import React from "react";
 import s from "./Footer.css";
+import Iconlink from "./Iconlink.jsx"
 import icon_mail from "./imgs/iconFooter_mail.svg";
 import icon_mail_over from "./imgs/iconFooter_mail_over.svg";
 import icon_linkedin from "./imgs/iconFooter_linkedin.svg";
@@ -30,20 +31,9 @@ export default class Footer extends React.Component {
 			<React.Fragment>
 				<div id="footer" className={footer}>
 					<div id="header-icon-links" className={headerIconLinks}>
-						 
-						<a className="" href=""><div className={icon}>
-							<img className={iconPosition} src={icon_mail} alt="" />
-							<img className={iconPosition_over} src={icon_mail_over} alt="" /> 
-						</div></a>
-						<a className="" href="" target="blank"><div className={iconMiddle}>
-							<img className={iconPosition} src={icon_linkedin} alt="" />
-							<img className={iconPosition_over} src={icon_linkedin_over} alt="" />
-						</div></a>
-						<a className="" href="" target="blank"><div className={icon}>
-							<img className={iconPosition} src={icon_github} alt="" />
-							<img className={iconPosition_over} src={icon_github_over} alt="" />
-						</div></a>
-
+						<Iconlink section="footer" rowPosition="left" type="mail" url=""/>
+						<Iconlink section="footer" rowPosition="middle" type="linkedin" url=""/>
+						<Iconlink section="footer" rowPosition="right" type="github" url=""/>
 					</div>
 				</div>
 			</React.Fragment>

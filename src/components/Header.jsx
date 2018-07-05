@@ -40,18 +40,9 @@ export default class Header extends React.Component {
 		// });
 	}
 
-	iconMouseOver() {
-		TweenMax.to(this.headerMailIconOver, 0.75, {opacity: 1});
-	}
-
-	iconMouseOut() {
-		TweenMax.to(this.headerMailIconOver, 0.5, {opacity: 0});
-	}
-
 	// mailto:{{ baseContent.email }}
 	// {{ baseContent.linkedinProfile }}
 	// {{ baseContent.githubProfile }}
-	// "divspan header-icon-size"
 	render() {
 		let headerMainBg = s["header-main-bg"];
 		let currentDate = s["date-text"] + " " + s["text-center"];
@@ -62,11 +53,6 @@ export default class Header extends React.Component {
 
 		let developerTitle = s["developer-title"] + " " + s["text-center"] + " " + s["text"];
 		let dtLine = s["dt-line"];
-
-		let icon = s.divspan + " " + s["header-icon-size"];
-		let iconMiddle = s.divspan + " " + s["header-icon-size"] + " " + s.iconmiddle;
-		let iconPosition = s.iconposition;
-		let iconPosition_over = s.iconposition + " " + s.iconover;
 
 		let headerIconLinks = s["header-icon-links"] + " " + s["text-center"];
 
@@ -100,9 +86,9 @@ export default class Header extends React.Component {
 						</div>
 
 						<div id="header-icon-links" className={headerIconLinks}>
-							<Iconlink rowPosition="left" type="mail"/>
-							<Iconlink rowPosition="middle" type="linkedin"/>
-							<Iconlink rowPosition="right" type="github"/>
+							<Iconlink section="header" rowPosition="left" type="mail" url=""/>
+							<Iconlink section="header" rowPosition="middle" type="linkedin" url=""/>
+							<Iconlink section="header" rowPosition="right" type="github" url=""/>
 						</div>
 
 						<div className="text-center">
