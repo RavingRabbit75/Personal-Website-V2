@@ -1,5 +1,7 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import s from "./Header.css";
+import Iconlink from "./Iconlink.jsx"
 import header_image_name from "./imgs/header_image_name.png";
 import header_image_laptop from "./imgs/header_image_laptop.png";
 import icon_mail from "./imgs/icon_mail.svg";
@@ -8,6 +10,19 @@ import icon_linkedin from "./imgs/icon_linkedin.svg";
 import icon_linkedin_over from "./imgs/icon_linkedin_over.svg";
 import icon_github from "./imgs/icon_github.svg";
 import icon_github_over from "./imgs/icon_github_over.svg";
+import { 
+    TweenMax,
+    TimelineMax,
+    AttrPlugin,
+    CSSPlugin
+} from "gsap";
+
+const activated = [
+    TweenMax,
+    TimelineMax,
+    AttrPlugin,
+    CSSPlugin
+];
 
 export default class Header extends React.Component {
 	constructor(props) {
@@ -17,39 +32,20 @@ export default class Header extends React.Component {
 		}
 	}
 
-	// setupButtons () {
-	// 	var profileBtn=document.getElementById("profile-btn");
-	// 	var projectsBtn=document.getElementById("projects-btn");
-	// 	profileBtn.addEventListener("mouseover", sectionMouseOver);
-	// 	profileBtn.addEventListener("mouseout", sectionMouseOut);
-	// 	projectsBtn.addEventListener("mouseover", sectionMouseOver);
-	// 	projectsBtn.addEventListener("mouseout", sectionMouseOut);
+	componentDidMount() {
+		// TweenMax.to(this, 1, {x:100, y:100});
+		// const node = ReactDOM.findDOMNode(this);
+		// this.loaderTween = TweenMax.to(node, 1, {
+		// 	x: "200px", ease: Expo.easeInOut, delay: 2
+		// });
+	}
 
-	// 	$(".iconover").mouseover(function(evt){
-	// 		TweenMax.to(evt.target, 0.5, {opacity:1});
-	// 	});
+	iconMouseOver() {
+		TweenMax.to(this.headerMailIconOver, 0.75, {opacity: 1});
+	}
 
-	// 	$(".iconover").mouseout(function(evt){
-	// 		TweenMax.to(evt.target, 0.25, {opacity:0});
-	// 	});
-
-	// 	function sectionMouseOver(evt) {
-	// 		TweenMax.to(evt.target, 0.5, {color:"#f5b730"});
-	// 	}
-
-	// 	function sectionMouseOut(evt) {
-	// 		TweenMax.to(evt.target, 0.25, {color:"#efc978"});
-	// 	}
-	// }
-
-	_onClick(event){
-		if (this.props.whosTurn==="myTurn"){
-			if(this.props.indicator==="empty"){
-				this.props.returnId(this.props.gridId);
-			}
-		} else if (this.props.whosTurn!=="myTurn"){
-			this.props.returnId(null)
-		}
+	iconMouseOut() {
+		TweenMax.to(this.headerMailIconOver, 0.5, {opacity: 0});
 	}
 
 	// mailto:{{ baseContent.email }}
@@ -104,18 +100,9 @@ export default class Header extends React.Component {
 						</div>
 
 						<div id="header-icon-links" className={headerIconLinks}>
-							<a className="icon-link" href="" ><div className={icon}>
-								<img className={iconPosition} src={icon_mail} alt=""/>
-								<img className={iconPosition_over} src={icon_mail_over} alt=""/>
-							</div></a>
-							<a className="icon-link" href="" target="blank"><div className={iconMiddle}>
-								<img className={iconPosition} src={icon_linkedin} alt=""/>
-								<img className={iconPosition_over} src={icon_linkedin_over} alt=""/>
-							</div></a>
-							<a className="icon-link" href="" target="blank"><div className={icon}>
-								<img className={iconPosition} src={icon_github} alt=""/>
-								<img className={iconPosition_over} src={icon_github_over} alt=""/>
-							</div></a>
+							<Iconlink rowPosition="left" type="mail"/>
+							<Iconlink rowPosition="middle" type="linkedin"/>
+							<Iconlink rowPosition="right" type="github"/>
 						</div>
 
 						<div className="text-center">
