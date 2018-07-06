@@ -24,31 +24,6 @@
   margin-bottom: 30px;
 }
 
-.header-icon-size {
-  height: 36px;
-  width: 36px;
-  position: relative;
-}
-
-.iconposition {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.iconover {
-  opacity: 0;
-}
-
-.iconmiddle {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.divspan {
-  display: inline-block;
-  overflow: hidden;
-}
 
 .text-center {
   text-align: center;
@@ -137,55 +112,6 @@
   margin-right: auto;
   text-align: center;
 }
-
-.profile-btn {
-  margin-right: 62px;
-  width: 53px;
-}
-
-.projects-btn {
-  margin-left: 62px;
-  width: 60px;
-}
-
-.section-btn {
-  position: relative;
-  display: inline-block;
-  text-align: center;
-}
-
-.section-link-txt {
-  /*position: absolute;*/
-}
-
-a {
-  color: #efc978;
-  text-decoration: none;
-}
-
-a:hover {
-  cursor: pointer;
-}
-
-
-.profile-btn-indicator {
-  position: relative;
-  top: -14px;
-  height: 2px;
-  width: 0%;
-  background-color: #efc978;
-  display: inline-block;
-}
-
-.projects-btn-indicator {
-  position: relative;
-  top: -14px;
-  height: 2px;
-  width: 0%;
-  background-color: #efc978;
-  display: inline-block;
-}
-
 
 
 @media only screen and (min-width: 500px) {

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import s from "./Header.css";
 import Iconlink from "./Iconlink.jsx"
+import SectionButton from "./SectionButton.jsx"
 import header_image_name from "./imgs/header_image_name.png";
 import header_image_laptop from "./imgs/header_image_laptop.png";
 import icon_mail from "./imgs/icon_mail.svg";
@@ -40,6 +41,14 @@ export default class Header extends React.Component {
 		// });
 	}
 
+
+	confirmActiveSection(sectionToTest) {
+		if (this.props.currentSection===sectionToTest) {
+			return true;
+		} 
+		return false;
+	}
+
 	// mailto:{{ baseContent.email }}
 	// {{ baseContent.linkedinProfile }}
 	// {{ baseContent.githubProfile }}
@@ -57,11 +66,6 @@ export default class Header extends React.Component {
 		let headerIconLinks = s["header-icon-links"] + " " + s["text-center"];
 
 		let sectionsLinks = s["sections-links"] + " " + s["text-bold"];
-		let sectionLinkText = s["section-link-txt"];
-		let profileBtn = s["profile-btn"] + " " + s["section-btn"];
-		let projectsBtn = s["projects-btn"] + " " + s["section-btn"];
-		let profileBtnIndicator = s["profile-btn-indicator"];
-		let projectsBtnIndicator = s["projects-btn-indicator"];
 
 		let headerEdge = s["header-edge"];
 		let headerDropoff = s["header-dropoff"];
@@ -93,14 +97,8 @@ export default class Header extends React.Component {
 
 						<div className="text-center">
 							<div id="sections-links" className={sectionsLinks}>
-								<div id="profile-btn" className={profileBtn}>
-									<a className={sectionLinkText} href="/profile">PROFILE</a>
-									<div id="profile-btn-indicator" className={profileBtnIndicator}></div>
-								</div>
-								<div id="projects-btn" className={projectsBtn}>
-									<a className={sectionLinkText} href="/projects">PROJECTS</a>
-									<div id="projects-btn-indicator" className={projectsBtnIndicator}></div>
-								</div>
+								<SectionButton section="profile" text="PROFILE" active={this.confirmActiveSection("profile")}/>
+								<SectionButton section="projects" text="PROJECTS" active={this.confirmActiveSection("projects")}/>
 							</div>
 						</div>
 					

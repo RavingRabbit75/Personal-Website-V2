@@ -10,7 +10,7 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-
+			currentSection: "projects"
 		}
 	}
 
@@ -26,14 +26,8 @@ export default class App extends React.Component {
 	render() {
 		return(
 			<React.Fragment>
-				<Header/>
-
+				<Header currentSection={this.state.currentSection}/>
 				{this.setupProjects()}
-			{/* 
-				<Panel01/>
-				<Panel02></Panel02>
-			*/}
-
 				<Footer/>
 			</React.Fragment>
 		)

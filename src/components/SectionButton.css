@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Raleway');
+
+.profile-btn {
+  margin-right: 62px;
+  width: 53px;
+}
+
+.projects-btn {
+  margin-left: 62px;
+  width: 60px;
+}
+
+.section-btn {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.section-link-text {
+  color: #efc978;
+}
+
+.section-link-text:hover {
+  cursor: pointer;
+}
+
+.profile-btn-indicator {
+  position: relative;
+  top: -14px;
+  height: 2px;
+  width: 0%;
+  background-color: #efc978;
+  display: inline-block;
+}
+
+.projects-btn-indicator {
+  position: relative;
+  top: -14px;
+  height: 2px;
+  width: 0%;
+  background-color: #efc978;
+  display: inline-block;
+}
