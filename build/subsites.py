@@ -1,8 +1,11 @@
 import psycopg2
+import os
 
 def connect():
-    c=psycopg2.connect("dbname=raychow_db")
-    return c
+	databaseName = os.environ.get("SITE_DATABASE")
+	connectionString = "dbname=" + databaseName
+	c=psycopg2.connect(connectionString)
+	return c
 
 conn = connect()
 cur = conn.cursor()

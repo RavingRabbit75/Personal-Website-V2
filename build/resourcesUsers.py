@@ -3,6 +3,7 @@ import psycopg2
 from flask import request, current_app as app, make_response, jsonify
 from flask_httpauth import HTTPBasicAuth
 import bcrypt
+import os
 
 from build.resourcesUtilities import Utils
 
@@ -19,7 +20,9 @@ def get_pw(username, client_password):
 
 
 def connect():
-    c=psycopg2.connect("dbname=raychow_db")
+    databaseName = os.environ.get("SITE_DATABASE")
+    connectionString = "dbname=" + databaseName
+    c=psycopg2.connect(connectionString)
     return c
 
 conn = connect()

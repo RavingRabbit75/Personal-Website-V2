@@ -1,3 +1,4 @@
+import os
 from flask_restful import Resource
 import psycopg2
 from flask import request
@@ -21,7 +22,9 @@ def get_pw(username, client_password):
 
 
 def connect():
-    c=psycopg2.connect("dbname=raychow_db")
+    databaseName = os.environ.get("SITE_DATABASE")
+    connectionString = "dbname=" + databaseName
+    c=psycopg2.connect(connectionString)
     return c
 
 conn = connect()
