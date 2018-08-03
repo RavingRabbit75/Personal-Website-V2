@@ -213,6 +213,3 @@ def page_not_found(e):
 
 
 
-
-def test():
-    pass
