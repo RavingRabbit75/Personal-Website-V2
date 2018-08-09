@@ -2,17 +2,18 @@ import os
 from flask_restful import Resource
 import psycopg2
 from flask import request, jsonify, make_response
-
 from flask_httpauth import HTTPBasicAuth
-import bcryptm
+import bcrypt
 
 from build.resourcesUtilities import Utils
 
 auth = HTTPBasicAuth()
 
+
 @auth.verify_password
 def get_pw(username, client_password):
-    
+    conn = connect()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
     if cur.rowcount==0:
         return False
@@ -55,7 +56,7 @@ class SkillList(Resource):
                            VALUES (%s, %s);""", 
                            (skill["skill"],skill["level"]) )
 
-        conn.commit()
+        self.conn.commit()
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
 
@@ -138,7 +139,7 @@ class ExperienceList(Resource):
                                (single_exp["exp_id"], 
                                 single_acc))
 
-        conn.commit()
+        self.conn.commit()
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
 
@@ -182,6 +183,6 @@ class EducationList(Resource):
                             single_edu["secondaryDescription"], 
                             single_edu["year"]))
 
-        conn.commit()
+        self.conn.commit()
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
