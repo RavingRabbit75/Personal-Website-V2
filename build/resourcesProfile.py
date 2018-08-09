@@ -4,7 +4,7 @@ import psycopg2
 from flask import request, jsonify, make_response
 
 from flask_httpauth import HTTPBasicAuth
-import bcrypt
+import bcryptm
 
 from build.resourcesUtilities import Utils
 
@@ -26,16 +26,15 @@ def connect():
     c=psycopg2.connect(connectionString)
     return c
 
-conn = connect()
-cur = conn.cursor()
-
 
 class SkillList(Resource):
+    conn = connect()
+    cur = conn.cursor()
     
     def get(self):
-        cur.execute("SELECT * FROM skills_technology;")
+        self.cur.execute("SELECT * FROM skills_technology;")
         skills=[]
-        for skill in cur:
+        for skill in self.cur:
             skills.append({"skill" : skill[1], "level" : skill[2]})
 
         response = make_response(jsonify({"skills" : skills}), 200)
@@ -50,9 +49,9 @@ class SkillList(Resource):
             }, 400
 
         skillsData=request.get_json()["skillsData"]
-        cur.execute("DELETE FROM skills_technology;")
+        self.cur.execute("DELETE FROM skills_technology;")
         for skill in skillsData:
-            cur.execute("""INSERT INTO skills_technology (skill, level) 
+            self.cur.execute("""INSERT INTO skills_technology (skill, level) 
                            VALUES (%s, %s);""", 
                            (skill["skill"],skill["level"]) )
 
@@ -62,9 +61,11 @@ class SkillList(Resource):
 
 
 class ExperienceList(Resource):
+    conn = connect()
+    cur = conn.cursor()
 
     def get(self):
-        cur.execute("""SELECT experience.exp_id, 
+        self.cur.execute("""SELECT experience.exp_id, 
                               experience.company, 
                               experience.position, 
                               experience.location, 
@@ -81,7 +82,7 @@ class ExperienceList(Resource):
 
         tempDict = {}
 
-        for single_exp in cur:
+        for single_exp in self.cur:
             if tempDict == {}:
                 tempDict["exp_id"] = single_exp[0]
                 tempDict["name"] = single_exp[1]
@@ -118,10 +119,10 @@ class ExperienceList(Resource):
             }, 400
 
         experienceData=request.get_json()["experienceData"]
-        cur.execute("DELETE FROM accomplishments;")
-        cur.execute("DELETE FROM experience;")
+        self.cur.execute("DELETE FROM accomplishments;")
+        self.cur.execute("DELETE FROM experience;")
         for single_exp in experienceData:
-            cur.execute("""INSERT INTO experience 
+            self.cur.execute("""INSERT INTO experience 
                             (exp_id, company, position, location, years) 
                            VALUES (%s, %s, %s, %s, %s);""", 
                            (single_exp["exp_id"], 
@@ -131,7 +132,7 @@ class ExperienceList(Resource):
                             single_exp["years"]))
 
             for single_acc in single_exp["accomplishments"]:
-                cur.execute("""INSERT INTO accomplishments 
+                self.cur.execute("""INSERT INTO accomplishments 
                                 (exp_id, accomplishment) 
                                VALUES (%s, %s);""", 
                                (single_exp["exp_id"], 
@@ -143,14 +144,16 @@ class ExperienceList(Resource):
 
 
 class EducationList(Resource):
+    conn = connect()
+    cur = conn.cursor()
 
     def get(self):
-        cur.execute("""SELECT primary_desc, 
+        self.cur.execute("""SELECT primary_desc, 
                               secondary_desc, 
                               year FROM education;""")
 
         education=[]
-        for single_edu in cur:
+        for single_edu in self.cur:
             education.append(
                 {
                     "primaryDesc": single_edu[0],
@@ -170,9 +173,9 @@ class EducationList(Resource):
                 "error" : "incorrect json body structure"
             }, 400
         educationData = request.get_json()["educationData"]
-        cur.execute("DELETE FROM education;")
+        self.cur.execute("DELETE FROM education;")
         for single_edu in educationData:
-            cur.execute("""INSERT INTO education 
+            self.cur.execute("""INSERT INTO education 
                             (primary_desc, secondary_desc, year) 
                            VALUES (%s, %s, %s);""", 
                            (single_edu["primaryDescription"], 
