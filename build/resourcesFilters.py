@@ -13,7 +13,8 @@ auth = HTTPBasicAuth()
 
 @auth.verify_password
 def get_pw(username, client_password):
-    
+    conn = connect()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
     if cur.rowcount==0:
         return False
@@ -27,12 +28,12 @@ def connect():
     c=psycopg2.connect(connectionString)
     return c
 
-conn = connect()
-cur = conn.cursor()
 
 class ProjectFilters(Resource):
-
+    
     def get(self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT name FROM projects WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -56,6 +57,9 @@ class ProjectFilters(Resource):
         for filt in cur:
             filtersForProject.append(filt)
 
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({
             "project": projectName,
             "pf_id & filter name": filtersForProject
@@ -65,6 +69,8 @@ class ProjectFilters(Resource):
 
     @auth.login_required
     def post(self, id):
+        conn = connect()
+        cur = conn.cursor()
         if (not Utils.validateJsonReqBody(request.get_json(), "projectName") or 
             not Utils.validateJsonReqBody(request.get_json(), "filtersToAdd")):
             return {
@@ -131,6 +137,9 @@ class ProjectFilters(Resource):
                             WHERE project_id={0} AND f.filter_tag='{1}';""".format(str(id), filt))
             filterResults.append(cur.fetchone())
 
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({
             "message": "New filters added",
             "project name": projectNameFromReq,
@@ -140,9 +149,11 @@ class ProjectFilters(Resource):
 
 
 class ProjectFilter(Resource):
-
+    
     @auth.login_required
     def delete(self, prj_id, filt_id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("""SELECT p.name, pf.filter_id, f.filter_tag FROM projects as p 
                         INNER JOIN project_to_filters as pf ON p.id = pf.project_id
                         INNER JOIN filters as f ON pf.filter_id = f.id 
@@ -164,6 +175,8 @@ class ProjectFilter(Resource):
                         AND filter_id={1};""".format(str(prj_id), str(filt_id)))
         
         conn.commit()
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "message" : "Deletion Successful",
@@ -177,6 +190,8 @@ class ProjectFilter(Resource):
 class Filters(Resource):
 
     def get(self):
+        conn = connect()
+        cur = conn.cursor()
         sqlString="SELECT * FROM filters;"
         cur.execute(sqlString)
         numberOfFilters = cur.rowcount
@@ -190,6 +205,9 @@ class Filters(Resource):
         for filt in cur:
             filters.append(filt)
 
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({
             "message" : "success",
             "total filters" : numberOfFilters,
@@ -199,7 +217,8 @@ class Filters(Resource):
 
 
     def post(self):
-
+        conn = connect()
+        cur = conn.cursor()
         if (not Utils.validateJsonReqBody(request.get_json(), "filtersData") or
             not Utils.validateJsonReqBody(request.get_json(), "filtersData", "add")):
                 return {
@@ -229,6 +248,8 @@ class Filters(Resource):
             idsToReturn.append( {"filter" : newFilter, "id": cur.fetchone()[0]} )
 
         conn.commit()
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "message" : "success",
@@ -240,6 +261,8 @@ class Filters(Resource):
 class Filter(Resource):
 
     def get(self, id):
+        conn = connect()
+        cur = conn.cursor()
         sqlString="SELECT * FROM filters WHERE id={0}".format(str(id))
         cur.execute(sqlString)
         if cur.rowcount==0:
@@ -248,6 +271,9 @@ class Filter(Resource):
             }, 404
 
         queriedFilter = cur.fetchone()
+
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "message" : "success",
@@ -258,6 +284,8 @@ class Filter(Resource):
 
 
     def delete(self, id):
+        conn = connect()
+        cur = conn.cursor()
         sqlString="SELECT * FROM filters WHERE id={0}".format(str(id))
         cur.execute(sqlString)
         if cur.rowcount==0:
@@ -277,6 +305,8 @@ class Filter(Resource):
         sqlString="DELETE FROM filters WHERE id={0}".format(filterToDelete[0])
         cur.execute(sqlString)
         conn.commit()
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "message" : "delete successful",

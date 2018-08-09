@@ -16,7 +16,8 @@ auth = HTTPBasicAuth()
 
 @auth.verify_password
 def get_pw(username, client_password):
-    
+    conn = connect()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
     if cur.rowcount==0:
         return False
@@ -30,14 +31,13 @@ def connect():
     c=psycopg2.connect(connectionString)
     return c
 
-conn = connect()
-cur = conn.cursor()
-
 
 class SubSites(Resource):
 
     @auth.login_required
     def get(self):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * FROM subsites;")
         if cur.rowcount == 0:
             return {
@@ -49,6 +49,9 @@ class SubSites(Resource):
         for subsite in cur:
             subSitesList.append(subsite)
 
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({
             "number of subsites": len(subSitesList),
             "subsites": subSitesList
@@ -58,6 +61,8 @@ class SubSites(Resource):
 
     @auth.login_required
     def post(self):
+        conn = connect()
+        cur = conn.cursor()
         if (not Utils.validateJsonReqBody(request.get_json(), "siteData") or
            not Utils.validateJsonReqBody(request.get_json(), "siteData", "name") or 
            not Utils.validateJsonReqBody(request.get_json(), "siteData", "pathName") or 
@@ -102,6 +107,8 @@ class SubSites(Resource):
 
         newSite = cur.fetchone()
         conn.commit()
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "id" : newSite[0],
@@ -116,6 +123,8 @@ class SubSite(Resource):
 
     @auth.login_required
     def get(self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * FROM subsites WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -124,12 +133,17 @@ class SubSite(Resource):
 
         subsite=cur.fetchone()
 
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({"subsite": subsite}), 200)
         return response
 
 
     @auth.login_required
     def put(self, id):
+        conn = connect()
+        cur = conn.cursor()
         if not Utils.validateJsonReqBody(request.get_json(), "public"):
             return {
                 "error" : "incorrect json body structure"
@@ -159,6 +173,8 @@ class SubSite(Resource):
 
         cur.execute(sqlString)
         conn.commit()
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
@@ -166,6 +182,8 @@ class SubSite(Resource):
 
     @auth.login_required
     def delete(self, id):
+        conn = connect()
+        cur = conn.cursor()
         if (not Utils.validateJsonReqBody(request.get_json(), "siteData") or
             not Utils.validateJsonReqBody(request.get_json(), "siteData", "name") or
             not Utils.validateJsonReqBody(request.get_json(), "siteData", "pathName") or
@@ -203,6 +221,8 @@ class SubSite(Resource):
 
         cur.execute("DELETE FROM subsites WHERE id={0};".format(str(id)))
         conn.commit()
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({"message": "delete successful"}), 200)
         return response
@@ -212,6 +232,8 @@ class SubSiteUploadZip(Resource):
 
     @auth.login_required
     def put(self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * from subsites WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -260,6 +282,9 @@ class SubSiteUploadZip(Resource):
         
         zfile.close()
 
+        cur.close()
+        conn.close()
+        
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
         

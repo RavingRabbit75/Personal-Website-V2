@@ -15,7 +15,8 @@ auth = HTTPBasicAuth()
 
 @auth.verify_password
 def get_pw(username, client_password):
-    
+    conn = connect()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
     if cur.rowcount==0:
         return False
@@ -29,13 +30,12 @@ def connect():
     c=psycopg2.connect(connectionString)
     return c
 
-conn = connect()
-cur = conn.cursor()
-
 
 class Projects(Resource):
 
     def get(self):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * FROM projects;")
         if cur.rowcount == 0:
             return {
@@ -55,6 +55,8 @@ class Projects(Resource):
                     "enabled" : project[7]
                 })
 
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"projects": projectList}), 200)
         return response
 
@@ -62,6 +64,8 @@ class Projects(Resource):
 
     @auth.login_required
     def post(self):
+        conn = connect()
+        cur = conn.cursor()
         if (not Utils.validateJsonReqBody(request.get_json(), "projectData") or
            not Utils.validateJsonReqBody(request.get_json(), "projectData", "name") or 
            not Utils.validateJsonReqBody(request.get_json(), "projectData", "role") or 
@@ -111,6 +115,8 @@ class Projects(Resource):
             cur.execute(sqlString, (image["path"], newId, image["grouping"]))
 
         conn.commit()
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"message": "POST DONE"}), 200)
         return response
 
@@ -120,6 +126,8 @@ class Projects(Resource):
 class Project(Resource):
 
     def get(self, id):
+        conn = connect()
+        cur = conn.cursor()
         projectData = {
             "name" : None,
             "role" : None,
@@ -183,12 +191,17 @@ class Project(Resource):
         for projectURL in cur:
             projectData["urls"].append(projectURL)
 
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({"projectData": projectData}), 200)
         return response
 
 
     @auth.login_required
     def put(self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -239,8 +252,10 @@ class Project(Resource):
         if "liveLink" in project:
             cur.execute(sqlString, ("liveLink", project["liveLink"], str(id)))
 
-
         conn.commit()
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({"message": "PUT DONE"}), 200)
         return response
 
@@ -249,7 +264,8 @@ class Project(Resource):
 
     @auth.login_required
     def delete(self, id):
-
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * FROM project_previews WHERE project_id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {"message": "item not found"}, 404
@@ -285,6 +301,8 @@ class Project(Resource):
         else:
             return {"file missing" : fileStatus[1]}, 404
         
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({"Deletion Successful" : str(id)}), 200)
         return response
@@ -295,6 +313,8 @@ class ProjectImages(Resource):
 
     @auth.login_required
     def post (self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -329,6 +349,8 @@ class ProjectImages(Resource):
                     filename = photos.save(image)
                     filesSaved.append(filename)
 
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "message": "POST DONE",
@@ -342,6 +364,8 @@ class ProjectEnabled(Resource):
 
     @auth.login_required
     def put (self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -372,6 +396,9 @@ class ProjectEnabled(Resource):
         cur.execute("SELECT id, name, enabled from projects WHERE id={0};".format(str(id)))
         updatedProject = cur.fetchone()
 
+        cur.close()
+        conn.close()
+
         response = make_response(jsonify({
             "message": "Success!",
             "project_id": updatedProject[0],
@@ -385,6 +412,8 @@ class ProjectPriorities(Resource):
 
     @auth.login_required
     def get(self):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT id, name, priority from projects;")
 
         prjPriorities = []
@@ -392,6 +421,8 @@ class ProjectPriorities(Resource):
         for prjPriority in cur:
             prjPriorities.append(prjPriority)
 
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"project_priorities": prjPriorities}), 200)
         return response
 
@@ -401,6 +432,8 @@ class ProjectPriority(Resource):
 
     @auth.login_required
     def get (self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT id, name, priority from projects WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -409,12 +442,16 @@ class ProjectPriority(Resource):
 
         prjPriority = cur.fetchone()
 
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"project_priority": prjPriority}), 200)
         return response
 
 
     @auth.login_required
     def put (self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
             return {
@@ -444,6 +481,9 @@ class ProjectPriority(Resource):
 
         cur.execute("SELECT id, name, priority from projects WHERE id={0};".format(str(id)))
         updatedProject = cur.fetchone()
+
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "message": "Success!",

@@ -7,17 +7,21 @@ def connect():
 	c=psycopg2.connect(connectionString)
 	return c
 
-conn = connect()
-cur = conn.cursor()
 
 class SubSite():
 	
 	def findSubsite(enteredPath):
+		conn = connect()
+        cur = conn.cursor()
 		cur.execute("SELECT * FROM subsites WHERE path_name='{0}';".format(str(enteredPath)))
 		if cur.rowcount == 0:
+			cur.close()
+        	conn.close()
 			return None
 		else:
 			subsite = cur.fetchone()
+			cur.close()
+        	conn.close()
 			return subsite
 
 	

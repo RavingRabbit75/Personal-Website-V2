@@ -12,6 +12,8 @@ auth = HTTPBasicAuth()
 
 @auth.verify_password
 def get_pw(username, client_password):
+    conn = connect()
+    cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
     if cur.rowcount==0:
         return False
@@ -25,14 +27,13 @@ def connect():
     c=psycopg2.connect(connectionString)
     return c
 
-conn = connect()
-cur = conn.cursor()
-
 
 class Users(Resource):
 
     @auth.login_required
     def get(self):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT id, username from users;")
         if cur.rowcount == 0:
             return {
@@ -42,6 +43,9 @@ class Users(Resource):
         userList=[]
         for user in cur:
             userList.append(user)
+
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "number of users": len(userList),
@@ -54,6 +58,8 @@ class User(Resource):
 
     @auth.login_required
     def get(self, id):
+        conn = connect()
+        cur = conn.cursor()
         cur.execute("SELECT * FROM users WHERE id={0};".format(str(id)))
 
         if cur.rowcount == 0:
@@ -71,6 +77,9 @@ class User(Resource):
         subsites=[]
         for subsite in cur:
             subsites.append(subsite)
+
+        cur.close()
+        conn.close()
 
         response = make_response(jsonify({
             "user id": user[0],
