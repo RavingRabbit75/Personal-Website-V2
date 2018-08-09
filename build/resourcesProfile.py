@@ -29,44 +29,50 @@ def connect():
 
 
 class SkillList(Resource):
-    conn = connect()
-    cur = conn.cursor()
     
     def get(self):
-        self.cur.execute("SELECT * FROM skills_technology;")
+        conn = connect()
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM skills_technology;")
         skills=[]
-        for skill in self.cur:
+        for skill in cur:
             skills.append({"skill" : skill[1], "level" : skill[2]})
 
         response = make_response(jsonify({"skills" : skills}), 200)
+        cur.close()
+        conn.close()
         return response
 
 
     @auth.login_required
     def put (self):
+        conn = connect()
+        cur = conn.cursor()
         if not Utils.validateJsonReqBody(request.get_json(), "skillsData"):
             return {
                 "error" : "incorrect json body structure"
             }, 400
 
         skillsData=request.get_json()["skillsData"]
-        self.cur.execute("DELETE FROM skills_technology;")
+        cur.execute("DELETE FROM skills_technology;")
         for skill in skillsData:
-            self.cur.execute("""INSERT INTO skills_technology (skill, level) 
+            cur.execute("""INSERT INTO skills_technology (skill, level) 
                            VALUES (%s, %s);""", 
                            (skill["skill"],skill["level"]) )
 
-        self.conn.commit()
+        conn.commit()
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
 
 
 class ExperienceList(Resource):
-    conn = connect()
-    cur = conn.cursor()
 
     def get(self):
-        self.cur.execute("""SELECT experience.exp_id, 
+        conn = connect()
+        cur = conn.cursor()
+        cur.execute("""SELECT experience.exp_id, 
                               experience.company, 
                               experience.position, 
                               experience.location, 
@@ -83,7 +89,7 @@ class ExperienceList(Resource):
 
         tempDict = {}
 
-        for single_exp in self.cur:
+        for single_exp in cur:
             if tempDict == {}:
                 tempDict["exp_id"] = single_exp[0]
                 tempDict["name"] = single_exp[1]
@@ -108,22 +114,26 @@ class ExperienceList(Resource):
                     tempDict["accomplishments"].append(single_exp[6])
 
         experience.append(tempDict)
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"experience" : experience}), 200)
         return response
 
 
     @auth.login_required
     def put(self):
+        conn = connect()
+        cur = conn.cursor()
         if not Utils.validateJsonReqBody(request.get_json(), "experienceData"):
             return {
                 "error" : "incorrect json body structure"
             }, 400
 
         experienceData=request.get_json()["experienceData"]
-        self.cur.execute("DELETE FROM accomplishments;")
-        self.cur.execute("DELETE FROM experience;")
+        cur.execute("DELETE FROM accomplishments;")
+        cur.execute("DELETE FROM experience;")
         for single_exp in experienceData:
-            self.cur.execute("""INSERT INTO experience 
+            cur.execute("""INSERT INTO experience 
                             (exp_id, company, position, location, years) 
                            VALUES (%s, %s, %s, %s, %s);""", 
                            (single_exp["exp_id"], 
@@ -133,28 +143,30 @@ class ExperienceList(Resource):
                             single_exp["years"]))
 
             for single_acc in single_exp["accomplishments"]:
-                self.cur.execute("""INSERT INTO accomplishments 
+                cur.execute("""INSERT INTO accomplishments 
                                 (exp_id, accomplishment) 
                                VALUES (%s, %s);""", 
                                (single_exp["exp_id"], 
                                 single_acc))
 
-        self.conn.commit()
+        conn.commit()
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
 
 
 class EducationList(Resource):
-    conn = connect()
-    cur = conn.cursor()
-
+    
     def get(self):
-        self.cur.execute("""SELECT primary_desc, 
+        conn = connect()
+        cur = conn.cursor()
+        cur.execute("""SELECT primary_desc, 
                               secondary_desc, 
                               year FROM education;""")
 
         education=[]
-        for single_edu in self.cur:
+        for single_edu in cur:
             education.append(
                 {
                     "primaryDesc": single_edu[0],
@@ -162,27 +174,34 @@ class EducationList(Resource):
                     "year": single_edu[2]
                 }
             )
-            
+        
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"education" : education}), 200)
         return response
 
 
     @auth.login_required
     def put(self):
+        conn = connect()
+        cur = conn.cursor()
+
         if not Utils.validateJsonReqBody(request.get_json(), "educationData"):
             return {
                 "error" : "incorrect json body structure"
             }, 400
         educationData = request.get_json()["educationData"]
-        self.cur.execute("DELETE FROM education;")
+        cur.execute("DELETE FROM education;")
         for single_edu in educationData:
-            self.cur.execute("""INSERT INTO education 
+            cur.execute("""INSERT INTO education 
                             (primary_desc, secondary_desc, year) 
                            VALUES (%s, %s, %s);""", 
                            (single_edu["primaryDescription"], 
                             single_edu["secondaryDescription"], 
                             single_edu["year"]))
 
-        self.conn.commit()
+        conn.commit()
+        cur.close()
+        conn.close()
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
