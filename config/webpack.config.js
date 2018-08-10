@@ -45,7 +45,7 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "imgs/[name].[ext]"
+              name: ".static/imgs/[name].[ext]"
             }
           }
         ]
@@ -72,8 +72,13 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, "../build/static/react"),
-    port: 9000
-    // contentBase: "./build/react"
+    port: 9000,
+    proxy: {
+      "/api": {
+        target: 'http://localhost:8000'
+      }
+    }
+
   },
   plugins: [
 

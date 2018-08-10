@@ -1,8 +1,7 @@
 import os
 from flask_restful import Resource
 import psycopg2
-from flask import request
-
+from flask import request, jsonify, make_response
 from flask_httpauth import HTTPBasicAuth
 import bcrypt
 
