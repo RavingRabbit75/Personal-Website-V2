@@ -53,7 +53,7 @@ export default class Profile extends React.Component {
 
 			function divFunction() {
 				var accomplishmentsJsx = item.accomplishments.map(function(accomp, idx) {
-					return (<li>• { accomp }</li>)
+					return (<li key={idx.toString()}>• { accomp }</li>)
 				});
 
 				var accomplishmentsList  = s["accomplishments-list"]
@@ -96,6 +96,39 @@ export default class Profile extends React.Component {
 		});
 		
 		return jsxData;
+	}
+
+	setupEducationList(eduData) {
+		if (eduData === undefined) {
+			return <React.Fragment>Loading...</React.Fragment>
+		}
+
+		var jsxData = eduData.education.map(function(item, idx){
+
+			function setSecondary(secondaryDesc) {
+				if (secondaryDesc.length > 0) {
+					return secondaryDesc
+				} 
+				return "";
+			}
+			
+			let eduDegree = s["edu-degree"]
+			let eduInstitution = s["edu-institution"]
+
+			return (
+				<div key={idx.toString()}>
+					<div className={eduDegree}>
+						<span>{ item.primaryDesc }</span>
+						<span className="pull-right">{ item.year }</span>
+					</div>
+					<div className={eduInstitution}>
+						{ setSecondary(item.secondaryDesc) }
+					</div>
+				</div>
+			)
+		});
+		
+		return jsxData
 	}
 
 	render() {	
@@ -161,7 +194,7 @@ export default class Profile extends React.Component {
 						<div className={itemEdgeWall}></div>
 						<div className="container-fluid">
 							<div className={itemContent}>
-								
+								{ this.setupEducationList(this.props.data_edu) }
 							</div>
 						</div>
 					</div>
