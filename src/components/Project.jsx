@@ -49,7 +49,6 @@ export default class Project extends React.Component {
 						</div>
 					</div>
 					<div className={itemEdgeHighlight}></div>
-
 				</div>
 			</React.Fragment>
 		);
