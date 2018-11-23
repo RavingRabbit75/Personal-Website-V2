@@ -26,9 +26,24 @@ export default class Header extends React.Component {
 
 	componentDidMount() {
 		if (this.props.active===true) {
-			TweenMax.to(this.btnIndicator, 1.0, {width:"100%", ease: Power4.easeOut, delay: 1});
+			TweenMax.to(this.btnIndicator, 0.6, {width:"100%", ease: Circ.easeOut, delay: 1});
 		}
 	}
+
+	componentDidUpdate(prevProps) {
+		// console.log(this.props.section);
+		// console.log(this.props.active);
+		// Typical usage (don't forget to compare props):
+		// if (this.props.userID !== prevProps.userID) {
+		// 	this.fetchData(this.props.userID);
+		// }
+		if (this.props.active===true) {
+			TweenMax.to(this.btnIndicator, 0.6, {width:"100%", ease: Circ.easeOut, delay: 0});
+		}
+		if (this.props.active===false) {
+			TweenMax.to(this.btnIndicator, 0.6, {width:"0%", ease: Power4.easeIn, delay: -0.5});
+		}
+	}	
 
 	sectionMouseOver() {
 		TweenMax.to(this.sectionBtn, 0.5, {color: "#f5b730"});
@@ -36,6 +51,11 @@ export default class Header extends React.Component {
 
 	sectionMouseOut() {
 		TweenMax.to(this.sectionBtn, 0.25, {color: "#efc978"});
+	}
+
+	sectionClick(){
+		console.log(this.props.section);
+		this.props.setSectionFunc();
 	}
 
 	render() {
@@ -55,7 +75,7 @@ export default class Header extends React.Component {
 			btnIndicatorClasses = s["projects-btn-indicator"];
 			href = "/projects";
 		} else {
-			console.log("Section does not exist")
+			console.log("Section does not exist");
 		}
 		
 		return(
@@ -64,6 +84,7 @@ export default class Header extends React.Component {
 					<div className={sectionLinkText} href={href}
 						onMouseEnter={this.sectionMouseOver.bind(this)} 
 		 				onMouseLeave={this.sectionMouseOut.bind(this)}
+		 				onClick={this.sectionClick.bind(this)}
 		 				ref={div => this.sectionBtn = div}>
 		 				{this.props.text}
 					</div>

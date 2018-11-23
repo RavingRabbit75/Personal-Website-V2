@@ -39,6 +39,22 @@ export default class App extends React.Component {
 			)
 	}
 
+	setSectionToProfile() {
+		this.setState(state => ({
+				currentSection: "profile"
+			})
+		)
+		// this.setState({
+		// 	currentSection: "profile"
+		// });
+	}
+
+	setSectionToProjects() {
+		this.setState({
+			currentSection: "projects"
+		});
+	}
+
 	setupMainContent(currentSection) {
 		// var prjs = ["Bubbles", "Buttercup", "Blossom"]
 
@@ -49,16 +65,19 @@ export default class App extends React.Component {
 		if (currentSection==="profile") {
 			return <ProfileContainer />
 		} else {
-			return <ProjectsContainer />
+			return <ProjectsContainer style={{height: 100}}/>;
 		}
-		
 	}
 
 	render() {
 		return(
 			<React.Fragment>
-				<Header currentSection={this.state.currentSection}/>
-				{ this.setupMainContent(this.state.currentSection) }
+				<Header 
+					currentSection={this.state.currentSection} 
+					setSectionFunc1={this.setSectionToProfile.bind(this)}
+					setSectionFunc2={this.setSectionToProjects.bind(this)} 
+				/>
+					{ this.setupMainContent(this.state.currentSection) }
 				<Footer/>
 			</React.Fragment>
 		)

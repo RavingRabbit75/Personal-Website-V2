@@ -69,7 +69,7 @@ export default class Header extends React.Component {
 
 		let headerEdge = s["header-edge"];
 		let headerDropoff = s["header-dropoff"];
-		
+
 		return(
 			<React.Fragment>
 			{/* A JSX comment */}
@@ -97,8 +97,18 @@ export default class Header extends React.Component {
 
 						<div className="text-center">
 							<div id="sections-links" className={sectionsLinks}>
-								<SectionButton section="profile" text="PROFILE" active={this.confirmActiveSection("profile")}/>
-								<SectionButton section="projects" text="PROJECTS" active={this.confirmActiveSection("projects")}/>
+								<SectionButton 
+									section="profile" 
+									text="PROFILE" 
+									active={this.confirmActiveSection("profile")}
+									setSectionFunc={this.props.setSectionFunc1}
+								/>
+								<SectionButton 
+									section="projects" 
+									text="PROJECTS" 
+									active={this.confirmActiveSection("projects")}
+									setSectionFunc={this.props.setSectionFunc2}
+								/>
 							</div>
 						</div>
 					
