@@ -57,14 +57,12 @@ export default class ProjectsContainer extends React.Component {
 
 	render() {
 		var projectsList;
-
-		console.log(projectsList);
 		return(
 			<React.Fragment>
-				<ProjectsFilter/>
+				<ProjectsFilter />
 				{
 					this.state.projectsList.map((project, idx) => {
-						return <Project prjName={project.name}/>
+						return <Project key={project.name} prjName={project.name}/>
 					})
 				}
 			</React.Fragment>
