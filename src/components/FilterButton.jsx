@@ -12,20 +12,28 @@ export default class FilterButton extends React.Component {
 	render() {
 		const buttonBox ={
 			display: "inline-block",
-			marginRight: "20px",
-			marginBottom: "10px"
+			marginRight: "15px",
+			marginBottom: "15px",
 		}
 
 		const buttonStyles = {
-			color: "#FFF",
-			textTransform: "uppercase"
+			color: "#949494",
+			textTransform: "uppercase",
+			fontFamily: "Open Sans Condensed, sans-serif",
+			fontSize: "12pt"
 		}
 
 		const indicator = {
 			backgroundColor: "#FF7D7D",
 			height: "2px",
-			width: "100%"
+			width: "0%"
 		}
+
+		if(this.props.activated) {
+			indicator.width = "100%";
+			buttonStyles.color="#FFF";
+		}
+		
 
 		return(
 			<div style={buttonBox}>

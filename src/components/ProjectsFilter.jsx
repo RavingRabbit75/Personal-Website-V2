@@ -43,7 +43,13 @@ export default class Project extends React.Component {
 			marginRight: "auto",
 			textAlign: "center",
 			color: "#FFF",
-			marginTop: "15px"
+			marginTop: "15px",
+			fontFamily: "Open Sans Condensed, sans-serif",
+			fontSize: "15pt",
+			fontWeight: "bold",
+			letterSpacing: "0.5px",
+			webkitFontSmoothing: "antialiased",
+			mozOsxFontSmoothing: "grayscale"
 		}
 
 		const topEdge ={
@@ -70,14 +76,14 @@ export default class Project extends React.Component {
 			position: "relative",
 			backgroundColor: "#16212A",
 			width: "560px",
-			paddingLeft: "20px",
-			paddingRight: "20px",
+			paddingLeft: "10px",
+			paddingRight: "10px",
 			paddingTop: "15px",
-			paddingBottom: "15px"
+			paddingBottom: "10px"
 		}
 
 		const box = {
-			// border: "1px dashed yellow"
+			// border: "1px dashed yellow",
 			textAlign: "center"
 		}
 
@@ -88,8 +94,13 @@ export default class Project extends React.Component {
 					<div id="topEdge" style={topEdge} />
 					<div id="box" style={box}>
 						{
-							this.state.filters.map((filter) => {
-								return <FilterButton key={filter[0]} title={filter[1]}/>
+							this.state.filters.map((filter, idx) => {
+								let status = false;
+								if([1,3,4].indexOf(idx) > -1){
+									status = true;
+								}
+								console.log(idx, status);
+								return <FilterButton key={filter[0]} title={filter[1]} activated={status}/>
 							})
 						}
 					</div>
