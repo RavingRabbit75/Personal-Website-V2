@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Project.css";
+import styles from "./Project.scss";
 import FilterButton from "./FilterButton.jsx";
 
 
@@ -28,29 +28,16 @@ export default class Project extends React.Component {
 	}
 
 	render() {
-		let itemContainer = s["item-container"];
-		let itemTitle = s["item-title"];
-		let itemSubcontainer = s["item-subcontainer"];
-		let itemEdgeHighlight = s["item-edge-highlight"];
-		let itemEdgeWall = s["item-edge-wall"];
+		let itemContainer = styles["item-container"];
+		let itemTitle = styles["item-title"];
+		let itemSubcontainer = styles["item-subcontainer"];
+		let itemEdgeHighlight = styles["item-edge-highlight"];
+		let itemEdgeWall = styles["item-edge-wall"];
 
-		let dud = 2;
 		let titleName = "Projects Filter";
-		let itemContent = s["item-content"];
+		let itemContent = styles["item-content"];
 
-		const filtersTitle ={
-			marginLeft: "auto",
-			marginRight: "auto",
-			textAlign: "center",
-			color: "#FFF",
-			marginTop: "15px",
-			fontFamily: "Open Sans Condensed, sans-serif",
-			fontSize: "15pt",
-			fontWeight: "bold",
-			letterSpacing: "0.5px",
-			webkitFontSmoothing: "antialiased",
-			mozOsxFontSmoothing: "grayscale"
-		}
+		const filtersTitle = styles["filters-title"];
 
 		const topEdge ={
 			position: "absolute",
@@ -89,7 +76,7 @@ export default class Project extends React.Component {
 
 		return(
 			<React.Fragment>
-				<div style={filtersTitle}>PROJECT FILTERS</div>
+				<div className={filtersTitle}>PROJECT FILTERS</div>
 				<div id="filterBox" style={filterBox}>
 					<div id="topEdge" style={topEdge} />
 					<div id="box" style={box}>
@@ -99,7 +86,6 @@ export default class Project extends React.Component {
 								if([1,3,4].indexOf(idx) > -1){
 									status = true;
 								}
-								console.log(idx, status);
 								return <FilterButton key={filter[0]} title={filter[1]} activated={status}/>
 							})
 						}

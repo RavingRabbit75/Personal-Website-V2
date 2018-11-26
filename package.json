@@ -26,6 +26,8 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
     "html-loader": "^0.5.5",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.12.1",
     "webpack-cli": "^3.0.8",

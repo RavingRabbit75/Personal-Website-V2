@@ -1,44 +1,34 @@
 import React from "react";
+import style from "./FilterButton.scss";
 
 
 export default class FilterButton extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			activated: true
-		}
+
+		};
 	}
 
 	render() {
-		const buttonBox ={
-			display: "inline-block",
-			marginRight: "15px",
-			marginBottom: "15px",
-		}
+		let buttonBox = null;
+		let buttonStyles = null;
+		let indicator = null;
 
-		const buttonStyles = {
-			color: "#949494",
-			textTransform: "uppercase",
-			fontFamily: "Open Sans Condensed, sans-serif",
-			fontSize: "12pt"
-		}
-
-		const indicator = {
-			backgroundColor: "#FF7D7D",
-			height: "2px",
-			width: "0%"
-		}
+		buttonBox = style["button-box"];
 
 		if(this.props.activated) {
-			indicator.width = "100%";
-			buttonStyles.color="#FFF";
+			buttonStyles = style["button-text-active"];
+			indicator = style["indicator-active"];
+		} else {
+			buttonStyles = style["button-text-inactive"];
+			indicator = style["indicator-inactive"];
 		}
 		
-
 		return(
-			<div style={buttonBox}>
-				<span style={buttonStyles}>{this.props.title}</span>
-				<div style={indicator}></div>
+			<div className={buttonBox}>
+				<span className={buttonStyles}>{this.props.title}</span>
+				<div className={indicator}></div>
 			</div>
 		);
 	

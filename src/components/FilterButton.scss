@@ -1,0 +1,37 @@
+$white: #fff;
+$black: #000;
+$indicator-red: #ff7d7d;
+$inactive-grey: #949494;
+
+
+.button-box {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.button-text-inactive {
+  color: $inactive-grey;
+  text-transform: uppercase;
+  font-family: Open Sans Condensed, sans-serif;
+  font-size: 12pt;
+}
+
+.button-text-active {
+  color: $white;
+  text-transform: uppercase;
+  font-family: Open Sans Condensed, sans-serif;
+  font-size: 12pt;
+}
+
+.indicator-active {
+  background-color: $indicator-red;
+  height: 2px;
+  width: 100%;
+}
+
+.indicator-inactive {
+  background-color: $indicator-red;
+  height: 2px;
+  width: 0%;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./SectionButton.css";
+import s from "./SectionButton.scss";
 
 import { 
     TweenMax,

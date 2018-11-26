@@ -1,0 +1,24 @@
+// general colors
+$white: #fff;
+$black: #000;
+$light-tan: #efc978;
+$strong-tan: #f5b730;
+$bright-blue: #0198fc;
+$light-blue: #87c1ff;
+
+// specific item colors
+$header-blue: #39537c;
+$header-blue-shadow: #284063;
+$header-blue-highlight: #5e88cb;
+
+$main-grey-bg: #5d6771;
+$section-cliff-edge: #a1adba;
+$section-cliff-bg: #344352;
+$section-bg: #454f58;
+
+$project-img-shadow: rgba(0, 0, 0, .4);
+
+@font-face {
+  font-family: fontIcons;
+  src: url('/fonts/icomoon.ttf');
+}
