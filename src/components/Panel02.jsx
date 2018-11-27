@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./panel02.css";
+import style from "./panel02.scss";
 
 export default class Panel02 extends React.Component {
 	constructor(props) {

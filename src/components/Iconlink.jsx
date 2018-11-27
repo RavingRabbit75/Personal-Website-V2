@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Iconlink.css";
+import s from "./Iconlink.scss";
 import icon_mail from "./imgs/icon_mail.svg";
 import icon_mail_over from "./imgs/icon_mail_over.svg";
 import icon_linkedin from "./imgs/icon_linkedin.svg";

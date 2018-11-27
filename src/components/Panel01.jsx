@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import style from "./panel01.css";
+import style from "./panel01.scss";
 import { 
     TweenMax,
     TimelineMax,

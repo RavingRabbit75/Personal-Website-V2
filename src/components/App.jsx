@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./app.css";
+import style from "./app.scss";
 import Panel01 from "./Panel01.jsx"
 import Panel02 from "./Panel02.jsx"
 import Header from "./Header.jsx"

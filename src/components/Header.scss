@@ -1,7 +1,5 @@
-/* */
-/* CREATE THIS FILE IN ./src/main.css */
-/* */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Raleway');
+@import 'scss_partials/global_variables';
+@import 'scss_partials/mixins';
 
 .header-main-bg {
   background-color: #39537c;

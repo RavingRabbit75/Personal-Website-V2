@@ -1,25 +1,9 @@
-/* */
-/* CREATE THIS FILE IN ./src/main.css */
-/* */
-
-/*.dummy {
-	font-size: 20pt;
-}
-
-.dummyColor {
-	color: red;
-}
-
-section {
-	width: 100%;
-}*/
-
+@import 'scss_partials/global_variables';
+@import 'scss_partials/mixins';
 
 body {
   background-color: #5d6771;
 }
-
-
 
 .item-container {
   margin-top: 45px;

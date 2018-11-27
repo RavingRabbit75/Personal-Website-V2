@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Footer.css";
+import s from "./Footer.scss";
 import Iconlink from "./Iconlink.jsx"
 import icon_mail from "./imgs/iconFooter_mail.svg";
 import icon_mail_over from "./imgs/iconFooter_mail_over.svg";

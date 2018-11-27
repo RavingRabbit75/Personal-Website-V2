@@ -1,9 +1,5 @@
-@import 'variables';
-
-@mixin font-smoothing-prefix() {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import 'scss_partials/global_variables';
+@import 'scss_partials/mixins';
 
 .filters-title {
   @include font-smoothing-prefix();

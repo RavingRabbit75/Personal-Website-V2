@@ -1,8 +1,8 @@
-$white: #fff;
-$black: #000;
+@import 'scss_partials/global_variables';
+@import 'scss_partials/mixins';
+
 $indicator-red: #ff7d7d;
 $inactive-grey: #949494;
-
 
 .button-box {
   display: inline-block;

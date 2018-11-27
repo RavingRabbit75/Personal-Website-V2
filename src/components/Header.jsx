@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import s from "./Header.css";
+import s from "./Header.scss";
 import Iconlink from "./Iconlink.jsx"
 import SectionButton from "./SectionButton.jsx"
 import header_image_name from "./imgs/header_image_name.png";
