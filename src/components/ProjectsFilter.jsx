@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Project.scss";
+import styles from "./ProjectsFilter.scss";
 import FilterButton from "./FilterButton.jsx";
 
 
@@ -19,78 +19,54 @@ export default class Project extends React.Component {
 			}
 		}).then(result => result.json())
 		.then(result => {
+			const filtersList = result.filters.map((filterItem, idx) => {
+				return {"id": filterItem[0], "filterName": filterItem[1], "active": false};
+			})
 			this.setState({
 				isLoaded: true,
-				filters: result.filters
+				filters: filtersList
 			})
 		})
+	}
 
+	toggleFilter(filterObj) {
+		console.log(filterObj);
+		const newFiltersList = this.state.filters.map((filterItem, idx) => {
+			let activeStatus = filterItem.active;
+			if (filterObj.id === filterItem.id) {
+				if(activeStatus){
+					activeStatus = false;
+				} else {
+					activeStatus = true;
+				}
+			}
+			return {"id": filterItem.id, "filterName": filterItem.filterName, "active": activeStatus};
+		});
+		this.setState({
+			filters: newFiltersList
+		})
 	}
 
 	render() {
-		let itemContainer = styles["item-container"];
-		let itemTitle = styles["item-title"];
-		let itemSubcontainer = styles["item-subcontainer"];
-		let itemEdgeHighlight = styles["item-edge-highlight"];
-		let itemEdgeWall = styles["item-edge-wall"];
-
-		let titleName = "Projects Filter";
-		let itemContent = styles["item-content"];
-
 		const filtersTitle = styles["filters-title"];
-
-		const topEdge ={
-			position: "absolute",
-			top: "0px",
-			left: "0px",
-			backgroundColor: "#404B57",
-			width: "560px",
-			height: "2px"
-		}
-
-		const bottomEdge ={
-			position: "absolute",
-			bottom: "0px",
-			left: "0px",
-			backgroundColor: "#A1ADBA",
-			width: "560px",
-			height: "2px"
-		}
-
-		const filterBox = {
-			marginLeft: "auto",
-			marginRight: "auto",
-			position: "relative",
-			backgroundColor: "#16212A",
-			width: "560px",
-			paddingLeft: "10px",
-			paddingRight: "10px",
-			paddingTop: "15px",
-			paddingBottom: "10px"
-		}
-
-		const box = {
-			// border: "1px dashed yellow",
-			textAlign: "center"
-		}
+		const topEdge = styles["top-edge"];
+		const bottomEdge = styles["bottom-edge"];
+		const filterBox = styles["filter-box"];
+		const box = styles["box"];
 
 		return(
 			<React.Fragment>
 				<div className={filtersTitle}>PROJECT FILTERS</div>
-				<div id="filterBox" style={filterBox}>
-					<div id="topEdge" style={topEdge} />
-					<div id="box" style={box}>
+				<div id="filterBox" className={filterBox}>
+					<div id="topEdge" className={topEdge} />
+					<div id="box" className={box}>
 						{
 							this.state.filters.map((filter, idx) => {
-								let status = false;
-								if([1,3,4].indexOf(idx) > -1){
-									status = true;
-								}
-								return <FilterButton key={filter[0]} title={filter[1]} activated={status}/>
+								return <FilterButton key={filter.id} title={filter.filterName} activated={filter.active} toggleFilterFunc={this.toggleFilter.bind(this, filter)}/>
 							})
 						}
 					</div>
-					<div id="bottomEdge" style={bottomEdge} />
+					<div id="bottomEdge" className={bottomEdge} />
 				</div>
 			</React.Fragment>
 		);

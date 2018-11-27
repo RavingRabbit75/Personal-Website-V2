@@ -1,20 +1,6 @@
 @import 'scss_partials/global_variables';
 @import 'scss_partials/mixins';
 
-.filters-title {
-  @include font-smoothing-prefix();
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  color: $white;
-  margin-top: 15px;
-  font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 15pt;
-  font-weight: bold;
-  letter-spacing: .5px;
-}
-
-
 .item-container {
   margin-top: 45px;
   width: auto;

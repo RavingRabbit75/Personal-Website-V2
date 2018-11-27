@@ -1,0 +1,50 @@
+@import 'scss_partials/global_variables';
+@import 'scss_partials/mixins';
+
+.filters-title {
+  @include font-smoothing-prefix();
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: $white;
+  margin-top: 15px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 15pt;
+  font-weight: bold;
+  letter-spacing: .5px;
+}
+
+.top-edge {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #404B57;
+  width: 560px;
+  height: 2px;
+}
+
+.bottom-edge {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: #A1ADBA;
+  width: 560px;
+  height: 2px;
+}
+
+.filter-box {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color: #16212A;
+  width: 560px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.box {
+  // border: "1px dashed yellow",
+  text-align: center;
+}

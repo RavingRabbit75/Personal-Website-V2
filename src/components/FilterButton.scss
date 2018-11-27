@@ -12,16 +12,20 @@ $inactive-grey: #949494;
 
 .button-text-inactive {
   color: $inactive-grey;
+}
+
+.button-text-active {
+  color: $white;
+}
+
+.button-text {
   text-transform: uppercase;
   font-family: Open Sans Condensed, sans-serif;
   font-size: 12pt;
 }
 
-.button-text-active {
-  color: $white;
-  text-transform: uppercase;
-  font-family: Open Sans Condensed, sans-serif;
-  font-size: 12pt;
+.button-text:hover {
+  cursor: pointer;
 }
 
 .indicator-active {
