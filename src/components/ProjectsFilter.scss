@@ -1,6 +1,10 @@
 @import 'scss_partials/global_variables';
 @import 'scss_partials/mixins';
 
+$filterbox-bgc: #16212a;
+$topedge-bgc: #404b57;
+$bottomedge-bgc: #a1adba;
+
 .filters-title {
   @include font-smoothing-prefix();
   margin-left: auto;
@@ -14,37 +18,32 @@
   letter-spacing: .5px;
 }
 
+.filter-box {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color: $filterbox-bgc;
+  width: 560px;
+  overflow: hidden;
+}
+
 .top-edge {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background-color: #404B57;
+  background-color: $topedge-bgc;
+  position: absolute;  
   width: 560px;
   height: 2px;
 }
 
 .bottom-edge {
+  background-color: $bottomedge-bgc;
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  background-color: #A1ADBA;
   width: 560px;
   height: 2px;
-}
-
-.filter-box {
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  background-color: #16212A;
-  width: 560px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 15px;
-  padding-bottom: 10px;
+  bottom: 0;
 }
 
 .box {
-  // border: "1px dashed yellow",
+  margin-top: 15px;
+  margin-bottom: 5px;
   text-align: center;
 }

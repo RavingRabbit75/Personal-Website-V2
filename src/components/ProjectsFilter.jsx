@@ -8,7 +8,7 @@ export default class Project extends React.Component {
 		super(props);
 		this.state={
 			filters:[]
-		}
+		};
 	}
 
 	componentDidMount() {
@@ -21,16 +21,15 @@ export default class Project extends React.Component {
 		.then(result => {
 			const filtersList = result.filters.map((filterItem, idx) => {
 				return {"id": filterItem[0], "filterName": filterItem[1], "active": false};
-			})
+			});
 			this.setState({
 				isLoaded: true,
 				filters: filtersList
-			})
-		})
+			});
+		});
 	}
 
 	toggleFilter(filterObj) {
-		console.log(filterObj);
 		const newFiltersList = this.state.filters.map((filterItem, idx) => {
 			let activeStatus = filterItem.active;
 			if (filterObj.id === filterItem.id) {
@@ -44,7 +43,7 @@ export default class Project extends React.Component {
 		});
 		this.setState({
 			filters: newFiltersList
-		})
+		});
 	}
 
 	render() {
@@ -62,7 +61,7 @@ export default class Project extends React.Component {
 					<div id="box" className={box}>
 						{
 							this.state.filters.map((filter, idx) => {
-								return <FilterButton key={filter.id} title={filter.filterName} activated={filter.active} toggleFilterFunc={this.toggleFilter.bind(this, filter)}/>
+								return <FilterButton key={filter.id} title={filter.filterName} active={filter.active} toggleFilterFunc={this.toggleFilter.bind(this, filter)}/>
 							})
 						}
 					</div>

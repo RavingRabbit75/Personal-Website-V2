@@ -23,20 +23,32 @@ export default class FilterButton extends React.Component {
 		};
 	}
 
+	componentDidMount() {
+
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.active){
+			TweenMax.to(this.filterIndicatorRef, 0.6, {width:"100%", ease: Circ.easeOut});
+		} else {
+			TweenMax.to(this.filterIndicatorRef, 0.6, {width:"0%", ease: Power4.easeIn});
+		}
+	}
+
 	filterMouseOverActive() {
-		TweenMax.to(this.filterButtunRef, 0.5, {color: "#fff"});
+		TweenMax.to(this.filterButtonRef, 0.5, {color: "#fff"});
 	}
 
 	filterMouseOutActive() {
-		TweenMax.to(this.filterButtunRef, 0.25, {color: "#949494"});
+		TweenMax.to(this.filterButtonRef, 0.25, {color: "#949494"});
 	}
 
 	filterMouseOverInactive() {
-		TweenMax.to(this.filterButtunRef, 0.5, {color: "#949494"});
+		TweenMax.to(this.filterButtonRef, 0.5, {color: "#949494"});
 	}
 
 	filterMouseOutInactive() {
-		TweenMax.to(this.filterButtunRef, 0.25, {color: "#fff"});
+		TweenMax.to(this.filterButtonRef, 0.25, {color: "#fff"});
 	}
 
 
@@ -50,14 +62,14 @@ export default class FilterButton extends React.Component {
 
 		buttonBox = style["button-box"];
 
-		if(this.props.activated) {
+		if(this.props.active) {
 			buttonStyles = style["button-text"] + " " + style["button-text-active"];
-			indicator = style["button-text"] + " " + style["indicator-active"];
+			indicator = style["indicator-active"];
 			mouseOverFunc = this.filterMouseOverInactive.bind(this);
 			mouseOffFunc = this.filterMouseOutInactive.bind(this);
 		} else {
 			buttonStyles = style["button-text"] + " " + style["button-text-inactive"];
-			indicator = style["button-text"] + " " + style["indicator-inactive"];
+			indicator = style["indicator-inactive"];
 			mouseOverFunc = this.filterMouseOverActive.bind(this);
 			mouseOffFunc = this.filterMouseOutActive.bind(this);
 		}
@@ -65,11 +77,11 @@ export default class FilterButton extends React.Component {
 
 		return(
 			<div className={buttonBox}>
-				<span className={buttonStyles}
+				<div className={buttonStyles}
 					onMouseEnter={mouseOverFunc}
 					onMouseLeave={mouseOffFunc}
 					onClick={this.props.toggleFilterFunc}
-					ref={span => this.filterButtunRef = span}>{this.props.title}</span>
+					ref={div => this.filterButtonRef = div}>{this.props.title}</div>
 				<div className={indicator}
 					ref={div => this.filterIndicatorRef = div}></div>
 			</div>

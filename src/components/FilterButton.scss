@@ -5,9 +5,14 @@ $indicator-red: #ff7d7d;
 $inactive-grey: #949494;
 
 .button-box {
+  position: relative;
   display: inline-block;
-  margin-right: 15px;
-  margin-bottom: 15px;
+  margin-left: 8px;
+  margin-right: 8px;
+  line-height: 15px;
+  margin-top: 5px;
+
+  text-align: center;
 }
 
 .button-text-inactive {
@@ -22,20 +27,27 @@ $inactive-grey: #949494;
   text-transform: uppercase;
   font-family: Open Sans Condensed, sans-serif;
   font-size: 12pt;
-}
 
-.button-text:hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
+
 }
 
 .indicator-active {
   background-color: $indicator-red;
   height: 2px;
   width: 100%;
+  position: relative;
+  top: -6px;
+  display: inline-block;
 }
 
 .indicator-inactive {
   background-color: $indicator-red;
   height: 2px;
   width: 0%;
+  position: relative;
+  top: -6px;
+  display: inline-block;
 }
