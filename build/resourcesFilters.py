@@ -41,7 +41,7 @@ class ProjectFilters(Resource):
 
         projectName = cur.fetchone()[0]
 
-        cur.execute("""SELECT pf.id, f.filter_tag
+        cur.execute("""SELECT pf.id, pf.filter_id, f.filter_tag
                         FROM project_to_filters as pf
                         INNER JOIN filters as f ON pf.filter_id = f.id
                         WHERE project_id={0};""".format(str(id)))
@@ -61,7 +61,8 @@ class ProjectFilters(Resource):
 
         response = make_response(jsonify({
             "project": projectName,
-            "pf_id & filter name": filtersForProject
+            "project_filters": filtersForProject,
+            "key": "Project to Filter ID, Filter ID, Filter Name"
         }), 200)
         return response
 
