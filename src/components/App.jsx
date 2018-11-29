@@ -75,11 +75,10 @@ export default class App extends React.Component {
 				<Header 
 					currentSection={this.state.currentSection} 
 					setSectionFunc1={this.setSectionToProfile.bind(this)}
-					setSectionFunc2={this.setSectionToProjects.bind(this)} 
-				/>
-					{ this.setupMainContent(this.state.currentSection) }
+					setSectionFunc2={this.setSectionToProjects.bind(this)}/>
+				{ this.setupMainContent(this.state.currentSection) }
 				<Footer/>
 			</React.Fragment>
-		)
+		);
 	}
 }

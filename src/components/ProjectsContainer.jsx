@@ -7,7 +7,7 @@ export default class ProjectsContainer extends React.Component {
 		super(props);
 		this.state={
 			projectsList: []
-		}
+		};
 
 	}
 
@@ -18,51 +18,79 @@ export default class ProjectsContainer extends React.Component {
 			headers: {
 				Accept: "application/json",
 			}
-		})
+		});
+
+		let projectsList = null;
 
 		Promise.all([fetch1])
 			.then(([results1]) => Promise.all([results1.json()]))
-			.then( ([data_projectsList]) =>
+			.then( (data) => {
+				projectsList = data[0];
+				const promiseArr = data[0].projects.map((project, idx) => {
+					return fetch(`api/v1/project/${project.id}/filters`, {
+						method: "GET",
+						headers: {
+							Accept: "application/json"
+						}
+					});
+				});
+				return Promise.all(promiseArr);
+
+			}).then((listOfStuff) => {
+				const promise2Arr = listOfStuff.map((item, idx) => {
+					return item.json();
+				});
+				return Promise.all(promise2Arr);
+
+			}).then((data) => {
+				data.forEach((item, idx) => {
+					projectsList["projects"][idx]["filters"] = item;
+					projectsList["projects"][idx]["hidden"] = false;
+				});
+				console.log(projectsList["projects"]);
 				this.setState({
-					projectsList: data_projectsList["projects"]
-				})
-			)
+					projectsList: projectsList["projects"]
+				});
+			});
 
-		// Promise.all([fetch1, fetch2, fetch3])
-		// 	.then(([results1, results2, results3]) => Promise.all([results1.json(), results2.json(), results3.json()]))
-		// 	.then( ([data_skills, data_exp, data_edu]) => 
-		// 		this.setState({
-		// 			isLoaded: true,
-		// 			skills: data_skills,
-		// 			experience: data_exp,
-		// 			education: data_edu
-		// 		})
-		// 	)
 
-		// let fetch2 = fetch("api/v1/profile/experience", {
-		// 	method: "GET",
-		// 	headers: {
-		// 		Accept: "application/json",
-		// 	}
-		// })
+	}
 
-		// Promise.all([fetch1, fetch2])
-		// 	.then(([results1, results2]) => Promise.all([results1.json(), results2.json()]))
-		// 	.then(function([data1, data2]){
-		// 		console.log(data1);
-		// 		console.log(data2);
-		// 	})
+	updateProjectList(filterList) {
+		const newProjectList = this.state.projectsList.map((project, idx) => {
+			let hidden=true;
+			for(let x=0; x<filterList.length; x++) {
+				if(filterList[x].active) {
+					for(let y=0; y<project.filters.project_filters.length; y++){
+						if(project.filters.project_filters[y][1] === filterList[x].id) {
+							hidden=false;
+							break;
+						}
+					}
+					if(!hidden) {
+						break;
+					}
+				}
+			}
+			project.hidden=hidden;
+			return  project;
+		});
 
+		this.setState({
+			projectsList: newProjectList
+		});
 	}
 
 	render() {
 		var projectsList;
 		return(
 			<React.Fragment>
-				<ProjectsFilter />
+				<ProjectsFilter updateFunc={this.updateProjectList.bind(this)}/>
 				{
-					this.state.projectsList.map((project, idx) => {
-						return <Project key={project.name} prjName={project.name}/>
+					this.state.projectsList.filter((project, idx) => {
+						return project.hidden === false;
+					}).map((project, idx) => {
+						return <Project key={project.name} prjName={project.name} />;
 					})
 				}
 			</React.Fragment>

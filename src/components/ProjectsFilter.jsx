@@ -20,7 +20,7 @@ export default class Project extends React.Component {
 		}).then(result => result.json())
 		.then(result => {
 			const filtersList = result.filters.map((filterItem, idx) => {
-				return {"id": filterItem[0], "filterName": filterItem[1], "active": false};
+				return {"id": filterItem[0], "filterName": filterItem[1], "active": true};
 			});
 			this.setState({
 				isLoaded: true,
@@ -44,6 +44,7 @@ export default class Project extends React.Component {
 		this.setState({
 			filters: newFiltersList
 		});
+		this.props.updateFunc(newFiltersList);
 	}
 
 	render() {
@@ -61,7 +62,7 @@ export default class Project extends React.Component {
 					<div id="box" className={box}>
 						{
 							this.state.filters.map((filter, idx) => {
-								return <FilterButton key={filter.id} title={filter.filterName} active={filter.active} toggleFilterFunc={this.toggleFilter.bind(this, filter)}/>
+								return <FilterButton key={filter.id} title={filter.filterName} active={filter.active} toggleFilterFunc={this.toggleFilter.bind(this, filter)}/>;
 							})
 						}
 					</div>
