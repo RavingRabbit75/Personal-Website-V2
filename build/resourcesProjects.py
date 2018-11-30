@@ -18,7 +18,7 @@ def get_pw(username, client_password):
     conn = connect()
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
-    if cur.rowcount==0:
+    if cur.rowcount == 0:
         return False
 
     return bcrypt.checkpw(client_password.encode("utf-8"), cur.fetchone()[2].encode("utf-8"))
@@ -27,11 +27,38 @@ def get_pw(username, client_password):
 def connect():
     databaseName = os.environ.get("SITE_DATABASE")
     connectionString = "dbname=" + databaseName
-    c=psycopg2.connect(connectionString)
+    c = psycopg2.connect(connectionString)
     return c
 
 
 class Projects(Resource):
+
+    # def get(self):
+    #     conn = connect()
+    #     cur = conn.cursor()
+    #     cur.execute("SELECT * FROM projects;")
+    #     if cur.rowcount == 0:
+    #         return {
+    #             "message": "no projects found"
+    #         }, 404
+
+    #     projectList=[]
+    #     for project in cur:
+    #         projectList.append({
+    #                 "id" : project[0],
+    #                 "name" : project[1],
+    #                 "role" : project[2],
+    #                 "builtwith" : project[3],
+    #                 "description" : project[4],
+    #                 "layouttype" : project[5],
+    #                 "priority" : project[6],
+    #                 "enabled" : project[7]
+    #             })
+
+    #     cur.close()
+    #     conn.close()
+    #     response = make_response(jsonify({"projects": projectList}), 200)
+    #     return response
 
     def get(self):
         conn = connect()
@@ -41,25 +68,61 @@ class Projects(Resource):
             return {
                 "message": "no projects found"
             }, 404
-        
-        projectList=[]
+
+        projectsList = []
+
         for project in cur:
-            projectList.append({
-                    "id" : project[0],
-                    "name" : project[1],
-                    "role" : project[2],
-                    "builtwith" : project[3],
-                    "description" : project[4],
-                    "layouttype" : project[5],
-                    "priority" : project[6],
-                    "enabled" : project[7]
-                })
+            projectsList.append({
+                "id": project[0],
+                "name": project[1],
+                "role": project[2],
+                "builtwith": project[3],
+                "description": project[4],
+                "layouttype": project[5],
+                "priority": project[6],
+                "enabled": project[7],
+                "points": [],
+                "previews": [],
+                "urls": []
+            })
+
+        for project in projectsList:
+
+            cur.execute("SELECT * from projects WHERE id={0};".format(str(project["id"])))
+            if cur.rowcount == 0:
+                return {
+                    "message": "item not found"
+                }, 404
+
+            cur.execute("""SELECT project_point 
+                           FROM project_points as pps 
+                           WHERE pps.project_id = {0};""".format(str(project["id"])))
+
+            for projectPoint in cur:
+                project["points"].append(projectPoint[0])
+
+            #  urlpath | project_id | grouping
+            cur.execute("""SELECT urlpath, grouping 
+                           FROM project_previews as pp 
+                           WHERE pp.project_id = {0};""".format(str(project["id"])))
+
+            for preview in cur:
+                project["previews"].append(preview)
+
+
+            # type | url | project_id
+            cur.execute("""SELECT type, url 
+                           FROM project_urls as pu 
+                           WHERE pu.project_id = {0};""".format(str(project["id"])))
+
+            for projectURL in cur:
+                project["urls"].append(projectURL)
+
 
         cur.close()
         conn.close()
-        response = make_response(jsonify({"projects": projectList}), 200)
+        response = make_response(jsonify({"projects": projectsList}), 200)
         return response
-
 
 
     @auth.login_required
@@ -129,17 +192,17 @@ class Project(Resource):
         conn = connect()
         cur = conn.cursor()
         projectData = {
-            "name" : None,
-            "role" : None,
-            "builtwith" : None,
-            "description" : None,
-            "layouttype" : -1,
-            "priority" : -1,
-            "enabled" : True,
-            "filters" : [],
-            "points" : [],
-            "previews" : [],
-            "urls" : []
+            "name": None,
+            "role": None,
+            "builtwith": None,
+            "description": None,
+            "layouttype": -1,
+            "priority": -1,
+            "enabled": True,
+            "filters": [],
+            "points": [],
+            "previews": [],
+            "urls": []
         }
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
         if cur.rowcount == 0:
