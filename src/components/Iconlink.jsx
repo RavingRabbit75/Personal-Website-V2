@@ -32,7 +32,7 @@ export default class Iconlink extends React.Component {
 		super(props);
 		this.state={
 
-		}
+		};
 
 	}
 
@@ -52,11 +52,11 @@ export default class Iconlink extends React.Component {
 		let rowPosition = null;
 
 		if (this.props.rowPosition === "left") {
-			rowPosition = s.divspan + " " + s["header-icon-size"] + " " + s["icon-left"]
+			rowPosition = s.divspan + " " + s["header-icon-size"] + " " + s["icon-left"];
 		} else if (this.props.rowPosition === "right") {
-			rowPosition = s.divspan + " " + s["header-icon-size"] + " " + s["icon-right"]
+			rowPosition = s.divspan + " " + s["header-icon-size"] + " " + s["icon-right"];
 		} else {
-			rowPosition = s.divspan + " " + s["header-icon-size"] + " " + s["icon-middle"]
+			rowPosition = s.divspan + " " + s["header-icon-size"] + " " + s["icon-middle"];
 		}
 
 		let iconPosition = s.iconposition;
@@ -96,7 +96,7 @@ export default class Iconlink extends React.Component {
 		        break;
 
 		    default:
-		        console.log("Error: icon type not given")
+		        console.log("Error: icon type not given");
 
 		}
 

@@ -3,78 +3,78 @@ import s from "./Profile.scss";
 
 export default class Profile extends React.Component {
 	constructor() {
-		super()
+		super();
 	}
 
 	setupProficientSkills(skillsData) {
 		if (skillsData !== undefined) {
 			var skillsString = skillsData.skills.filter(function(item){
 				if(item.level > 2) {
-					return item
+					return item;
 				}
 			}).reduce(function(acc, item, idx, arr){
-				var separator = ", "
+				var separator = ", ";
 				if (idx === arr.length-1) {
-					separator = ""
+					separator = "";
 				}
 				return acc + item.skill + separator;
 			}, "");
 
-			return <React.Fragment>{skillsString}</React.Fragment>
+			return <React.Fragment>{skillsString}</React.Fragment>;
 		} 
 		
-		return <React.Fragment>Loading...</React.Fragment>
+		return <React.Fragment>Loading...</React.Fragment>;
 	}
 
 	setupExposureSkills(skillsData) {
 		if (skillsData !== undefined) {
 			var skillsString = skillsData.skills.filter(item => item.level <= 2)
 				.reduce(function(acc, item, idx, arr){
-					var separator = ", "
+					var separator = ", ";
 					if (idx === arr.length-1) {
-						separator = ""
+						separator = "";
 					}
 					return acc + item.skill + separator;
-				}, "")
+				}, "");
 
-			return <React.Fragment>{skillsString}</React.Fragment>
+			return <React.Fragment>{skillsString}</React.Fragment>;
 		}
 
-		return <React.Fragment>Loading...</React.Fragment>
+		return <React.Fragment>Loading...</React.Fragment>;
 	}
 
 	setupExperienceList(expData) {
 		if (expData === undefined) {
-			return <React.Fragment>Loading...</React.Fragment>
+			return <React.Fragment>Loading...</React.Fragment>;
 		}
 
 		var jsxData = expData.experience.map(function(item, idx, arr){
-			var expTitle = s["exp-title"] + " row"
+			var expTitle = s["exp-title"] + " row";
 
 			function divFunction() {
 				var accomplishmentsJsx = item.accomplishments.map(function(accomp, idx) {
-					return (<li key={idx.toString()}>• { accomp }</li>)
+					return (<li key={idx.toString()}>• { accomp }</li>);
 				});
 
-				var accomplishmentsList  = s["accomplishments-list"]
+				var accomplishmentsList  = s["accomplishments-list"];
 				if (idx < arr.length-1) {
-					let expAccomplishments = s["exp-accomplishments"] + " " + s["exp-container-margin"]
+					let expAccomplishments = s["exp-accomplishments"] + " " + s["exp-container-margin"];
 					return (
 						<div className={expAccomplishments}> 
 							<ul className={accomplishmentsList}>
 								{accomplishmentsJsx}
 							</ul>
 						</div>
-					)
+					);
 				} else {
-					let expAccomplishments = s["exp-accomplishments"]
+					let expAccomplishments = s["exp-accomplishments"];
 					return (
 						<div className={expAccomplishments}> 
 							<ul className={accomplishmentsList}>
 								{accomplishmentsJsx}
 							</ul>
 						</div>
-					)
+					);
 				}
 			}
 			
@@ -92,7 +92,7 @@ export default class Profile extends React.Component {
 					</div>
 					{divFunction()}
 				</div>
-			)
+			);
 		});
 		
 		return jsxData;
@@ -100,20 +100,20 @@ export default class Profile extends React.Component {
 
 	setupEducationList(eduData) {
 		if (eduData === undefined) {
-			return <React.Fragment>Loading...</React.Fragment>
+			return <React.Fragment>Loading...</React.Fragment>;
 		}
 
 		var jsxData = eduData.education.map(function(item, idx){
 
 			function setSecondary(secondaryDesc) {
 				if (secondaryDesc.length > 0) {
-					return secondaryDesc
+					return secondaryDesc;
 				} 
 				return "";
 			}
 			
-			let eduDegree = s["edu-degree"]
-			let eduInstitution = s["edu-institution"]
+			let eduDegree = s["edu-degree"];
+			let eduInstitution = s["edu-institution"];
 
 			return (
 				<div key={idx.toString()}>
@@ -125,22 +125,22 @@ export default class Profile extends React.Component {
 						{ setSecondary(item.secondaryDesc) }
 					</div>
 				</div>
-			)
+			);
 		});
 		
-		return jsxData
+		return jsxData;
 	}
 
 	render() {	
-		let itemContainer = s["item-container"]
-		let itemTitle = s["item-title"]
-		let itemSubcontainer = s["item-subcontainer"]
-		let itemEdgeHighlight = s["item-edge-highlight"]
-		let itemEdgeWall = s["item-edge-wall"]
-		let itemContent = s["item-content"]
+		let itemContainer = s["item-container"];
+		let itemTitle = s["item-title"];
+		let itemSubcontainer = s["item-subcontainer"];
+		let itemEdgeHighlight = s["item-edge-highlight"];
+		let itemEdgeWall = s["item-edge-wall"];
+		let itemContent = s["item-content"];
 
-		let proficiencyTitle = s["proficiency-title"]
-		let text = s["text"]
+		let proficiencyTitle = s["proficiency-title"];
+		let text = s["text"];
 
 		return(
 			<React.Fragment>
@@ -202,7 +202,7 @@ export default class Profile extends React.Component {
 				</div>
 
 			</React.Fragment>
-		)
+		);
 	}
 
 }

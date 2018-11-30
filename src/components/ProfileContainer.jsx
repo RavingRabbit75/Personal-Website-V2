@@ -1,12 +1,12 @@
 import React from "react";
-import Profile from "./Profile.jsx"
+import Profile from "./Profile.jsx";
 
 export default class ProfileContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
 
-		}
+		};
 
 	}
 
@@ -34,21 +34,21 @@ export default class ProfileContainer extends React.Component {
 			headers: {
 				Accept: "application/json",
 			}
-		})
+		});
 
 		let fetch2 = fetch("api/v1/profile/experience", {
 			method: "GET",
 			headers: {
 				Accept: "application/json",
 			}
-		})
+		});
 
 		let fetch3 = fetch("api/v1/profile/education", {
 			method: "GET",
 			headers: {
 				Accept: "application/json",
 			}
-		})
+		});
 
 		// Promise.all([fetch1, fetch2])
 		// 	.then(function([results1, results2]){
@@ -67,7 +67,7 @@ export default class ProfileContainer extends React.Component {
 					experience: data_exp,
 					education: data_edu
 				})
-			)
+			);
 
 	}
 
@@ -76,7 +76,7 @@ export default class ProfileContainer extends React.Component {
 			<React.Fragment>
 				<Profile data_skills={this.state.skills} data_exp={this.state.experience} data_edu={this.state.education}/>
 			</React.Fragment>
-		)
+		);
 	}
 
 }

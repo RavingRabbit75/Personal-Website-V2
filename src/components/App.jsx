@@ -1,19 +1,17 @@
 import React from "react";
 import style from "./app.scss";
-import Panel01 from "./Panel01.jsx"
-import Panel02 from "./Panel02.jsx"
-import Header from "./Header.jsx"
-import Footer from "./Footer.jsx"
-import Project from "./Project.jsx"
-import ProfileContainer from "./ProfileContainer.jsx"
-import ProjectsContainer from "./ProjectsContainer.jsx"
+import Header from "./Header.jsx";
+import Footer from "./Footer.jsx";
+import Project from "./Project.jsx";
+import ProfileContainer from "./ProfileContainer.jsx";
+import ProjectsContainer from "./ProjectsContainer.jsx";
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
 			currentSection: "projects"
-		}
+		};
 	}
 
 	componentDidMount() {
@@ -36,14 +34,14 @@ export default class App extends React.Component {
 						error
 					});
 				}
-			)
+			);
 	}
 
 	setSectionToProfile() {
 		this.setState(state => ({
 				currentSection: "profile"
 			})
-		)
+		);
 		// this.setState({
 		// 	currentSection: "profile"
 		// });
@@ -63,7 +61,7 @@ export default class App extends React.Component {
 		// })
 		
 		if (currentSection==="profile") {
-			return <ProfileContainer />
+			return <ProfileContainer />;
 		} else {
 			return <ProjectsContainer style={{height: 100}}/>;
 		}

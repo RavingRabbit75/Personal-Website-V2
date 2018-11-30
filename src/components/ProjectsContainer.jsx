@@ -90,7 +90,7 @@ export default class ProjectsContainer extends React.Component {
 					this.state.projectsList.filter((project, idx) => {
 						return project.hidden === false;
 					}).map((project, idx) => {
-						return <Project key={project.name} prjName={project.name} />;
+						return <Project key={project.name} projectData={project} />;
 					})
 				}
 			</React.Fragment>
