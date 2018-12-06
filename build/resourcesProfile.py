@@ -15,7 +15,7 @@ def get_pw(username, client_password):
     conn = connect()
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
-    if cur.rowcount==0:
+    if cur.rowcount == 0:
         return False
 
     return bcrypt.checkpw(client_password.encode("utf-8"), cur.fetchone()[2].encode("utf-8"))
@@ -24,17 +24,17 @@ def get_pw(username, client_password):
 def connect():
     databaseName = os.environ.get("SITE_DATABASE")
     connectionString = "dbname=" + databaseName
-    c=psycopg2.connect(connectionString)
+    c = psycopg2.connect(connectionString)
     return c
 
 
 class SkillList(Resource):
-    
+
     def get(self):
         conn = connect()
         cur = conn.cursor()
         cur.execute("SELECT * FROM skills_technology;")
-        skills=[]
+        skills = []
         for skill in cur:
             skills.append({"skill" : skill[1], "level" : skill[2]})
 
@@ -45,7 +45,7 @@ class SkillList(Resource):
 
 
     @auth.login_required
-    def put (self):
+    def put(self):
         conn = connect()
         cur = conn.cursor()
         if not Utils.validateJsonReqBody(request.get_json(), "skillsData"):
@@ -53,12 +53,15 @@ class SkillList(Resource):
                 "error" : "incorrect json body structure"
             }, 400
 
-        skillsData=request.get_json()["skillsData"]
+        skillsData = request.get_json()["skillsData"]
         cur.execute("DELETE FROM skills_technology;")
         for skill in skillsData:
             cur.execute("""INSERT INTO skills_technology (skill, level) 
                            VALUES (%s, %s);""", 
-                           (skill["skill"],skill["level"]) )
+                        (
+                            skill["skill"], 
+                            skill["level"])
+                        )
 
         conn.commit()
         cur.close()
@@ -82,7 +85,7 @@ class ExperienceList(Resource):
                        FROM experience, accomplishments 
                        where experience.exp_id = accomplishments.exp_id;""")
 
-        experience=[]
+        experience = []
 
         # current format of returned sql query row
         # [exp_id, company, position, location, years, acc_exp_id, accomplishment]
@@ -129,25 +132,29 @@ class ExperienceList(Resource):
                 "error" : "incorrect json body structure"
             }, 400
 
-        experienceData=request.get_json()["experienceData"]
+        experienceData = request.get_json()["experienceData"]
         cur.execute("DELETE FROM accomplishments;")
         cur.execute("DELETE FROM experience;")
         for single_exp in experienceData:
             cur.execute("""INSERT INTO experience 
                             (exp_id, company, position, location, years) 
                            VALUES (%s, %s, %s, %s, %s);""", 
-                           (single_exp["exp_id"], 
+                        (
+                            single_exp["exp_id"], 
                             single_exp["company"], 
                             single_exp["position"], 
                             single_exp["location"], 
-                            single_exp["years"]))
+                            single_exp["years"])
+                        )
 
             for single_acc in single_exp["accomplishments"]:
                 cur.execute("""INSERT INTO accomplishments 
                                 (exp_id, accomplishment) 
                                VALUES (%s, %s);""", 
-                               (single_exp["exp_id"], 
-                                single_acc))
+                            (
+                                single_exp["exp_id"], 
+                                single_acc)
+                            )
 
         conn.commit()
         cur.close()
@@ -157,7 +164,7 @@ class ExperienceList(Resource):
 
 
 class EducationList(Resource):
-    
+
     def get(self):
         conn = connect()
         cur = conn.cursor()
@@ -165,7 +172,7 @@ class EducationList(Resource):
                               secondary_desc, 
                               year FROM education;""")
 
-        education=[]
+        education = []
         for single_edu in cur:
             education.append(
                 {
@@ -174,7 +181,7 @@ class EducationList(Resource):
                     "year": single_edu[2]
                 }
             )
-        
+
         cur.close()
         conn.close()
         response = make_response(jsonify({"education" : education}), 200)
@@ -196,9 +203,11 @@ class EducationList(Resource):
             cur.execute("""INSERT INTO education 
                             (primary_desc, secondary_desc, year) 
                            VALUES (%s, %s, %s);""", 
-                           (single_edu["primaryDescription"], 
+                        (
+                            single_edu["primaryDescription"], 
                             single_edu["secondaryDescription"], 
-                            single_edu["year"]))
+                            single_edu["year"])
+                        )
 
         conn.commit()
         cur.close()

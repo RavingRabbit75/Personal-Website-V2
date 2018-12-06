@@ -1,5 +1,5 @@
 import os
-from flask import Flask, Blueprint, jsonify, render_template, redirect, url_for, json, request, send_from_directory
+from flask import Flask, Blueprint, jsonify, render_template, redirect, url_for, json, request
 from flask_restful import Api
 
 from build.resourcesProfile import SkillList
@@ -27,9 +27,9 @@ from other_api.todo.resources import TodoList
 
 
 if os.environ.get("ENV") == "production":
-    debug=False
+    debug = False
 else:
-    debug=True
+    debug = True
 
 
 app = Flask(__name__)
@@ -90,28 +90,35 @@ def root_route():
 @app.route("/profile")
 def profile_route():
     siteRoot = os.path.realpath(os.path.dirname(__file__))
-    jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
-    data=json.load(open(jsonUrl))
+    jsonUrl = os.path.join(siteRoot, "static/json", "siteData.json")
+    data = json.load(open(jsonUrl))
 
-    return render_template("profile.html", skillsProficient=data["profile"]["skills"]["proficient"]
-                                         , skillsExposure=data["profile"]["skills"]["exposure"]
-                                         , professionalExperience=data["profile"]["experience"]
-                                         , educationList=data["profile"]["education"]
-                                         , baseContent=data["baseContent"]
-                                         , sectionName="profile")
+    return render_template("profile.html", skillsProficient = data["profile"]["skills"]["proficient"]
+                                         , skillsExposure = data["profile"]["skills"]["exposure"]
+                                         , professionalExperience = data["profile"]["experience"]
+                                         , educationList = data["profile"]["education"]
+                                         , baseContent = data["baseContent"]
+                                         , sectionName = "profile")
 
 
 @app.route("/projects")
 def projects_route():
     siteRoot = os.path.realpath(os.path.dirname(__file__))
-    jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
-    data=json.load(open(jsonUrl))
+    jsonUrl = os.path.join(siteRoot, "static/json", "siteData.json")
+    data = json.load(open(jsonUrl))
     for project in data["projects"]:
-        project["projid"]=project["name"].replace(" ","-")
+        project["projid"] = project["name"].replace(" ", "-")
 
-    return render_template("projects.html", projectsData=data["projects"]
-                                          , baseContent=data["baseContent"]
-                                          , sectionName="projects")
+    return render_template("projects.html", projectsData = data["projects"]
+                                          , baseContent = data["baseContent"]
+                                          , sectionName = "projects")
+
+
+@app.route("/projects/images/<string:imageFile>/")
+def projects_images_route(imageFile):
+    print(imageFile)
+    image_file_path = "images/projects/" + imageFile
+    return app.send_static_file(image_file_path)
 
 
 @app.route("/projects/htmlbanners")
@@ -130,7 +137,7 @@ def render_subsiteIndex(subsite):
     if results[4] is False:
         return render_template("404.html"), 401
 
-    pathName=results[3].split(".")[0]
+    pathName = results[3].split(".")[0]
     static_file_path = "subsites/" + pathName + "/index.html"   
     return app.send_static_file(static_file_path)
 
@@ -144,7 +151,7 @@ def render_subsiteFiles(subsite, resource):
     if results[4] is False:
         return render_template("404.html"), 401
 
-    pathName=results[3].split(".")[0]
+    pathName = results[3].split(".")[0]
 
     static_file_path = "subsites/" + pathName + "/" + resource
     return app.send_static_file(static_file_path)
@@ -154,7 +161,6 @@ def render_subsiteFiles(subsite, resource):
 def testReact_route():
     return render_template("./react/index.html")
 
-    
 
 ###########################################
 # API Routes
@@ -162,8 +168,8 @@ def testReact_route():
 @app.route("/api/profile")
 def api_profile():
     siteRoot = os.path.realpath(os.path.dirname(__file__))
-    jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
-    data=json.load(open(jsonUrl))
+    jsonUrl = os.path.join(siteRoot, "static/json", "siteData.json")
+    data = json.load(open(jsonUrl))
     return jsonify(data["profile"])
 
 
@@ -171,45 +177,42 @@ def api_profile():
 def api_projects():
     projectName = request.args.get('projname', 0, type=str)
     imageIndex = request.args.get('imageidx', 0, type=str)
-    
+
     siteRoot = os.path.realpath(os.path.dirname(__file__))
-    jsonUrl=os.path.join(siteRoot, "static/json", "siteData.json")
-    data=json.load(open(jsonUrl))
+    jsonUrl = os.path.join(siteRoot, "static/json", "siteData.json")
+    data = json.load(open(jsonUrl))
 
-    projectFound=False
-    nextImages=[]
+    projectFound = False
+    nextImages = []
     for project in data["projects"]:
-        if projectName==project["name"]:
+        if projectName == project["name"]:
             # get the index
-            if project["imagesLayout"]=="triple":
-                startIdx = (int(imageIndex)-1)*3
+            if project["imagesLayout"] == "triple":
+                startIdx = (int(imageIndex) - 1) * 3
                 nextImages.append(project["images"][startIdx])
-                if startIdx+1 < len(project["images"]):
-                    nextImages.append(project["images"][startIdx+1])
-                    if startIdx+2 < len(project["images"]):
-                        nextImages.append(project["images"][startIdx+2])
+                if startIdx + 1 < len(project["images"]):
+                    nextImages.append(project["images"][startIdx + 1])
+                    if startIdx + 2 < len(project["images"]):
+                        nextImages.append(project["images"][startIdx + 2])
 
-            elif project["imagesLayout"]=="double":
-                startIdx = (int(imageIndex)-1)*2
+            elif project["imagesLayout"] == "double":
+                startIdx = (int(imageIndex) - 1) * 2
                 nextImages.append(project["images"][startIdx])
-                if startIdx+1 < len(project["images"]):
-                    nextImages.append(project["images"][startIdx+1])
+                if startIdx + 1 < len(project["images"]):
+                    nextImages.append(project["images"][startIdx + 1])
             else:
-                nextImages.append(project["images"][int(imageIndex)-1])
+                nextImages.append(project["images"][int(imageIndex) - 1])
 
-            projectFound=True
+            projectFound = True
             break
 
-    if projectFound==True:
+    if projectFound is True:
         return jsonify(nextImages)
-    
-    return jsonify({"results":"No project found"})
+
+    return jsonify({"results": "No project found"})
 
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
-
-
-

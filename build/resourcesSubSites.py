@@ -2,7 +2,7 @@ import os
 import shutil
 from flask_restful import Resource
 import psycopg2
-from flask import request, current_app as app
+from flask import request, current_app as app, make_response, jsonify
 import zipfile
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -19,7 +19,7 @@ def get_pw(username, client_password):
     conn = connect()
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
-    if cur.rowcount==0:
+    if cur.rowcount == 0:
         return False
 
     return bcrypt.checkpw(client_password.encode("utf-8"), cur.fetchone()[2].encode("utf-8"))
@@ -28,7 +28,7 @@ def get_pw(username, client_password):
 def connect():
     databaseName = os.environ.get("SITE_DATABASE")
     connectionString = "dbname=" + databaseName
-    c=psycopg2.connect(connectionString)
+    c = psycopg2.connect(connectionString)
     return c
 
 
@@ -44,7 +44,7 @@ class SubSites(Resource):
                 "message": "No sub-sites found."
             }, 404
 
-        subSitesList=[]
+        subSitesList = []
 
         for subsite in cur:
             subSitesList.append(subsite)
@@ -75,7 +75,7 @@ class SubSites(Resource):
         cur.execute("SELECT path_name, zipfile FROM subsites;")
         newSiteData = request.get_json()["siteData"]
 
-        sites=[]
+        sites = []
         if cur.rowcount != 0:
             for site in cur:
                 sites.append(site)
@@ -98,12 +98,15 @@ class SubSites(Resource):
                         (name, path_name, zipfile, public) 
                         VALUES (%s, %s, %s, %s) RETURNING id, name, path_name;"""
 
-        cur.execute(sqlString, 
-                        (newSiteData["name"], 
-                        newSiteData["pathName"], 
-                        newSiteData["zipFile"],
-                        False)
-                    )
+        cur.execute(
+            sqlString, 
+            (
+                newSiteData["name"], 
+                newSiteData["pathName"], 
+                newSiteData["zipFile"],
+                False
+            )
+        )
 
         newSite = cur.fetchone()
         conn.commit()
@@ -131,7 +134,7 @@ class SubSite(Resource):
                 "message": "Sub-site not found."
             }, 404
 
-        subsite=cur.fetchone()
+        subsite = cur.fetchone()
 
         cur.close()
         conn.close()
@@ -155,12 +158,12 @@ class SubSite(Resource):
                 "message": "sub-site not found"
             }, 404
 
-        siteStatus=None
+        siteStatus = None
         if request.get_json()["public"] is False:
-            siteStatus=False
+            siteStatus = False
 
         elif request.get_json()["public"] is True:
-            siteStatus=True
+            siteStatus = True
 
         else:
             return {
@@ -184,10 +187,12 @@ class SubSite(Resource):
     def delete(self, id):
         conn = connect()
         cur = conn.cursor()
-        if (not Utils.validateJsonReqBody(request.get_json(), "siteData") or
+        if (
+            not Utils.validateJsonReqBody(request.get_json(), "siteData") or
             not Utils.validateJsonReqBody(request.get_json(), "siteData", "name") or
             not Utils.validateJsonReqBody(request.get_json(), "siteData", "pathName") or
-            not Utils.validateJsonReqBody(request.get_json(), "siteData", "delete")):
+            not Utils.validateJsonReqBody(request.get_json(), "siteData", "delete")
+        ):
             return {
                 "error" : "incorrect json body structure"
             }, 400
@@ -200,9 +205,11 @@ class SubSite(Resource):
 
         requestedSiteData = request.get_json()["siteData"]
         siteToDelete = cur.fetchone()
-        
-        if (requestedSiteData["name"]!=siteToDelete[1] or
-            requestedSiteData["pathName"]!=siteToDelete[2]):
+
+        if (
+            requestedSiteData["name"] != siteToDelete[1] or
+            requestedSiteData["pathName"] != siteToDelete[2]
+        ):
             return {
                 "error": "invalid VALUES"
             }, 400
@@ -239,8 +246,8 @@ class SubSiteUploadZip(Resource):
             return {
                 "message": "sub-site not found"
             }, 422
-        
-        siteData=cur.fetchone()
+
+        siteData = cur.fetchone()
 
         if "zipFile" not in request.files:
             return {
@@ -252,7 +259,7 @@ class SubSiteUploadZip(Resource):
             return {
                 "error": "only one zip file allowed"
             }, 422
-        
+
         if zipList[0].filename != siteData[3]:
             return {
                 "error": "uploaded zip file not allowed"
@@ -266,7 +273,7 @@ class SubSiteUploadZip(Resource):
 
         folderName = zipList[0].filename.split(".")[0]
 
-        zipSavePath=os.path.join(uploadPath, zipList[0].filename)
+        zipSavePath = os.path.join(uploadPath, zipList[0].filename)
         zipList[0].save(zipSavePath)
 
         subsitesPath = app.config.get('SUBSITES_PATH')
@@ -274,17 +281,16 @@ class SubSiteUploadZip(Resource):
         if os.path.exists(os.path.join(subsitesPath, folderName)):
             shutil.rmtree(os.path.join(subsitesPath, folderName))
 
-        zfile=zipfile.ZipFile(zipSavePath)
+        zfile = zipfile.ZipFile(zipSavePath)
 
         for file in zfile.namelist():
-          if file.startswith(folderName+"/"):
-              zfile.extract(file, subsitesPath)
-        
+            if file.startswith(folderName + "/"):
+                zfile.extract(file, subsitesPath)
+
         zfile.close()
 
         cur.close()
         conn.close()
-        
+
         response = make_response(jsonify({"message": "update successful"}), 200)
         return response
-        

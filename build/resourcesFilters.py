@@ -15,7 +15,7 @@ def get_pw(username, client_password):
     conn = connect()
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
-    if cur.rowcount==0:
+    if cur.rowcount == 0:
         return False
 
     return bcrypt.checkpw(client_password.encode("utf-8"), cur.fetchone()[2].encode("utf-8"))
@@ -24,12 +24,12 @@ def get_pw(username, client_password):
 def connect():
     databaseName = os.environ.get("SITE_DATABASE")
     connectionString = "dbname=" + databaseName
-    c=psycopg2.connect(connectionString)
+    c = psycopg2.connect(connectionString)
     return c
 
 
 class ProjectFilters(Resource):
-    
+
     def get(self, id):
         conn = connect()
         cur = conn.cursor()
@@ -71,8 +71,10 @@ class ProjectFilters(Resource):
     def post(self, id):
         conn = connect()
         cur = conn.cursor()
-        if (not Utils.validateJsonReqBody(request.get_json(), "projectName") or 
-            not Utils.validateJsonReqBody(request.get_json(), "filtersToAdd")):
+        if (
+            not Utils.validateJsonReqBody(request.get_json(), "projectName") or 
+            not Utils.validateJsonReqBody(request.get_json(), "filtersToAdd")
+        ):
             return {
                 "error" : "incorrect json body structure"
             }, 400
@@ -85,14 +87,14 @@ class ProjectFilters(Resource):
             return {
                 "message": "project to add filter is not found"
             }, 404
-        
-        allfilters =[]
+
+        allfilters = []
         cur.execute("SELECT * FROM filters;")
         for filt in cur:
             allfilters.append(filt)
 
-        
-        allFiltersNames=[]
+
+        allFiltersNames = []
         for row in allfilters:
             allFiltersNames.append(row[1])
 
@@ -126,10 +128,10 @@ class ProjectFilters(Resource):
 
         for filtID in filterIDs:
             cur.execute("INSERT INTO project_to_filters (project_id, filter_id) VALUES (%s, %s);", (str(id), filtID))
-        
+
         conn.commit()
 
-        filterResults=[]
+        filterResults = []
 
         for filt in filtersToAddFromReq:
             cur.execute("""SELECT pf.id, f.filter_tag FROM project_to_filters as pf 
@@ -149,7 +151,7 @@ class ProjectFilters(Resource):
 
 
 class ProjectFilter(Resource):
-    
+
     @auth.login_required
     def delete(self, prj_id, filt_id):
         conn = connect()
@@ -173,7 +175,7 @@ class ProjectFilter(Resource):
         cur.execute("""DELETE FROM project_to_filters 
                         WHERE project_id={0} 
                         AND filter_id={1};""".format(str(prj_id), str(filt_id)))
-        
+
         conn.commit()
         cur.close()
         conn.close()
@@ -192,7 +194,7 @@ class Filters(Resource):
     def get(self):
         conn = connect()
         cur = conn.cursor()
-        sqlString="SELECT * FROM filters;"
+        sqlString = "SELECT * FROM filters;"
         cur.execute(sqlString)
         numberOfFilters = cur.rowcount
         if numberOfFilters == 0:
@@ -200,7 +202,7 @@ class Filters(Resource):
                 "message" : "no filters available"
             }, 404
 
-        filters=[]
+        filters = []
 
         for filt in cur:
             filters.append(filt)
@@ -219,15 +221,17 @@ class Filters(Resource):
     def post(self):
         conn = connect()
         cur = conn.cursor()
-        if (not Utils.validateJsonReqBody(request.get_json(), "filtersData") or
-            not Utils.validateJsonReqBody(request.get_json(), "filtersData", "add")):
-                return {
-                    "error" : "incorrect json body structure"
-                }, 400
+        if (
+            not Utils.validateJsonReqBody(request.get_json(), "filtersData") or
+            not Utils.validateJsonReqBody(request.get_json(), "filtersData", "add")
+        ):
+            return {
+                "error" : "incorrect json body structure"
+            }, 400
 
-        filtersData=request.get_json()["filtersData"]
+        filtersData = request.get_json()["filtersData"]
 
-        sqlString="SELECT filter_tag FROM filters;"
+        sqlString = "SELECT filter_tag FROM filters;"
         cur.execute(sqlString)
         currentFilters = Utils.cursorToList(cur)
 
@@ -242,10 +246,10 @@ class Filters(Resource):
 
         sqlString = "INSERT INTO filters (filter_tag) VALUES (%s) RETURNING id;"
 
-        idsToReturn=[]
+        idsToReturn = []
         for newFilter in filtersData["add"]:
             cur.execute(sqlString, (newFilter,))
-            idsToReturn.append( {"filter" : newFilter, "id": cur.fetchone()[0]} )
+            idsToReturn.append({"filter" : newFilter, "id": cur.fetchone()[0]})
 
         conn.commit()
         cur.close()
@@ -263,9 +267,9 @@ class Filter(Resource):
     def get(self, id):
         conn = connect()
         cur = conn.cursor()
-        sqlString="SELECT * FROM filters WHERE id={0}".format(str(id))
+        sqlString = "SELECT * FROM filters WHERE id={0}".format(str(id))
         cur.execute(sqlString)
-        if cur.rowcount==0:
+        if cur.rowcount == 0:
             return {
                 "error" : "filter not found"
             }, 404
@@ -286,23 +290,23 @@ class Filter(Resource):
     def delete(self, id):
         conn = connect()
         cur = conn.cursor()
-        sqlString="SELECT * FROM filters WHERE id={0}".format(str(id))
+        sqlString = "SELECT * FROM filters WHERE id={0}".format(str(id))
         cur.execute(sqlString)
-        if cur.rowcount==0:
+        if cur.rowcount == 0:
             return {
                 "error" : "filter not found"
             }, 404
 
         filterToDelete = cur.fetchone()
 
-        sqlString="SELECT * FROM project_to_filters WHERE filter_id={0}".format(str(id))
+        sqlString = "SELECT * FROM project_to_filters WHERE filter_id={0}".format(str(id))
         cur.execute(sqlString)
-        if cur.rowcount!=0:
+        if cur.rowcount != 0:
             return {
                 "error" : "filter is tied to one or more projects"
             }, 412
 
-        sqlString="DELETE FROM filters WHERE id={0}".format(filterToDelete[0])
+        sqlString = "DELETE FROM filters WHERE id={0}".format(filterToDelete[0])
         cur.execute(sqlString)
         conn.commit()
         cur.close()

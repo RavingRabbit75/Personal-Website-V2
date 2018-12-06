@@ -141,7 +141,7 @@ class Projects(Resource):
             return {
                 "error" : "incorrect json body structure"
             }, 400
-        project=request.get_json()["projectData"]
+        project = request.get_json()["projectData"]
 
         techString = ', '.join(project["tech"])
 
@@ -149,15 +149,18 @@ class Projects(Resource):
                         (name, role, builtWith, description, layoutType, priority, enabled) 
                         VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id;"""
 
-        cur.execute(sqlString, 
-                        (project["name"], 
-                        project["role"], 
-                        techString,
-                        project["description"],
-                        project["imagesLayout"],
-                        project["priority"],
-                        False)
-                    )
+        cur.execute(
+            sqlString, (
+                project["name"], 
+                project["role"], 
+                techString, 
+                project["description"], 
+                project["imagesLayout"], 
+                project["priority"], 
+                False
+            )
+        )
+
         newId = cur.fetchone()[0]
         sqlString = """INSERT INTO project_points (project_point, project_id) VALUES (%s, %s);"""
 
@@ -211,13 +214,13 @@ class Project(Resource):
             }, 404
 
         project = cur.fetchone()
-        projectData["name"]=project[1]
-        projectData["role"]=project[2]
-        projectData["builtwith"]=project[3]
-        projectData["description"]=project[4]
-        projectData["layouttype"]=project[5]
-        projectData["priority"]=project[6]
-        projectData["enabled"]=project[7]
+        projectData["name"] = project[1]
+        projectData["role"] = project[2]
+        projectData["builtwith"] = project[3]
+        projectData["description"] = project[4]
+        projectData["layouttype"] = project[5]
+        projectData["priority"] = project[6]
+        projectData["enabled"] = project[7]
 
         cur.execute("""SELECT f.filter_tag 
                        FROM filters as f 
@@ -284,7 +287,7 @@ class Project(Resource):
                 "error" : "incorrect json body structure"
             }, 400
 
-        project=request.get_json()["projectData"]
+        project = request.get_json()["projectData"]
 
         techString = ', '.join(project["tech"])
 
@@ -303,8 +306,8 @@ class Project(Resource):
 
         for point in project["accomplishments"]:
             cur.execute("""INSERT INTO project_points (project_point, project_id) 
-                           VALUES (%s, %s);""", (point, id) )
-        
+                           VALUES (%s, %s);""", (point, id))
+
 
         cur.execute("DELETE FROM project_urls WHERE project_id={0};".format(str(id)))
         sqlString = """INSERT INTO project_urls (type, url, project_id) VALUES (%s, %s, %s);"""
@@ -333,7 +336,7 @@ class Project(Resource):
         if cur.rowcount == 0:
             return {"message": "item not found"}, 404
 
-        deleteImgsArr=[]
+        deleteImgsArr = []
         for preview in cur:
             deleteImgsArr.append(preview)
 
@@ -363,7 +366,7 @@ class Project(Resource):
 
         else:
             return {"file missing" : fileStatus[1]}, 404
-        
+
         cur.close()
         conn.close()
 
@@ -375,7 +378,7 @@ class Project(Resource):
 class ProjectImages(Resource):
 
     @auth.login_required
-    def post (self, id):
+    def post(self, id):
         conn = connect()
         cur = conn.cursor()
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
@@ -386,7 +389,7 @@ class ProjectImages(Resource):
 
         else:
             cur.execute("SELECT * from project_previews WHERE project_id={0};".format(str(id)))
-            previews=[]
+            previews = []
             for imagePreview in cur:
                 previews.append(imagePreview[1])
 
@@ -407,7 +410,7 @@ class ProjectImages(Resource):
                 photos = UploadSet('photos', IMAGES)
                 configure_uploads(app, photos)
 
-                filesSaved=[]
+                filesSaved = []
                 for image in imageList:
                     filename = photos.save(image)
                     filesSaved.append(filename)
@@ -426,7 +429,7 @@ class ProjectImages(Resource):
 class ProjectEnabled(Resource):
 
     @auth.login_required
-    def put (self, id):
+    def put(self, id):
         conn = connect()
         cur = conn.cursor()
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
@@ -447,7 +450,7 @@ class ProjectEnabled(Resource):
                 "message": "needs to have the key 'enabled' with value of true or false"
             }, 400
 
-        projectEnabled=request.get_json()["enabled"]
+        projectEnabled = request.get_json()["enabled"]
 
         sqlString = """UPDATE projects 
                        SET enabled={0} 
@@ -494,7 +497,7 @@ class ProjectPriorities(Resource):
 class ProjectPriority(Resource):
 
     @auth.login_required
-    def get (self, id):
+    def get(self, id):
         conn = connect()
         cur = conn.cursor()
         cur.execute("SELECT id, name, priority from projects WHERE id={0};".format(str(id)))
@@ -512,7 +515,7 @@ class ProjectPriority(Resource):
 
 
     @auth.login_required
-    def put (self, id):
+    def put(self, id):
         conn = connect()
         cur = conn.cursor()
         cur.execute("SELECT * from projects WHERE id={0};".format(str(id)))
@@ -533,7 +536,7 @@ class ProjectPriority(Resource):
                 "message": "needs to have the key 'priority' and value of type integer"
             }, 400
 
-        priority=request.get_json()["priority"]
+        priority = request.get_json()["priority"]
 
         sqlString = """UPDATE projects 
                        SET priority={0} 

@@ -15,7 +15,7 @@ def get_pw(username, client_password):
     conn = connect()
     cur = conn.cursor()
     cur.execute("SELECT * FROM admins WHERE username='{0}';".format(str(username)))
-    if cur.rowcount==0:
+    if cur.rowcount == 0:
         return False
 
     return bcrypt.checkpw(client_password.encode("utf-8"), cur.fetchone()[2].encode("utf-8"))
@@ -24,7 +24,7 @@ def get_pw(username, client_password):
 def connect():
     databaseName = os.environ.get("SITE_DATABASE")
     connectionString = "dbname=" + databaseName
-    c=psycopg2.connect(connectionString)
+    c = psycopg2.connect(connectionString)
     return c
 
 
@@ -40,7 +40,7 @@ class Users(Resource):
                 "message": "no users currently"
             }, 404
 
-        userList=[]
+        userList = []
         for user in cur:
             userList.append(user)
 
@@ -74,7 +74,7 @@ class User(Resource):
                         INNER JOIN subsites ON stu.subsite_id = subsites.id 
                         WHERE user_id={0}""".format(str(id)))
 
-        subsites=[]
+        subsites = []
         for subsite in cur:
             subsites.append(subsite)
 
