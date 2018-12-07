@@ -52,7 +52,6 @@ export default class Header extends React.Component {
 	}
 
 	sectionClick(){
-		console.log(this.props.section);
 		this.props.setSectionFunc();
 	}
 

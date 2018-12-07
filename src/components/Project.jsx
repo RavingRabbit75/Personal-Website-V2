@@ -11,24 +11,127 @@ export default class Project extends React.Component {
 		};
 	}
 
-	setupImageLayout(link1, link2) {
+	setupImageLayout(link1, imagesLinks) {
 		let layout;
+		const wrapper = s["wrapper"];
+		const previewsRow = s["previews-row"];
+		const previewsRow2 = s["previews-row2"];
+		const top = s["top"];
+		const bottom = s["bottom"];
+		const projectImage = s["project-image"];
+		const shadowOn = s["shadow-on"];
+		const shadowOff = s["shadow-off"];
+
+		const previewSingleWrapper = s["preview-single-wrapper"];
+		const previewSingleWrapper2 = s["preview-single-wrapper2"];
+		const previewDoubleWrapper = s["preview-double-wrapper"];
+		const previewDoubleWrapper2 = s["preview-double-wrapper2"];
+		const previewTripleWrapper = s["preview-triple-wrapper"];
+		const previewTripleWrapper2 = s["preview-triple-wrapper2"];
+		const projectImageBuffer = s["project-image-buffer"];
+		
+		const image = s["image"];
+
+
 		if(this.props.projectData.layouttype === 1){
 
 			if(link1[0]) {
 				layout = 
-				<a href={link1[0][1]} target="_blank"><div className="wrapper">
-					<div id="" className="previews-row top">
-						<div className="preview-single-wrapper shadow-on">
-							<div className="project-image">
-								<img className="image" src="" alt="" />
+				<a href={link1[0][1]} target="_blank"><div className={wrapper}>
+					<div id="" className={previewsRow + " " + top}>
+						<div className={previewSingleWrapper + " " + shadowOn}>
+							<div className={projectImage}>
+								<img className={image} src={imagesLinks[0][0]} alt="" />
 							</div>
 						</div>
 					</div>
-					<div id="" className="previews-row2 bottom">
-						<div className="preview-single-wrapper2 shadow-off">
-							<div className="project-image">
-								<img className="image" src="" alt="" />
+					<div id="" className={previewsRow2 + " " + bottom}>
+						<div className={previewSingleWrapper2 + " " + shadowOff}>
+							<div className={projectImage}>
+								<img className={image} src="" alt="" />
+							</div>
+						</div>
+					</div>
+				</div></a>;
+			} else {
+				layout = 
+				<div className={wrapper}>
+
+				</div>;
+			}
+		} else if (this.props.projectData.layouttype === 2) {
+
+			if(link1[0]) {
+				layout = 
+				<a href={link1[0][1]} target="_blank"><div className={wrapper}>
+					<div id="" className={previewsRow + " " + top}>
+						<div className={previewDoubleWrapper + " " + shadowOn}>
+							<div className={projectImage}>
+								<img className={image} src={imagesLinks[0][0]} alt="" />
+							</div>
+						</div>
+						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn}>
+							<div className={projectImage}>
+								<img className={image} src={imagesLinks[1][0]} alt="" />
+							</div>
+						</div>
+					</div>
+					<div id="" className={previewsRow2 + " " + bottom}>
+						<div className="preview-double-wrapper2 shadow-off">
+							<div className={projectImage}>
+								<img className={image} src="" alt="" />
+							</div>
+						</div>
+						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn}>
+							<div className={projectImage}>
+								<img className={image} src="" alt="" />
+							</div>
+						</div>
+					</div>
+				</div></a>;
+			} else {
+				layout = 
+				<div className={wrapper}>
+
+				</div>;
+			}
+		} else if (this.props.projectData.layouttype === 3) {
+			
+			
+			if(link1[0]) {
+				layout = 
+				<a href={link1[0][1]} target="_blank"><div className={wrapper}>
+					<div id="" className={previewsRow}>
+						<div className={previewTripleWrapper + " " + shadowOn}>
+							<div className={projectImage}>
+								<img className={image} src={imagesLinks[0][0]} alt=""/>
+							</div>
+						</div>
+						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn}>
+							<div className={projectImage}>
+								<img className={image} src={imagesLinks[1][0]} alt=""/>
+							</div>
+						</div>
+						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn}>
+							<div className={projectImage}>
+								<img className={image} src={imagesLinks[2][0]} alt=""/>
+							</div>
+						</div>
+					</div>
+					<div id="" className={previewsRow2 + " " + bottom}>
+						<div className={previewTripleWrapper2 + " " + shadowOff}>
+							<div className={projectImage}>
+								<img className={image} src="" alt=""/>
+							</div>
+						</div>
+						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff}>
+							<div className={projectImage}>
+								<img className={image} src="" alt=""/>
+							</div>
+						</div>
+						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff}>
+							<div className={projectImage}>
+								<img className={image} src="" alt=""/>
 							</div>
 						</div>
 					</div>
@@ -39,199 +142,7 @@ export default class Project extends React.Component {
 
 				</div>;
 			}
-		} else if (this.props.projectData.layouttype === 2) {
-
-			if(link1[0]) {
-				layout = 
-				<React.Fragment>
-				<div id="" className="previews-row top">
-					<div className="preview-double-wrapper shadow-on">
-						<div className="project-image">
-							<img className="image" src="" alt="" />
-						</div>
-					</div>
-					<div className="preview-double-wrapper project-image-buffer shadow-on">
-						<div className="project-image">
-							<img className="image" src="" alt="" />
-						</div>
-					</div>
-				</div>
-				<div id="" className="previews-row2 bottom">
-					<div className="preview-double-wrapper2 shadow-off">
-						<div className="project-image">
-							<img className="image" src="" alt="" />
-						</div>
-					</div>
-					<div className="preview-double-wrapper2 project-image-buffer shadow-off">
-						<div className="project-image">
-							<img className="image" src="" alt="" />
-						</div>
-					</div>
-				</div>
-				</React.Fragment>;
-			} else {
-				layout = 
-				<div className="wrapper">
-
-				</div>;
-			}
-		} else if (this.props.projectData.layouttype === 3) {
-			
-			if(link1[0]) {
-				layout = 
-				<React.Fragment>
-				<div id="" className="previews-row top">
-					<div className="preview-triple-wrapper shadow-on">
-						<div className="project-image">
-							<img className="image" src="" alt=""/>
-						</div>
-					</div>
-					<div className="preview-triple-wrapper project-image-buffer2 shadow-on">
-						<div className="project-image">
-							<img className="image" src="" alt=""/>
-						</div>
-					</div>
-					<div className="preview-triple-wrapper project-image-buffer2 shadow-on">
-						<div className="project-image">
-							<img className="image" src="" alt=""/>
-						</div>
-					</div>
-				</div>
-				<div id="" className="previews-row2 bottom">
-					<div className="preview-triple-wrapper2 shadow-off">
-						<div className="project-image">
-							<img className="image" src="" alt=""/>
-						</div>
-					</div>
-					<div className="preview-triple-wrapper2 project-image-buffer2 shadow-off">
-						<div className="project-image">
-							<img className="image" src="" alt=""/>
-						</div>
-					</div>
-					<div className="preview-triple-wrapper2 project-image-buffer2 shadow-off">
-						<div className="project-image">
-							<img className="image" src="" alt=""/>
-						</div>
-					</div>
-				</div>
-				</React.Fragment>;
-			} else {
-				layout = 
-				<div className="wrapper">
-
-				</div>;
-			}
 		}
-		/*
-		{% if project.imagesLayout=="single" %}
-			{% if project.liveLink != "" %}
-			<a href="{{ project.liveLink }}" target="_blank"><div class="wrapper">
-			{% else %}
-			<div class="wrapper">
-			{% endif %}
-				<div id="{{ project.projid + '_' + 'a'}}" class="previews-row top">
-					<div class="preview-single-wrapper shadow-on">
-						<div class="project-image">
-							<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
-						</div>
-					</div>
-				</div>
-				<div id="{{ project.projid + '_' + 'b' }}" class="previews-row2 bottom">
-					<div class="preview-single-wrapper2 shadow-off">
-						<div class="project-image">
-							<img class="image" src="" alt="">
-						</div>
-					</div>
-				</div>
-			{% if project.liveLink != "" %}
-			</div></a>
-			{% else %}
-			</div>
-			{% endif %}
-			
-		{% elif project.imagesLayout=="double" %}
-			{% if project.liveLink != "" %}
-			<a href="{{ project.liveLink }}" target="_blank"><div class="wrapper">
-			{% else %}
-			<div class="wrapper">
-			{% endif %}
-				<div id="{{ project.projid + '_' + 'a'}}" class="previews-row top">
-					<div class="preview-double-wrapper shadow-on">
-						<div class="project-image">
-							<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
-						</div>
-					</div>
-					<div class="preview-double-wrapper project-image-buffer shadow-on">
-						<div class="project-image">
-							<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
-						</div>
-					</div>
-				</div>
-				<div id="{{ project.projid + '_' + 'b' }}" class="previews-row2 bottom">
-					<div class="preview-double-wrapper2 shadow-off">
-						<div class="project-image">
-							<img class="image" src="" alt="">
-						</div>
-					</div>
-					<div class="preview-double-wrapper2 project-image-buffer shadow-off">
-						<div class="project-image">
-							<img class="image" src="" alt="">
-						</div>
-					</div>
-				</div>
-			{% if project.liveLink != "" %}
-			</div></a>
-			{% else %}
-			</div>
-			{% endif %}
-
-		{% elif project.imagesLayout=="triple" %}
-			{% if project.liveLink != "" %}
-			<a href="{{ project.liveLink }}" target="_blank"><div class="wrapper">
-			{% else %}
-			<div class="wrapper">
-			{% endif %}
-				<div id="{{ project.projid + '_' + 'a'}}" class="previews-row top">
-					<div class="preview-triple-wrapper shadow-on">
-						<div class="project-image">
-							<img class="image" src="{{ url_for('static', filename=project.images[0].path) }}" alt="">
-						</div>
-					</div>
-					<div class="preview-triple-wrapper project-image-buffer2 shadow-on">
-						<div class="project-image">
-							<img class="image" src="{{ url_for('static', filename=project.images[1].path) }}" alt="">
-						</div>
-					</div>
-					<div class="preview-triple-wrapper project-image-buffer2 shadow-on">
-						<div class="project-image">
-							<img class="image" src="{{ url_for('static', filename=project.images[2].path) }}" alt="">
-						</div>
-					</div>
-				</div>
-				<div id="{{ project.projid + '_' + 'b' }}" class="previews-row2 bottom">
-					<div class="preview-triple-wrapper2 shadow-off">
-						<div class="project-image">
-							<img class="image" src="" alt="">
-						</div>
-					</div>
-					<div class="preview-triple-wrapper2 project-image-buffer2 shadow-off">
-						<div class="project-image">
-							<img class="image" src="" alt="">
-						</div>
-					</div>
-					<div class="preview-triple-wrapper2 project-image-buffer2 shadow-off">
-						<div class="project-image">
-							<img class="image" src="" alt="">
-						</div>
-					</div>
-				</div>
-			{% if project.liveLink != "" %}
-			</div></a>
-			{% else %}
-			</div>
-			{% endif %}
-		{% endif %}
-		*/
 
 		return layout;
 	}
@@ -255,7 +166,7 @@ export default class Project extends React.Component {
 		const projectLinks = s["project-links"];
 		const projectLinksIcons = s["project-links-icons"];
 
-		const wrapper = s["wrapper"];
+		
 
 		let liveLink;
 		const link1 = this.props.projectData.urls.filter((item, idx) => {
@@ -273,7 +184,13 @@ export default class Project extends React.Component {
 			githubLink = <a href={link2[0][1]} target="_blank"><div className={projectLinksIcons}><img src={icon_github} alt="" /></div></a>;
 		}
 
-		let imageLayout = this.setupImageLayout(link1, link2);
+
+		// this.props.projectData.previews
+		const imagesArr = this.props.projectData.previews.map((imgItemArr, idx) => {
+			return ["/projects/images/" + imgItemArr[0], imgItemArr[1]];
+		});
+
+		let imageLayout = this.setupImageLayout(link1, imagesArr);
 		
 		return(
 			<React.Fragment>

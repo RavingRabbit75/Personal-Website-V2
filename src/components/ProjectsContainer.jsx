@@ -47,7 +47,6 @@ export default class ProjectsContainer extends React.Component {
 					projectsList["projects"][idx]["filters"] = item;
 					projectsList["projects"][idx]["hidden"] = false;
 				});
-				console.log(projectsList["projects"]);
 				this.setState({
 					projectsList: projectsList["projects"]
 				});
