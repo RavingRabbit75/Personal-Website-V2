@@ -36,16 +36,20 @@ export default class ProjectsContainer extends React.Component {
 				});
 				return Promise.all(promiseArr);
 
-			}).then((listOfStuff) => {
-				const promise2Arr = listOfStuff.map((item, idx) => {
+			}).then((filtersResponses) => {
+				const promise2Arr = filtersResponses.map((item, idx) => {
 					return item.json();
 				});
 				return Promise.all(promise2Arr);
 
 			}).then((data) => {
 				data.forEach((item, idx) => {
-					projectsList["projects"][idx]["filters"] = item;
-					projectsList["projects"][idx]["hidden"] = false;
+					projectsList["projects"][idx]["filters"] = {"project_filters": item["project_filters"], "key": item["key"]};
+					if(item["project_filters"].length === 0) {
+						projectsList["projects"][idx]["hidden"] = true;
+					} else {
+						projectsList["projects"][idx]["hidden"] = false;
+					}
 				});
 				this.setState({
 					projectsList: projectsList["projects"]
