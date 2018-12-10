@@ -48,9 +48,10 @@ class ProjectFilters(Resource):
 
         if cur.rowcount == 0:
             return {
+                "project_filters": [],
                 "message": "no filters found for this project",
                 "project": projectName
-            }, 404
+            }, 200
 
         filtersForProject = []
         for filt in cur:
