@@ -1,7 +1,9 @@
 import React from "react";
 import s from "./Project.scss";
+import PreviewBtn from "./PreviewBtn.jsx";
 import icon_link from "./imgs/icon_link.svg";
 import icon_github from "./imgs/icon_github.svg";
+
 
 export default class Project extends React.Component {
 	constructor(props) {
@@ -97,7 +99,6 @@ export default class Project extends React.Component {
 			}
 		} else if (this.props.projectData.layouttype === 3) {
 			
-			
 			if(link1[0]) {
 				layout = 
 				<a href={link1[0][1]} target="_blank"><div className={wrapper}>
@@ -147,6 +148,69 @@ export default class Project extends React.Component {
 		return layout;
 	}
 
+
+	setupImagePreviewButtons() {
+		let projectLayout;
+
+		const previewBtnsContainer = s["preview-btns-container"];
+		const previewBlockButtons = s["preview-block-buttons"];
+		const previewBlockButtonsRow = s["preview-block-buttons-row"];
+
+		const currentImageIndicator = s["current-image-indicator"];
+
+		let stuff = () => {
+			let previewBtns=[];
+			if (this.props.projectData.layouttype === 1) {
+				let numOfPreviewBtns = this.props.projectData.previews.length;
+				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
+					previewBtns.push(
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id } />
+				  	);
+				}
+				
+			}  else if (this.props.projectData.layouttype === 2) {
+				let numOfPreviewBtns = this.props.projectData.previews.length/2;
+				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
+					previewBtns.push(
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id } />
+				  	);
+				}
+
+			} else if (this.props.projectData.layouttype === 3) {
+				let numOfPreviewBtns = this.props.projectData.previews.length/3;
+				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
+					previewBtns.push(
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id } />
+				  	);
+				}
+				
+			} 
+
+			return previewBtns;
+		};
+
+		if ((this.props.projectData.layouttype === 1 && this.props.projectData.previews.length > 1)
+		|| (this.props.projectData.layouttype === 2 && this.props.projectData.previews.length > 2)
+		|| (this.props.projectData.layouttype === 3 && this.props.projectData.previews.length > 3)) {
+
+			projectLayout = 
+			<div className={previewBtnsContainer}>
+			<div className={previewBlockButtons}>
+				<div className={previewBlockButtonsRow}>
+					{stuff()}
+				</div>
+				<div className={currentImageIndicator}></div>
+			</div>
+			</div>;
+			
+		}
+
+
+		return projectLayout;
+
+	}
+
+
 	render() {
 		const itemContainer = s["item-container"];
 		const itemTitle = s["item-title"];
@@ -159,14 +223,14 @@ export default class Project extends React.Component {
 		const projectImageSlot = s["project-image-slot"];
 		const projectSlotClipper = s["project-slot-clipper"];
 
+		const loading = s["loading"];
+
 		const projectTextBuiltwith = s["project-text-builtwith"];
 		const projectText = s["project-text"];
 		const projectTextDescription = s["project-text-description"];
 		const projectTextAccomplishments = s["project-text-accomplishments"];
 		const projectLinks = s["project-links"];
 		const projectLinksIcons = s["project-links-icons"];
-
-		
 
 		let liveLink;
 		const link1 = this.props.projectData.urls.filter((item, idx) => {
@@ -184,17 +248,16 @@ export default class Project extends React.Component {
 			githubLink = <a href={link2[0][1]} target="_blank"><div className={projectLinksIcons}><img src={icon_github} alt="" /></div></a>;
 		}
 
-
-		// this.props.projectData.previews
 		const imagesArr = this.props.projectData.previews.map((imgItemArr, idx) => {
 			return ["/projects/images/" + imgItemArr[0], imgItemArr[1]];
 		});
 
 		let imageLayout = this.setupImageLayout(link1, imagesArr);
+		let imagePreviewButtons = this.setupImagePreviewButtons();
 		
 		return(
 			<React.Fragment>
-				<div id="" className={itemContainer}>
+				<div id={this.props.projectData.id} className={itemContainer}>
 					<div className={itemTitle}>
 						{this.props.projectData.name}
 					</div>
@@ -211,11 +274,11 @@ export default class Project extends React.Component {
 									</div>
 								</div>
 
-								<div className="loading">
+								{imagePreviewButtons}
+
+								<div className={loading}>
 									<div>LOADING</div>
 								</div>
-
-								{/* Below starts text portion of project */}
 
 								<div className={projectTextBuiltwith}>
 									Built with:
