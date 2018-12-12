@@ -1,0 +1,29 @@
+@import 'scss_partials/global_variables';
+@import 'scss_partials/mixins';
+
+
+.block-button-wrapper {
+  position: relative;
+  font-size: 0;
+  display: inline-block;
+  width: 38px;
+  height: 14px;
+  top: 8px;
+  margin-left: 2px;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+
+.block-button {
+  margin-left: 2px;
+  margin-right: 2px;
+  position: absolute;
+  float: left;
+  height: 5px;
+  width: 38px;
+  left: -2px;
+  bottom: 4px;
+  background-color: $light-tan;
+  pointer-events: none;
+}

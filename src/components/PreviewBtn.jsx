@@ -1,6 +1,5 @@
 import React from "react";
-import s from "./Project.scss";
-
+import s from "./PreviewBtn.scss";
 
 export default class PreviewBtn extends React.Component {
 	constructor(props) {
@@ -17,7 +16,7 @@ export default class PreviewBtn extends React.Component {
 
 		return(
 			<React.Fragment>
-				<div id={ 'btn' + this.props.idx + '_' + this.props.dataProjid } data-imageidx={ this.props.idx } dataProjid={ this.props.dataProjid } key={ this.props.idx } className={blockButtonWrapper}>
+				<div id={ 'btn' + this.props.idx + '_' + this.props.projId } data-imageidx={ this.props.idx } data-projid={ this.props.projId } className={blockButtonWrapper}>
 					<div className={blockButton}></div>
 				</div>
 			</React.Fragment>

@@ -164,7 +164,7 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id } />
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id} key={ idx + "_" + this.props.projectData.id } />
 				  	);
 				}
 				
@@ -172,7 +172,7 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length/2;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id } />
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id }/>
 				  	);
 				}
 
@@ -180,7 +180,7 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length/3;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id } />
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id }/>
 				  	);
 				}
 				
