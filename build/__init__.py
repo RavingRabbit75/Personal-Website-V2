@@ -2,6 +2,7 @@ import os
 from flask import Flask, Blueprint, jsonify, render_template, redirect, url_for, json, request
 from flask_restful import Api
 
+from build.resourcesGlobalInfo import GlobalInfo
 from build.resourcesProfile import SkillList
 from build.resourcesProfile import ExperienceList
 from build.resourcesProfile import EducationList
@@ -38,6 +39,7 @@ app.jinja_env.lstrip_blocks = True
 
 api_bp = Blueprint("api", __name__)
 api = Api(api_bp)
+api.add_resource(GlobalInfo, "/globalinfo")
 api.add_resource(SkillList, "/profile/skills")
 api.add_resource(ExperienceList, "/profile/experience")
 api.add_resource(EducationList, "/profile/education")
