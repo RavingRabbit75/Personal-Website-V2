@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import s from "./Header.scss";
+import DateTime from "./DateTime.jsx";
 import Iconlink from "./Iconlink.jsx";
 import SectionButton from "./SectionButton.jsx";
 import header_image_name from "./imgs/header_image_name.png";
@@ -11,6 +12,7 @@ import icon_linkedin from "./imgs/icon_linkedin.svg";
 import icon_linkedin_over from "./imgs/icon_linkedin_over.svg";
 import icon_github from "./imgs/icon_github.svg";
 import icon_github_over from "./imgs/icon_github_over.svg";
+
 import { 
     TweenMax,
     TimelineMax,
@@ -34,11 +36,7 @@ export default class Header extends React.Component {
 	}
 
 	componentDidMount() {
-		// TweenMax.to(this, 1, {x:100, y:100});
-		// const node = ReactDOM.findDOMNode(this);
-		// this.loaderTween = TweenMax.to(node, 1, {
-		// 	x: "200px", ease: Expo.easeInOut, delay: 2
-		// });
+	
 	}
 
 
@@ -54,7 +52,6 @@ export default class Header extends React.Component {
 	// {{ baseContent.githubProfile }}
 	render() {
 		let headerMainBg = s["header-main-bg"];
-		let currentDate = s["date-text"] + " " + s["text-center"];
 		let heroImagesBox = s["hero-images-box"];
 		let heroImages = s["hero-images"];
 		let headerImage1 = s["header-image1"];
@@ -75,7 +72,7 @@ export default class Header extends React.Component {
 			{/* A JSX comment */}
 				<div id="header">
 					<div className={headerMainBg}>
-						<div id="current-date" className={currentDate}>Sunday January 1, 2000</div>
+						<DateTime />
 						<div id="hero-images-box" className={heroImagesBox}>
 							<div id="hero-images" className={heroImages}>
 								<img id="header-image1" className={headerImage1} src={header_image_name} alt=""/>
