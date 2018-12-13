@@ -78,7 +78,7 @@ export default class App extends React.Component {
 					currentSection={this.state.currentSection} 
 					setSectionFunc1={this.setSectionToProfile.bind(this)}
 					setSectionFunc2={this.setSectionToProjects.bind(this)}
-					globalicons={this.state.globalInfo.global_icons} />
+					globalinfo={this.state.globalInfo} />
 				{ this.setupMainContent(this.state.currentSection) }
 				<Footer globalicons={this.state.globalInfo.global_icons}/>
 			</React.Fragment>

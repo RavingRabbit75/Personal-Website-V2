@@ -29,8 +29,8 @@ export default class Header extends React.Component {
 
 	renderIconLinks() {
 		let iconLinks;
-		if (this.props.globalicons){
-			iconLinks = this.props.globalicons.map( (icon, idx, arr)=> {
+		if (this.props.globalinfo.global_icons){
+			iconLinks = this.props.globalinfo.global_icons.map( (icon, idx, arr)=> {
 				let rowPosition;
 				if(idx === 0) {
 					rowPosition = "left";
@@ -46,6 +46,21 @@ export default class Header extends React.Component {
 		return iconLinks;
 	}
 
+	renderDeveloperTitle() {
+		let dtLine = s["dt-line"];
+		let developerTitle;
+		if (this.props.globalinfo.global_description){
+			developerTitle=
+			<React.Fragment>
+				<span className={dtLine}>{this.props.globalinfo.global_description[0].desc1}</span>
+				<span> </span>
+				<span className={dtLine}>{this.props.globalinfo.global_description[0].desc2}</span>
+			</React.Fragment>;
+		}
+
+		return developerTitle;
+	}
+
 	render() {
 		let headerMainBg = s["header-main-bg"];
 		let heroImagesBox = s["hero-images-box"];
@@ -54,7 +69,6 @@ export default class Header extends React.Component {
 		let headerImage2 = s["header-image2"];
 
 		let developerTitle = s["developer-title"] + " " + s["text-center"] + " " + s["text"];
-		let dtLine = s["dt-line"];
 
 		let headerIconLinks = s["header-icon-links"] + " " + s["text-center"];
 
@@ -77,9 +91,7 @@ export default class Header extends React.Component {
 						</div>
 
 						<div id="developer-title" className={developerTitle}>
-							<span className={dtLine}>FULL STACK WEB DEVELOPER</span>
-							<span> </span>
-							<span className={dtLine}>with a focus on front-end</span>
+							{this.renderDeveloperTitle()}
 						</div>
 
 						<div id="header-icon-links" className={headerIconLinks}>
