@@ -116,9 +116,15 @@ def projects_route():
                                           , sectionName = "projects")
 
 
+
+@app.route("/images/<string:imageFile>/")
+def mages_route(imageFile):
+    image_file_path = "images/" + imageFile
+    return app.send_static_file(image_file_path)
+
+
 @app.route("/projects/images/<string:imageFile>/")
 def projects_images_route(imageFile):
-    print(imageFile)
     image_file_path = "images/projects/" + imageFile
     return app.send_static_file(image_file_path)
 
