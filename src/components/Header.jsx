@@ -6,12 +6,6 @@ import Iconlink from "./Iconlink.jsx";
 import SectionButton from "./SectionButton.jsx";
 import header_image_name from "./imgs/header_image_name.png";
 import header_image_laptop from "./imgs/header_image_laptop.png";
-import icon_mail from "./imgs/icon_mail.svg";
-import icon_mail_over from "./imgs/icon_mail_over.svg";
-import icon_linkedin from "./imgs/icon_linkedin.svg";
-import icon_linkedin_over from "./imgs/icon_linkedin_over.svg";
-import icon_github from "./imgs/icon_github.svg";
-import icon_github_over from "./imgs/icon_github_over.svg";
 
 import { 
     TweenMax,
@@ -47,9 +41,26 @@ export default class Header extends React.Component {
 		return false;
 	}
 
-	// mailto:{{ baseContent.email }}
-	// {{ baseContent.linkedinProfile }}
-	// {{ baseContent.githubProfile }}
+	renderIconLinks() {
+		console.log(this.props.globalicons);
+		let iconLinks;
+		if (this.props.globalicons){
+			iconLinks = this.props.globalicons.map( (icon, idx, arr)=> {
+				let rowPosition;
+				if(idx === 0) {
+					rowPosition = "left";
+				} else if (idx === arr.length-1) {
+					rowPosition = "right";
+				} else {
+					rowPosition = "middle";
+				}
+				return <Iconlink key={idx} section="header" rowPosition={rowPosition} url={icon.link} linkData={icon}/>;
+			});
+		}
+		
+		return iconLinks;
+	}
+
 	render() {
 		let headerMainBg = s["header-main-bg"];
 		let heroImagesBox = s["hero-images-box"];
@@ -87,9 +98,7 @@ export default class Header extends React.Component {
 						</div>
 
 						<div id="header-icon-links" className={headerIconLinks}>
-							<Iconlink section="header" rowPosition="left" type="mail" url=""/>
-							<Iconlink section="header" rowPosition="middle" type="linkedin" url=""/>
-							<Iconlink section="header" rowPosition="right" type="github" url=""/>
+							{this.renderIconLinks()}
 						</div>
 
 						<div className="text-center">

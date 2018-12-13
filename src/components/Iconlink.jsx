@@ -1,17 +1,5 @@
 import React from "react";
 import s from "./Iconlink.scss";
-import icon_mail from "./imgs/icon_mail.svg";
-import icon_mail_over from "./imgs/icon_mail_over.svg";
-import icon_linkedin from "./imgs/icon_linkedin.svg";
-import icon_linkedin_over from "./imgs/icon_linkedin_over.svg";
-import icon_github from "./imgs/icon_github.svg";
-import icon_github_over from "./imgs/icon_github_over.svg";
-import iconFooter_mail from "./imgs/iconFooter_mail.svg";
-import iconFooter_mail_over from "./imgs/iconFooter_mail_over.svg";
-import iconFooter_linkedin from "./imgs/iconFooter_linkedin.svg";
-import iconFooter_linkedin_over from "./imgs/iconFooter_linkedin_over.svg";
-import iconFooter_github from "./imgs/iconFooter_github.svg";
-import iconFooter_github_over from "./imgs/iconFooter_github_over.svg";
 
 import { 
     TweenMax,
@@ -64,40 +52,14 @@ export default class Iconlink extends React.Component {
 		let icon_file = null;
 		let icon_file_over = null;
 
-		switch(this.props.type) {
-		    case "mail":
-		    	if (this.props.section==="header") {
-		    		icon_file = icon_mail;
-		        	icon_file_over = icon_mail_over;
-		    	} else {
-		    		icon_file = iconFooter_mail;
-		    		icon_file_over = iconFooter_mail_over;
-		    	}
-		        break;
-
-		    case "linkedin":
-		    	if (this.props.section==="header") {
-			    	icon_file = icon_linkedin;
-			        icon_file_over = icon_linkedin_over;
-			    } else {
-			    	icon_file = iconFooter_linkedin;
-		    		icon_file_over = iconFooter_linkedin_over;
-			    }
-		        break;
-
-		    case "github":
-		    	if (this.props.section==="header") {
-		    		icon_file = icon_github;
-		        	icon_file_over = icon_github_over;
-		        } else {
-		        	icon_file = iconFooter_github;
-		        	icon_file_over = iconFooter_github_over;
-		        }
-		        break;
-
-		    default:
-		        console.log("Error: icon type not given");
-
+		if (this.props.linkData){
+			if (this.props.section === "header") {
+				icon_file = "images/" + this.props.linkData.filename_header;
+				icon_file_over = "images/" + this.props.linkData.filename_header_over;
+			} else {
+				icon_file = "images/" + this.props.linkData.filename_footer;
+				icon_file_over = "images/" + this.props.linkData.filename_footer_over;
+			}
 		}
 
 		return (

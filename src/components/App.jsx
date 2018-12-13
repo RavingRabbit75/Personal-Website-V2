@@ -10,31 +10,28 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			currentSection: "projects"
+			currentSection: "projects",
+			globalInfo: {}
 		};
 	}
 
 	componentDidMount() {
-		// fetch("http://localhost:8000/api/v1/projects")
-		fetch("api/v1/projects")
-			.then(res => res.json())
-			.then(
-				(result) => {
-					this.setState({
-						isLoaded: true,
-						items: result.projects
-					});
-				},
-		// Note: it's important to handle errors here
-		// instead of a catch() block so that we don't swallow
-		// exceptions from actual bugs in components.
-				(error) => {
-					this.setState({
-						isLoaded: true,
-						error
-					});
-				}
-			);
+		let fetch1 = fetch("api/v1/globalinfo", {
+			method: "GET",
+			headers: {
+				Accept: "application/json",
+			}
+		});
+
+		Promise.all([fetch1])
+			.then(([response1]) => Promise.all([response1.json()]))
+			.then( ([globalInfo]) => {
+				console.log(globalInfo);
+				this.setState({
+					isLoaded: true,
+					globalInfo: globalInfo,
+				});
+			});
 	}
 
 	setSectionToProfile() {
@@ -54,12 +51,6 @@ export default class App extends React.Component {
 	}
 
 	setupMainContent(currentSection) {
-		// var prjs = ["Bubbles", "Buttercup", "Blossom"]
-
-		// return prjs.map(function(item, idx) {
-		// 	return <Project prjName={item} key={idx.toString()}/>
-		// })
-		
 		if (currentSection==="profile") {
 			return <ProfileContainer />;
 		} else {
@@ -73,9 +64,10 @@ export default class App extends React.Component {
 				<Header 
 					currentSection={this.state.currentSection} 
 					setSectionFunc1={this.setSectionToProfile.bind(this)}
-					setSectionFunc2={this.setSectionToProjects.bind(this)}/>
+					setSectionFunc2={this.setSectionToProjects.bind(this)}
+					globalicons={this.state.globalInfo.global_icons} />
 				{ this.setupMainContent(this.state.currentSection) }
-				<Footer/>
+				<Footer globalicons={this.state.globalInfo.global_icons}/>
 			</React.Fragment>
 		);
 	}
