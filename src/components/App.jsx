@@ -6,6 +6,20 @@ import Project from "./Project.jsx";
 import ProfileContainer from "./ProfileContainer.jsx";
 import ProjectsContainer from "./ProjectsContainer.jsx";
 
+import { 
+    TweenMax,
+    TimelineMax,
+    AttrPlugin,
+    CSSPlugin
+} from "gsap";
+
+const activated = [
+    TweenMax,
+    TimelineMax,
+    AttrPlugin,
+    CSSPlugin
+];
+
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -26,7 +40,6 @@ export default class App extends React.Component {
 		Promise.all([fetch1])
 			.then(([response1]) => Promise.all([response1.json()]))
 			.then( ([globalInfo]) => {
-				console.log(globalInfo);
 				this.setState({
 					isLoaded: true,
 					globalInfo: globalInfo,

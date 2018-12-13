@@ -149,6 +149,20 @@ export default class Project extends React.Component {
 	}
 
 
+	movePreviewIndicator(imgIdx) {
+		var newBaseXLoc = 42 * (imgIdx - 1);
+		let leftPosition = window.getComputedStyle(this.currentImageIndicator, null).getPropertyValue("left");
+		let currentXCenterPos = parseInt(leftPosition.replace("px", ""), 10) + 19 + "px";
+		let newXCenterPos = newBaseXLoc + 19 + "px";
+
+		let animation = new TimelineMax();
+		animation.to(this.currentImageIndicator, 0.4, {width: "0", left: currentXCenterPos})
+				 .to(this.currentImageIndicator, 0, {left: newXCenterPos})
+				 .to(this.currentImageIndicator, 0.5, {width: "38px", left: newBaseXLoc+"px"});
+
+	}
+
+
 	setupImagePreviewButtons() {
 		let projectLayout;
 
@@ -164,7 +178,7 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id} key={ idx + "_" + this.props.projectData.id } />
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id} key={ idx + "_" + this.props.projectData.id} moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)} />
 				  	);
 				}
 				
@@ -172,7 +186,7 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length/2;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id }/>
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id } moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
 				  	);
 				}
 
@@ -180,11 +194,11 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length/3;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id }/>
+						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id } moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
 				  	);
 				}
 				
-			} 
+			}
 
 			return previewBtns;
 		};
@@ -199,7 +213,7 @@ export default class Project extends React.Component {
 				<div className={previewBlockButtonsRow}>
 					{stuff()}
 				</div>
-				<div className={currentImageIndicator}></div>
+				<div className={currentImageIndicator} ref={div => this.currentImageIndicator = div}></div>
 			</div>
 			</div>;
 			

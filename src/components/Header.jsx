@@ -7,20 +7,6 @@ import SectionButton from "./SectionButton.jsx";
 import header_image_name from "./imgs/header_image_name.png";
 import header_image_laptop from "./imgs/header_image_laptop.png";
 
-import { 
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-} from "gsap";
-
-const activated = [
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-];
-
 export default class Header extends React.Component {
 	constructor(props) {
 		super(props);
@@ -42,7 +28,6 @@ export default class Header extends React.Component {
 	}
 
 	renderIconLinks() {
-		console.log(this.props.globalicons);
 		let iconLinks;
 		if (this.props.globalicons){
 			iconLinks = this.props.globalicons.map( (icon, idx, arr)=> {
