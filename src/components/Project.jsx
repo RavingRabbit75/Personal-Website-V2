@@ -9,7 +9,7 @@ export default class Project extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-
+			previewButtonDisabled: 1
 		};
 	}
 
@@ -150,6 +150,10 @@ export default class Project extends React.Component {
 
 
 	movePreviewIndicator(imgIdx) {
+		this.setState({
+			previewButtonDisabled: imgIdx
+		});
+
 		var newBaseXLoc = 42 * (imgIdx - 1);
 		let leftPosition = window.getComputedStyle(this.currentImageIndicator, null).getPropertyValue("left");
 		let currentXCenterPos = parseInt(leftPosition.replace("px", ""), 10) + 19 + "px";
@@ -176,25 +180,55 @@ export default class Project extends React.Component {
 			let previewBtns=[];
 			if (this.props.projectData.layouttype === 1) {
 				let numOfPreviewBtns = this.props.projectData.previews.length;
+				let isEnabled;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
+					if (idx === this.state.previewButtonDisabled) {
+						isEnabled = false;
+					} else {
+						isEnabled = true;
+					}
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id} key={ idx + "_" + this.props.projectData.id} moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)} />
+						<PreviewBtn idx={idx} 
+									projId={ this.props.projectData.id} 
+									key={ idx + "_" + this.props.projectData.id} 
+									enabled={isEnabled}
+									moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)} />
 				  	);
 				}
 				
 			}  else if (this.props.projectData.layouttype === 2) {
 				let numOfPreviewBtns = this.props.projectData.previews.length/2;
+				let isEnabled;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
+					if (idx === this.state.previewButtonDisabled) {
+						isEnabled = false;
+					} else {
+						isEnabled = true;
+					}
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id } moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
+						<PreviewBtn idx={idx} 
+									projId={ this.props.projectData.id } 
+									key={ idx + "_" + this.props.projectData.id } 
+									enabled={isEnabled}
+									moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
 				  	);
 				}
 
 			} else if (this.props.projectData.layouttype === 3) {
 				let numOfPreviewBtns = this.props.projectData.previews.length/3;
+				let isEnabled;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
+					if (idx === this.state.previewButtonDisabled) {
+						isEnabled = false;
+					} else {
+						isEnabled = true;
+					}
 					previewBtns.push(
-						<PreviewBtn idx={idx} projId={ this.props.projectData.id } key={ idx + "_" + this.props.projectData.id } moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
+						<PreviewBtn idx={idx} 
+									projId={ this.props.projectData.id } 
+									key={ idx + "_" + this.props.projectData.id } 
+									enabled={isEnabled}
+									moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
 				  	);
 				}
 				

@@ -27,3 +27,11 @@
   background-color: $light-tan;
   pointer-events: none;
 }
+
+.disable-btn {
+  pointer-events: none;
+}
+
+.enable-btn {
+  pointer-events: auto;
+}

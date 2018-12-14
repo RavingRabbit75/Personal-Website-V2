@@ -4,22 +4,29 @@ import s from "./PreviewBtn.scss";
 export default class PreviewBtn extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state={
-
-		};
 	}
 
-	btnMouseOver(evt) {
+	btnMouseOver() {
 		TweenMax.to(this.blockButtonElement, 0.75, {height: "15px", ease: Power4.easeOut});
 	}
 
-	btnMouseLeave(evt) {
+	btnMouseLeave() {
 		TweenMax.to(this.blockButtonElement, 0.4, {height: "5px", ease: Power2.easeIn});
 	}
 
+	btnMouseClick() {
+		this.props.moveIndicatorFunc();
+	}
+
 	render() {
-		const blockButtonWrapper = s["block-button-wrapper"];
+		let blockButtonWrapper;
 		const blockButton = s["block-button"];
+
+		if (this.props.enabled) {
+			blockButtonWrapper = s["block-button-wrapper"] + " " +  s["enable-btn"];
+		} else {
+			blockButtonWrapper = s["block-button-wrapper"] + " " +  s["disable-btn"];
+		}
 		
 		return(
 			<React.Fragment>
@@ -29,7 +36,7 @@ export default class PreviewBtn extends React.Component {
 					 className={blockButtonWrapper} 
 					 onMouseEnter={this.btnMouseOver.bind(this)}
 					 onMouseLeave={this.btnMouseLeave.bind(this)}
-					 onClick={this.props.moveIndicatorFunc}>
+					 onClick={this.btnMouseClick.bind(this)}>
 					 <div className={blockButton} ref={div => this.blockButtonElement = div}></div>;
 				</div>
 			</React.Fragment>
