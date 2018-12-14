@@ -1,5 +1,6 @@
 import React from "react";
 import s from "./Project.scss";
+import ImagePreviews from "./ImagePreviews.jsx";
 import PreviewBtn from "./PreviewBtn.jsx";
 import icon_link from "./imgs/icon_link.svg";
 import icon_github from "./imgs/icon_github.svg";
@@ -9,147 +10,14 @@ export default class Project extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			previewButtonDisabled: 1
+			previewButtonDisabled: 1,
+			inTransition: false
 		};
 	}
 
-	setupImageLayout(link1, imagesLinks) {
-		let layout;
-		const wrapper = s["wrapper"];
-		const previewsRow = s["previews-row"];
-		const previewsRow2 = s["previews-row2"];
-		const top = s["top"];
-		const bottom = s["bottom"];
-		const projectImage = s["project-image"];
-		const shadowOn = s["shadow-on"];
-		const shadowOff = s["shadow-off"];
-
-		const previewSingleWrapper = s["preview-single-wrapper"];
-		const previewSingleWrapper2 = s["preview-single-wrapper2"];
-		const previewDoubleWrapper = s["preview-double-wrapper"];
-		const previewDoubleWrapper2 = s["preview-double-wrapper2"];
-		const previewTripleWrapper = s["preview-triple-wrapper"];
-		const previewTripleWrapper2 = s["preview-triple-wrapper2"];
-		const projectImageBuffer = s["project-image-buffer"];
-		
-		const image = s["image"];
 
 
-		if(this.props.projectData.layouttype === 1){
-
-			if(link1[0]) {
-				layout = 
-				<a href={link1[0][1]} target="_blank"><div className={wrapper}>
-					<div id="" className={previewsRow + " " + top}>
-						<div className={previewSingleWrapper + " " + shadowOn}>
-							<div className={projectImage}>
-								<img className={image} src={imagesLinks[0][0]} alt="" />
-							</div>
-						</div>
-					</div>
-					<div id="" className={previewsRow2 + " " + bottom}>
-						<div className={previewSingleWrapper2 + " " + shadowOff}>
-							<div className={projectImage}>
-								<img className={image} src="" alt="" />
-							</div>
-						</div>
-					</div>
-				</div></a>;
-			} else {
-				layout = 
-				<div className={wrapper}>
-
-				</div>;
-			}
-		} else if (this.props.projectData.layouttype === 2) {
-
-			if(link1[0]) {
-				layout = 
-				<a href={link1[0][1]} target="_blank"><div className={wrapper}>
-					<div id="" className={previewsRow + " " + top}>
-						<div className={previewDoubleWrapper + " " + shadowOn}>
-							<div className={projectImage}>
-								<img className={image} src={imagesLinks[0][0]} alt="" />
-							</div>
-						</div>
-						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn}>
-							<div className={projectImage}>
-								<img className={image} src={imagesLinks[1][0]} alt="" />
-							</div>
-						</div>
-					</div>
-					<div id="" className={previewsRow2 + " " + bottom}>
-						<div className="preview-double-wrapper2 shadow-off">
-							<div className={projectImage}>
-								<img className={image} src="" alt="" />
-							</div>
-						</div>
-						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn}>
-							<div className={projectImage}>
-								<img className={image} src="" alt="" />
-							</div>
-						</div>
-					</div>
-				</div></a>;
-			} else {
-				layout = 
-				<div className={wrapper}>
-
-				</div>;
-			}
-		} else if (this.props.projectData.layouttype === 3) {
-			
-			if(link1[0]) {
-				layout = 
-				<a href={link1[0][1]} target="_blank"><div className={wrapper}>
-					<div id="" className={previewsRow}>
-						<div className={previewTripleWrapper + " " + shadowOn}>
-							<div className={projectImage}>
-								<img className={image} src={imagesLinks[0][0]} alt=""/>
-							</div>
-						</div>
-						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn}>
-							<div className={projectImage}>
-								<img className={image} src={imagesLinks[1][0]} alt=""/>
-							</div>
-						</div>
-						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn}>
-							<div className={projectImage}>
-								<img className={image} src={imagesLinks[2][0]} alt=""/>
-							</div>
-						</div>
-					</div>
-					<div id="" className={previewsRow2 + " " + bottom}>
-						<div className={previewTripleWrapper2 + " " + shadowOff}>
-							<div className={projectImage}>
-								<img className={image} src="" alt=""/>
-							</div>
-						</div>
-						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff}>
-							<div className={projectImage}>
-								<img className={image} src="" alt=""/>
-							</div>
-						</div>
-						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff}>
-							<div className={projectImage}>
-								<img className={image} src="" alt=""/>
-							</div>
-						</div>
-					</div>
-				</div></a>;
-			} else {
-				layout = 
-				<div className="wrapper">
-
-				</div>;
-			}
-		}
-
-		return layout;
-	}
-
-
-	movePreviewIndicator(imgIdx) {
+	previewBtnClicked(imgIdx) {
 		this.setState({
 			previewButtonDisabled: imgIdx
 		});
@@ -159,11 +27,14 @@ export default class Project extends React.Component {
 		let currentXCenterPos = parseInt(leftPosition.replace("px", ""), 10) + 19 + "px";
 		let newXCenterPos = newBaseXLoc + 19 + "px";
 
-		let animation = new TimelineMax();
-		animation.to(this.currentImageIndicator, 0.4, {width: "0", left: currentXCenterPos})
-				 .to(this.currentImageIndicator, 0, {left: newXCenterPos})
-				 .to(this.currentImageIndicator, 0.5, {width: "38px", left: newBaseXLoc+"px"});
+		let indicatorAnim = new TimelineMax();
+		indicatorAnim.to(this.currentImageIndicator, 0.4, {width: "0", left: currentXCenterPos})
+					 .to(this.currentImageIndicator, 0, {left: newXCenterPos})
+					 .to(this.currentImageIndicator, 0.5, {width: "38px", left: newBaseXLoc+"px"});
 
+		this.setState({
+			inTransition: true
+		});
 	}
 
 
@@ -192,7 +63,7 @@ export default class Project extends React.Component {
 									projId={ this.props.projectData.id} 
 									key={ idx + "_" + this.props.projectData.id} 
 									enabled={isEnabled}
-									moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)} />
+									indicatorClickedFunc={this.previewBtnClicked.bind(this, idx)} />
 				  	);
 				}
 				
@@ -210,7 +81,7 @@ export default class Project extends React.Component {
 									projId={ this.props.projectData.id } 
 									key={ idx + "_" + this.props.projectData.id } 
 									enabled={isEnabled}
-									moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
+									indicatorClickedFunc={this.previewBtnClicked.bind(this, idx)}/>
 				  	);
 				}
 
@@ -228,7 +99,7 @@ export default class Project extends React.Component {
 									projId={ this.props.projectData.id } 
 									key={ idx + "_" + this.props.projectData.id } 
 									enabled={isEnabled}
-									moveIndicatorFunc={this.movePreviewIndicator.bind(this, idx)}/>
+									indicatorClickedFunc={this.previewBtnClicked.bind(this, idx)}/>
 				  	);
 				}
 				
@@ -300,7 +171,6 @@ export default class Project extends React.Component {
 			return ["/projects/images/" + imgItemArr[0], imgItemArr[1]];
 		});
 
-		let imageLayout = this.setupImageLayout(link1, imagesArr);
 		let imagePreviewButtons = this.setupImagePreviewButtons();
 		
 		return(
@@ -318,7 +188,10 @@ export default class Project extends React.Component {
 								<div className={imagesContainer}>
 									<div className={projectImageSlot}></div>
 									<div className={projectSlotClipper}>
-										{imageLayout}
+										<ImagePreviews linkOnImage={link1[0]} 
+													   imageFilenames={imagesArr}
+													   layout={this.props.projectData.layouttype}
+													   animating={this.state.inTransition}/>
 									</div>
 								</div>
 

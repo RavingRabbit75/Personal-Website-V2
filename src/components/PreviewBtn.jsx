@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./PreviewBtn.scss";
 
+
 export default class PreviewBtn extends React.Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +16,7 @@ export default class PreviewBtn extends React.Component {
 	}
 
 	btnMouseClick() {
-		this.props.moveIndicatorFunc();
+		this.props.indicatorClickedFunc();
 	}
 
 	render() {
