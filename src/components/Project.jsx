@@ -11,15 +11,17 @@ export default class Project extends React.Component {
 		super(props);
 		this.state={
 			previewButtonDisabled: 1,
-			inTransition: false
+			inTransition: false,
+			newImageSet: null
 		};
 	}
 
 
-
 	previewBtnClicked(imgIdx) {
 		this.setState({
-			previewButtonDisabled: imgIdx
+			previewButtonDisabled: imgIdx,
+			newImageSet: imgIdx,
+			inTransition: true
 		});
 
 		var newBaseXLoc = 42 * (imgIdx - 1);
@@ -32,9 +34,6 @@ export default class Project extends React.Component {
 					 .to(this.currentImageIndicator, 0, {left: newXCenterPos})
 					 .to(this.currentImageIndicator, 0.5, {width: "38px", left: newBaseXLoc+"px"});
 
-		this.setState({
-			inTransition: true
-		});
 	}
 
 
@@ -191,6 +190,7 @@ export default class Project extends React.Component {
 										<ImagePreviews linkOnImage={link1[0]} 
 													   imageFilenames={imagesArr}
 													   layout={this.props.projectData.layouttype}
+													   newImageSet={this.state.newImageSet}
 													   animating={this.state.inTransition}/>
 									</div>
 								</div>

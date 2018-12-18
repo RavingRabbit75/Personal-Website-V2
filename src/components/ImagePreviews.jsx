@@ -6,20 +6,75 @@ export default class ImagePreviews extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			imageOnTop: "imageA"
+			imageOnTop: "imageA",
+			currentImageSet: 0
 		};
 	}
 
 
 	animateCurrentImageOut() {
-		const imgHeight=window.getComputedStyle(this.imageA, null).getPropertyValue("height");
-		console.log(imgHeight);
-		let newImageAnim = new TimelineMax();
-		// newImageAnim.to(this.imageA, 0.75, {top: "-300px"});
-		// indicatorAnim.to(this.currentImageIndicator, 0.4, {width: "0", left: currentXCenterPos})
-					 // .to(this.currentImageIndicator, 0, {left: newXCenterPos})
-					 // .to(this.currentImageIndicator, 0.5, {width: "38px", left: newBaseXLoc+"px"});
-		
+		let topImageRef;
+		let bottomImageRef;
+		let topImageWrapperRefsArr=[];
+		let bottomImageWrapperRefsArr=[];
+		if (this.state.imageOnTop === "imageA") {
+			topImageRef = this.imageA;
+			bottomImageRef = this.imageB;
+			if (this.props.layout >= 1){
+				topImageWrapperRefsArr.push(this.imageAWrapper1);
+				bottomImageWrapperRefsArr.push(this.imageBWrapper1);
+			}
+			if (this.props.layout >=2) {
+				topImageWrapperRefsArr.push(this.imageAWrapper2);
+				bottomImageWrapperRefsArr.push(this.imageBWrapper2);
+			}
+			if (this.props.layout === 3) {
+				topImageWrapperRefsArr.push(this.imageAWrapper3);
+				bottomImageWrapperRefsArr.push(this.imageBWrapper3);
+			}
+			
+		} else {
+			topImageRef = this.imageB;
+			bottomImageRef = this.imageA;
+			if (this.props.layout >= 1){
+				topImageWrapperRefsArr.push(this.imageBWrapper1);
+				bottomImageWrapperRefsArr.push(this.imageAWrapper1);
+			}
+			if (this.props.layout >=2) {
+				topImageWrapperRefsArr.push(this.imageBWrapper2);
+				bottomImageWrapperRefsArr.push(this.imageAWrapper2);
+			}
+			if (this.props.layout === 3) {
+				topImageWrapperRefsArr.push(this.imageBWrapper3);
+				bottomImageWrapperRefsArr.push(this.imageAWrapper3);
+			}
+		}
+		const imgHeight = window.getComputedStyle(topImageRef, null).getPropertyValue("height");
+		const newTopLoc = "-" + imgHeight;
+		TweenMax.to(topImageRef, 0.75, {top: newTopLoc});
+
+		bottomImageWrapperRefsArr.forEach((item, idx) => {
+			TweenMax.to(item, 0.3, {padding: "0px", delay: .7});
+			if(bottomImageWrapperRefsArr.length-1 === idx) {
+				TweenMax.to(item, 0.3, {boxShadow: "0 0 5px rgba(0, 0, 0, .4)", delay: 1, onComplete: setClasses.bind(this)});
+			} else {
+				TweenMax.to(item, 0.3, {boxShadow: "0 0 5px rgba(0, 0, 0, .4)", delay: 1});
+			}
+		});
+
+		function setClasses() {
+			let newImageOnTop;
+			if (this.state.imageOnTop === "imageA") {
+				newImageOnTop = "imageB";
+			} else {
+				newImageOnTop = "imageA";
+			}
+
+			// this.setState({
+			// 	currentImageSet: this.props.newImageSet,
+			// 	imageOnTop: newImageOnTop
+			// });
+		}
 	}
 
 
@@ -44,8 +99,33 @@ export default class ImagePreviews extends React.Component {
 		
 		const image = s["image"];
 
-		// console.log(this.props.imageFilenames);
-		if(this.props.animating) {
+		let imagesPathsArr=[];
+		
+
+		if (this.state.currentImageSet) {
+			imagesPathsArr = this.props.imageFilenames.filter((item) => {
+				return item[1] === this.props.imageSet;
+			}).map((item, idx) => {
+				return item[0];
+			});
+		} else {
+			imagesPathsArr = this.props.imageFilenames.filter((item) => {
+				return item[1] === 1;
+			}).map((item, idx) => {
+				return item[0];
+			});
+		}
+
+		let newImagesPathsArr=[];
+		if (this.props.newImageSet) {
+			newImagesPathsArr = this.props.imageFilenames.filter((item) => {
+				return item[1] === this.props.newImageSet;
+			}).map((item, idx) => {
+				return item[0];
+			});
+		}
+
+		if (this.props.animating) {
 			this.animateCurrentImageOut();
 		}
 
@@ -55,16 +135,16 @@ export default class ImagePreviews extends React.Component {
 				layoutJSX = 
 				<a href={this.props.linkOnImage[1]} target="_blank"><div className={wrapper}>
 					<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
-						<div className={previewSingleWrapper + " " + shadowOn}>
+						<div className={previewSingleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
 							<div className={projectImage}>
-								<img className={image} src={this.props.imageFilenames[0][0]} alt="" />
+								<img className={image} src={imagesPathsArr[0]} alt="" />
 							</div>
 						</div>
 					</div>
 					<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
-						<div className={previewSingleWrapper2 + " " + shadowOff}>
+						<div className={previewSingleWrapper2 + " " + shadowOff} ref={div => this.imageBWrapper1 = div}>
 							<div className={projectImage}>
-								<img className={image} src="" alt="" />
+								<img className={image} src={newImagesPathsArr[0]} alt="" />
 							</div>
 						</div>
 					</div>
@@ -81,26 +161,26 @@ export default class ImagePreviews extends React.Component {
 				layoutJSX = 
 				<a href={this.props.linkOnImage[1]} target="_blank"><div className={wrapper}>
 					<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
-						<div className={previewDoubleWrapper + " " + shadowOn}>
+						<div className={previewDoubleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
 							<div className={projectImage}>
-								<img className={image} src={this.props.imageFilenames[0][0]} alt="" />
+								<img className={image} src={imagesPathsArr[0]} alt="" />
 							</div>
 						</div>
-						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn}>
+						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn} ref={div => this.imageAWrapper2 = div}>
 							<div className={projectImage}>
-								<img className={image} src={this.props.imageFilenames[1][0]} alt="" />
+								<img className={image} src={imagesPathsArr[1]} alt="" />
 							</div>
 						</div>
 					</div>
 					<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
-						<div className="preview-double-wrapper2 shadow-off">
+						<div className="preview-double-wrapper2 shadow-off" ref={div => this.imageBWrapper1 = div}>
 							<div className={projectImage}>
-								<img className={image} src="" alt="" />
+								<img className={image} src={newImagesPathsArr[0]} alt="" />
 							</div>
 						</div>
-						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn}>
+						<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn} ref={div => this.imageBWrapper2 = div}>
 							<div className={projectImage}>
-								<img className={image} src="" alt="" />
+								<img className={image} src={newImagesPathsArr[1]} alt="" />
 							</div>
 						</div>
 					</div>
@@ -117,36 +197,36 @@ export default class ImagePreviews extends React.Component {
 				layoutJSX = 
 				<a href={this.props.linkOnImage[1]} target="_blank"><div className={wrapper}>
 					<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
-						<div className={previewTripleWrapper + " " + shadowOn}>
+						<div className={previewTripleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
 							<div className={projectImage}>
-								<img className={image} src={this.props.imageFilenames[0][0]} alt=""/>
+								<img className={image} src={imagesPathsArr[0]} alt=""/>
 							</div>
 						</div>
-						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn}>
+						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn} ref={div => this.imageAWrapper2 = div}>
 							<div className={projectImage}>
-								<img className={image} src={this.props.imageFilenames[1][0]} alt=""/>
+								<img className={image} src={imagesPathsArr[1]} alt=""/>
 							</div>
 						</div>
-						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn}>
+						<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn} ref={div => this.imageAWrapper3 = div}>
 							<div className={projectImage}>
-								<img className={image} src={this.props.imageFilenames[2][0]} alt=""/>
+								<img className={image} src={imagesPathsArr[2]} alt=""/>
 							</div>
 						</div>
 					</div>
 					<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
-						<div className={previewTripleWrapper2 + " " + shadowOff}>
+						<div className={previewTripleWrapper2 + " " + shadowOff} ref={div => this.imageBWrapper1 = div}>
 							<div className={projectImage}>
-								<img className={image} src="" alt=""/>
+								<img className={image} src={newImagesPathsArr[0]} alt=""/>
 							</div>
 						</div>
-						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff}>
+						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff} ref={div => this.imageBWrapper2 = div}>
 							<div className={projectImage}>
-								<img className={image} src="" alt=""/>
+								<img className={image} src={newImagesPathsArr[1]} alt=""/>
 							</div>
 						</div>
-						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff}>
+						<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff} ref={div => this.imageBWrapper3 = div}>
 							<div className={projectImage}>
-								<img className={image} src="" alt=""/>
+								<img className={image} src={newImagesPathsArr[2]} alt=""/>
 							</div>
 						</div>
 					</div>
