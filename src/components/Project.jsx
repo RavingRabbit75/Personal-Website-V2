@@ -54,66 +54,34 @@ export default class Project extends React.Component {
 
 		let stuff = () => {
 			let previewBtns=[];
+			let numOfPreviewBtns;
 			if (this.props.projectData.layouttype === 1) {
-				let numOfPreviewBtns = this.props.projectData.previews.length;
-				let isEnabled;
-				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
-					if (this.state.buttonsDisabled) {
-						isEnabled = false;
-					} else if (idx === this.state.lastPreviewButtonSelected) {
-						isEnabled = false;
-					} else {
-						isEnabled = true;
-					}
-					previewBtns.push(
-						<PreviewBtn idx={idx} 
-									projId={ this.props.projectData.id} 
-									key={ idx + "_" + this.props.projectData.id} 
-									enabled={isEnabled}
-									indicatorClickedFunc={this.previewBtnClicked.bind(this, idx)} />
-				  	);
-				}
-				
+				numOfPreviewBtns = this.props.projectData.previews.length;
+
 			}  else if (this.props.projectData.layouttype === 2) {
-				let numOfPreviewBtns = this.props.projectData.previews.length/2;
-				let isEnabled;
-				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
-					if (this.state.buttonsDisabled) {
-						isEnabled = false;
-					} else if (idx === this.state.lastPreviewButtonSelected) {
-						isEnabled = false;
-					} else {
-						isEnabled = true;
-					}
-					previewBtns.push(
-						<PreviewBtn idx={idx} 
-									projId={ this.props.projectData.id } 
-									key={ idx + "_" + this.props.projectData.id } 
-									enabled={isEnabled}
-									indicatorClickedFunc={this.previewBtnClicked.bind(this, idx)}/>
-				  	);
-				}
+				numOfPreviewBtns = this.props.projectData.previews.length/2;
 
 			} else if (this.props.projectData.layouttype === 3) {
-				let numOfPreviewBtns = this.props.projectData.previews.length/3;
-				let isEnabled;
-				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
-					if (this.state.buttonsDisabled) {
-						isEnabled = false;
-					} else if (idx === this.state.lastPreviewButtonSelected) {
-						isEnabled = false;
-					} else {
-						isEnabled = true;
-					}
-					previewBtns.push(
-						<PreviewBtn idx={idx} 
-									projId={ this.props.projectData.id } 
-									key={ idx + "_" + this.props.projectData.id } 
-									enabled={isEnabled}
-									indicatorClickedFunc={this.previewBtnClicked.bind(this, idx)}/>
-				  	);
-				}
+				numOfPreviewBtns = this.props.projectData.previews.length/3;
 				
+			}
+
+			let isEnabled;
+			for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
+				if (this.state.buttonsDisabled) {
+					isEnabled = false;
+				} else if (idx === this.state.lastPreviewButtonSelected) {
+					isEnabled = false;
+				} else {
+					isEnabled = true;
+				}
+				previewBtns.push(
+					<PreviewBtn idx={idx} 
+								projId={ this.props.projectData.id} 
+								key={ idx + "_" + this.props.projectData.id} 
+								enabled={isEnabled}
+								indicatorClickedFunc={this.previewBtnClicked.bind(this, idx)} />
+			  	);
 			}
 
 			return previewBtns;

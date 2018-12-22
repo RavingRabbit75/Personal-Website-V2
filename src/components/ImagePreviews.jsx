@@ -65,7 +65,6 @@ export default class ImagePreviews extends React.Component {
 		bottomImgTagRef.addEventListener("load", hiddenPreviewsHandler.bind(this));
 		bottomImgTagRef.src=imagePathsArr[0];
 
-		// var hiddenPreviews = $("div[id*='" + projid + "'].bottom").find(".image");
 		function hiddenPreviewsHandler() {
 			bottomImgTagRef.removeEventListener("load", hiddenPreviewsHandler.bind(this));
 			startAnimation.call(this);
