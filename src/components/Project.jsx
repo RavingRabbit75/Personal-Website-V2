@@ -10,18 +10,18 @@ export default class Project extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			previewButtonDisabled: 1,
-			inTransition: false,
-			newImageSet: null
+			lastPreviewButtonSelected: 1,
+			newImageSet: 1,
+			buttonsDisabled: false
 		};
 	}
 
 
 	previewBtnClicked(imgIdx) {
 		this.setState({
-			previewButtonDisabled: imgIdx,
+			lastPreviewButtonSelected: imgIdx,
 			newImageSet: imgIdx,
-			inTransition: true
+			buttonsDisabled: true
 		});
 
 		var newBaseXLoc = 42 * (imgIdx - 1);
@@ -36,6 +36,12 @@ export default class Project extends React.Component {
 
 	}
 
+	imagePreviewIsReady() {
+		console.log("Final Done");
+		this.setState({
+			buttonsDisabled: false
+		});
+	}
 
 	setupImagePreviewButtons() {
 		let projectLayout;
@@ -52,7 +58,9 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length;
 				let isEnabled;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
-					if (idx === this.state.previewButtonDisabled) {
+					if (this.state.buttonsDisabled) {
+						isEnabled = false;
+					} else if (idx === this.state.lastPreviewButtonSelected) {
 						isEnabled = false;
 					} else {
 						isEnabled = true;
@@ -70,7 +78,9 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length/2;
 				let isEnabled;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
-					if (idx === this.state.previewButtonDisabled) {
+					if (this.state.buttonsDisabled) {
+						isEnabled = false;
+					} else if (idx === this.state.lastPreviewButtonSelected) {
 						isEnabled = false;
 					} else {
 						isEnabled = true;
@@ -88,7 +98,9 @@ export default class Project extends React.Component {
 				let numOfPreviewBtns = this.props.projectData.previews.length/3;
 				let isEnabled;
 				for (let idx = 1; idx <= numOfPreviewBtns; idx++) {
-					if (idx === this.state.previewButtonDisabled) {
+					if (this.state.buttonsDisabled) {
+						isEnabled = false;
+					} else if (idx === this.state.lastPreviewButtonSelected) {
 						isEnabled = false;
 					} else {
 						isEnabled = true;
@@ -191,7 +203,7 @@ export default class Project extends React.Component {
 													   imageFilenames={imagesArr}
 													   layout={this.props.projectData.layouttype}
 													   newImageSet={this.state.newImageSet}
-													   animating={this.state.inTransition}/>
+													   ready={this.imagePreviewIsReady.bind(this)}/>
 									</div>
 								</div>
 
