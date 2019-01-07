@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Project.scss";
 import ImagePreviews from "./ImagePreviews.jsx";
 import PreviewBtn from "./PreviewBtn.jsx";
+import LoadingNotification from "./LoadingNotification.jsx";
 import icon_link from "./imgs/icon_link.svg";
 import icon_github from "./imgs/icon_github.svg";
 
@@ -12,7 +13,8 @@ export default class Project extends React.Component {
 		this.state={
 			lastPreviewButtonSelected: 1,
 			newImageSet: 1,
-			buttonsDisabled: false
+			buttonsDisabled: false,
+			showLoadingNotice: false
 		};
 	}
 
@@ -21,7 +23,8 @@ export default class Project extends React.Component {
 		this.setState({
 			lastPreviewButtonSelected: imgIdx,
 			newImageSet: imgIdx,
-			buttonsDisabled: true
+			buttonsDisabled: true,
+			showLoadingNotice: true
 		});
 
 		var newBaseXLoc = 42 * (imgIdx - 1);
@@ -37,9 +40,9 @@ export default class Project extends React.Component {
 	}
 
 	imagePreviewIsReady() {
-		console.log("Final Done");
 		this.setState({
-			buttonsDisabled: false
+			buttonsDisabled: false,
+			showLoadingNotice: false
 		});
 	}
 
@@ -174,12 +177,10 @@ export default class Project extends React.Component {
 													   ready={this.imagePreviewIsReady.bind(this)}/>
 									</div>
 								</div>
-
+								
+								<LoadingNotification shown={this.state.showLoadingNotice}/>
+								
 								{imagePreviewButtons}
-
-								<div className={loading}>
-									<div>LOADING</div>
-								</div>
 
 								<div className={projectTextBuiltwith}>
 									Built with:

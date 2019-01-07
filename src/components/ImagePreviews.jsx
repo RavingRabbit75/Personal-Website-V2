@@ -33,8 +33,6 @@ export default class ImagePreviews extends React.Component {
 		let bottomWrappers=[];
 		let bottomImgTagRefs=[];
 
-		console.log(this.props.layout);
-
 		if (this.myState.imageOnTop === "A") {
 			topImageRef = this.imageA;
 			bottomImageRef = this.imageB;
