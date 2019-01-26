@@ -1,6 +1,0 @@
-
-mysite.profile = {
-	initProfile: function() {
-		
-	}
-};

@@ -23,8 +23,20 @@ const activated = [
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
+		// let state = {section: ""};
+		// window.history.replaceState(state, null, `/${this.props.sectionName}`);
+		window.onpopstate = function (event) {
+			if (event.state) {
+			  if (event.state.section === "profile") {
+			  	this.setSectionToProfile();
+			  } else if (event.state.section === "projects") {
+			  	this.setSectionToProjects();
+			  }
+			}
+		}.bind(this);
+		
 		this.state={
-			currentSection: "projects",
+			currentSection: this.props.sectionName,
 			globalInfo: {}
 		};
 	}
@@ -58,18 +70,22 @@ export default class App extends React.Component {
 	}
 
 	setSectionToProjects() {
-		this.setState({
-			currentSection: "projects"
-		});
+		this.setState(state => ({
+				currentSection: "projects"
+			})
+		);
 	}
 
 	setupMainContent(currentSection) {
+		
 		if (currentSection==="profile") {
 			return <ProfileContainer />;
 		} else {
 			return <ProjectsContainer style={{height: 100}}/>;
 		}
 	}
+
+
 
 	render() {
 		return(

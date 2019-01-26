@@ -89,32 +89,15 @@ def root_route():
     return redirect("/projects")
 
 
-@app.route("/profile")
-def profile_route():
-    siteRoot = os.path.realpath(os.path.dirname(__file__))
-    jsonUrl = os.path.join(siteRoot, "static/json", "siteData.json")
-    data = json.load(open(jsonUrl))
+@app.route("/<string:section>")
+def section_route(section):
+    if section == "profile":
+        return render_template("./react/index.html", sectionName = "profile")
 
-    return render_template("profile.html", skillsProficient = data["profile"]["skills"]["proficient"]
-                                         , skillsExposure = data["profile"]["skills"]["exposure"]
-                                         , professionalExperience = data["profile"]["experience"]
-                                         , educationList = data["profile"]["education"]
-                                         , baseContent = data["baseContent"]
-                                         , sectionName = "profile")
+    if section == "projects":
+        return render_template("./react/index.html", sectionName = "projects")
 
-
-@app.route("/projects")
-def projects_route():
-    siteRoot = os.path.realpath(os.path.dirname(__file__))
-    jsonUrl = os.path.join(siteRoot, "static/json", "siteData.json")
-    data = json.load(open(jsonUrl))
-    for project in data["projects"]:
-        project["projid"] = project["name"].replace(" ", "-")
-
-    return render_template("projects.html", projectsData = data["projects"]
-                                          , baseContent = data["baseContent"]
-                                          , sectionName = "projects")
-
+    return render_template("404.html"), 404
 
 
 @app.route("/images/<string:imageFile>/")
@@ -163,11 +146,6 @@ def render_subsiteFiles(subsite, resource):
 
     static_file_path = "subsites/" + pathName + "/" + resource
     return app.send_static_file(static_file_path)
-
-
-@app.route("/testReact")
-def testReact_route():
-    return render_template("./react/index.html")
 
 
 ###########################################

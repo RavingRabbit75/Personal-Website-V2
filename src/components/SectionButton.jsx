@@ -52,6 +52,14 @@ export default class Header extends React.Component {
 	}
 
 	sectionClick(){
+		let state = {section: ""};
+		if (this.props.section === "profile") {
+			state.section = "profile";
+			window.history.pushState(state, null, "/profile");
+		} else if (this.props.section === "projects") {
+			state.section = "projects";
+			window.history.pushState(state, null, "/projects");
+		}
 		this.props.setSectionFunc();
 	}
 

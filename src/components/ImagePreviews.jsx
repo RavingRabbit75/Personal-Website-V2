@@ -229,7 +229,6 @@ export default class ImagePreviews extends React.Component {
 		let blankSrc = "";
 
 		imagePathA = imagePathsArr[0];
-		console.log(imagePathsArr);
 
 		if(!this.props.linkOnImage) {
 

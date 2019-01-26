@@ -3,4 +3,4 @@ import ReactDOM from "react-dom";
 import App from "./components/App.jsx";
 require("./index.html");
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(<App sectionName={sectionName}/>, document.getElementById("app"));
