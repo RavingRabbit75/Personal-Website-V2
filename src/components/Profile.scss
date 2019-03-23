@@ -46,10 +46,7 @@
   margin-right: auto;
 }
 
-/*  new stuff */
-.no-wrap {
-  white-space: nowrap;
-}
+
 
 .proficiency-title {
   -webkit-font-smoothing: antialiased;
@@ -77,6 +74,14 @@
   font-size: 12pt;
   color: white;
   margin-top: 20px;
+
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .wrap {
+    white-space: normal;
+  }
 }
 
 
