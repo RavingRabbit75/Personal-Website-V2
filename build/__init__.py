@@ -24,8 +24,6 @@ from build.resourcesSubSites import SubSiteUploadZip
 
 from build.subsites import SubSite as SS
 
-from other_api.todo.resources import TodoList
-
 
 if os.environ.get("ENV") == "production":
     debug = False
@@ -76,13 +74,6 @@ subsitesSubPath = "build/static/subsites"
 subsitesFullPath = os.path.join(siteRoot, subsitesSubPath)
 app.config['SUBSITES_PATH'] = subsitesFullPath
 
-# separate test api
-api_todo_bp = Blueprint("api_todo", __name__)
-api_todo = Api(api_todo_bp)
-api_todo.add_resource(TodoList, "/todos")
-
-app.register_blueprint(api_todo_bp, url_prefix="/api_todo/v1")
-
 
 @app.route("/")
 def root_route():
@@ -110,12 +101,6 @@ def mages_route(imageFile):
 def projects_images_route(imageFile):
     image_file_path = "images/projects/" + imageFile
     return app.send_static_file(image_file_path)
-
-
-@app.route("/projects/htmlbanners")
-def projects_sublinks_route():
-    print("URL", url_for('static', filename='links/links.css'))
-    return app.send_static_file("links/html_banners.html")
 
 
 @app.route('/subsites/<string:subsite>/')

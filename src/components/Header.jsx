@@ -4,8 +4,8 @@ import s from "./Header.scss";
 import DateTime from "./DateTime.jsx";
 import Iconlink from "./Iconlink.jsx";
 import SectionButton from "./SectionButton.jsx";
-import header_image_name from "./imgs/header_image_name.png";
-import header_image_laptop from "./imgs/header_image_laptop.png";
+import header_image_name from "./images/header_image_name.png";
+import header_image_laptop from "./images/header_image_laptop.png";
 
 export default class Header extends React.Component {
 	constructor(props) {

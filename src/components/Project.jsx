@@ -3,8 +3,8 @@ import s from "./Project.scss";
 import ImagePreviews from "./ImagePreviews.jsx";
 import PreviewBtn from "./PreviewBtn.jsx";
 import LoadingNotification from "./LoadingNotification.jsx";
-import icon_link from "./imgs/icon_link.svg";
-import icon_github from "./imgs/icon_github.svg";
+import icon_link from "./images/icon_link.svg";
+import icon_github from "./images/icon_github.svg";
 
 
 export default class Project extends React.Component {
