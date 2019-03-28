@@ -1,0 +1,54 @@
+@import 'scss_partials/global_variables';
+@import 'scss_partials/mixins';
+
+$filterbox-bgc: #16212a;
+$topedge-bgc: #404b57;
+$bottomedge-bgc: #a1adba;
+
+.container {
+	display: inline-block;
+	position: absolute;
+	left: 0px;
+	bottom: 2px;
+}
+
+.outer-box {
+	width: 16px;
+	height: 18px;
+	border-top: 1px solid $topedge-bgc;
+	border-bottom: 1px solid $bottomedge-bgc;
+	background-color: $filterbox-bgc;
+  line-height: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.question-mark {
+	@include font-smoothing-prefix();
+  color: $white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+.popup-box {
+  position: relative;
+  display: none;
+  width: 175px;
+  height: auto;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 12pt;
+  line-height: 15pt;
+  letter-spacing: 1px;
+  border-top: 2px solid #5581A2;
+  border-bottom: 2px solid #5581A2;
+  background-color: $filterbox-bgc;
+  padding-top: 7px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: left;
+  color: $white;
+}

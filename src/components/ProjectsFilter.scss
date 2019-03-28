@@ -5,10 +5,18 @@ $filterbox-bgc: #16212a;
 $topedge-bgc: #404b57;
 $bottomedge-bgc: #a1adba;
 
-.filters-title {
-  @include font-smoothing-prefix();
+.filters-title-row {
+  position: relative;
   margin-left: auto;
   margin-right: auto;
+  max-width: 560px;
+  text-align: center;
+}
+
+
+.filters-title {
+  @include font-smoothing-prefix();
+  display: inline-block;
   text-align: center;
   color: $white;
   margin-top: 15px;

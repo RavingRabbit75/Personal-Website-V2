@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ProjectsFilter.scss";
 import FilterButton from "./FilterButton.jsx";
-
+import FilterHelpTip from "./FilterHelpTip.jsx";
 
 export default class Project extends React.Component {
 	constructor(props) {
@@ -48,6 +48,7 @@ export default class Project extends React.Component {
 	}
 
 	render() {
+		const filtersTitleRow = styles["filters-title-row"]
 		const filtersTitle = styles["filters-title"];
 		const topEdge = styles["top-edge"];
 		const bottomEdge = styles["bottom-edge"];
@@ -56,7 +57,10 @@ export default class Project extends React.Component {
 
 		return(
 			<React.Fragment>
-				<div className={filtersTitle}>PROJECT FILTERS</div>
+				<div className={filtersTitleRow}>
+					<FilterHelpTip/>
+					<div className={filtersTitle}>PROJECT FILTERS</div>
+				</div>
 				<div id="filterBox" className={filterBox}>
 					<div id="topEdge" className={topEdge} />
 					<div id="box" className={box}>
