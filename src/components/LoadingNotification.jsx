@@ -1,6 +1,8 @@
 import React from "react";
 import s from "./LoadingNotification.scss";
 
+
+
 export default class LoadingNotification extends React.Component {
 	constructor(props) {
 		super(props);

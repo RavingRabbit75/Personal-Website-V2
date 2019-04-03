@@ -6,25 +6,17 @@ import Project from "./Project.jsx";
 import ProfileContainer from "./ProfileContainer.jsx";
 import ProjectsContainer from "./ProjectsContainer.jsx";
 
-import { 
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-} from "gsap";
+import { TweenMax } from "gsap/TweenMax";
 
 const activated = [
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
+    TweenMax
 ];
+
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
-		// let state = {section: ""};
-		// window.history.replaceState(state, null, `/${this.props.sectionName}`);
+		
 		window.onpopstate = function (event) {
 			if (event.state) {
 			  if (event.state.section === "profile") {
@@ -64,9 +56,6 @@ export default class App extends React.Component {
 				currentSection: "profile"
 			})
 		);
-		// this.setState({
-		// 	currentSection: "profile"
-		// });
 	}
 
 	setSectionToProjects() {

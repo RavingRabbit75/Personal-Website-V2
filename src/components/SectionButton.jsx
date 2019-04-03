@@ -1,20 +1,6 @@
 import React from "react";
 import s from "./SectionButton.scss";
 
-import { 
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-} from "gsap";
-
-const activated = [
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-];
-
 
 export default class Header extends React.Component {
 	constructor(props) {
@@ -31,10 +17,6 @@ export default class Header extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		// Typical usage (don't forget to compare props):
-		// if (this.props.userID !== prevProps.userID) {
-		// 	this.fetchData(this.props.userID);
-		// }
 		if (this.props.active===true) {
 			TweenMax.to(this.btnIndicator, 0.6, {width:"100%", ease: Circ.easeOut, delay: 0});
 		}

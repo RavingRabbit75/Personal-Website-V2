@@ -1,12 +1,13 @@
 const path = require("path");
 
 module.exports = {
+  mode: "production",
   entry: {
     index: "./src/index.js"
   },
   output: {
-    filename: "./static/js/[name]-bundle.js",
-    path: path.resolve(__dirname, "../build")
+    path: path.resolve(__dirname, "../build"),
+    filename: "./static/js/[name]-bundle.js"
   },
   module: {
     rules: [
@@ -58,7 +59,6 @@ module.exports = {
               modules: true,
               importLoaders: 1,
               localIdentName: "[name]_[local]_[hash:base64]",
-              sourceMap: true,
               minimize: true
             }
           } 
@@ -76,8 +76,6 @@ module.exports = {
               modules: true,
               importLoaders: 1,
               localIdentName: "[name]_[local]_[hash:base64]",
-              sourceMap: true,
-              minimize: true
             }
           },
           {
@@ -86,10 +84,6 @@ module.exports = {
         ]
       }
     ]
-  },
-  devServer: {
-    contentBase: path.join(__dirname, "../build/static/react"),
-    port: 9000
   },
   plugins: [
 

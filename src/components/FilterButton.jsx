@@ -1,19 +1,6 @@
 import React from "react";
 import style from "./FilterButton.scss";
 
-import { 
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-} from "gsap";
-
-const activated = [
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-];
 
 export default class FilterButton extends React.Component {
 	constructor(props) {

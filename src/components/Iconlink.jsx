@@ -1,19 +1,6 @@
 import React from "react";
 import s from "./Iconlink.scss";
 
-import { 
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-} from "gsap";
-
-const activated = [
-    TweenMax,
-    TimelineMax,
-    AttrPlugin,
-    CSSPlugin
-];
 
 export default class Iconlink extends React.Component {
 	constructor(props) {
