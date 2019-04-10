@@ -116,7 +116,9 @@ class ExperienceList(Resource):
                     tempDict["accomplishments"] = []
                     tempDict["accomplishments"].append(single_exp[6])
 
-        experience.append(tempDict)
+        if len(tempDict) != 0:
+            experience.append(tempDict)
+
         cur.close()
         conn.close()
         response = make_response(jsonify({"experience" : experience}), 200)
