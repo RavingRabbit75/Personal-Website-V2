@@ -49,9 +49,10 @@ export default class Profile extends React.Component {
 		}
 
 		var jsxData = expData.experience.map(function(item, idx, arr){
-			var expTitle = s["exp-title"] + " row";
-			var noWrap = s["no-wrap"];
-			var wrap = s["wrap"];
+			let expTitle = s["exp-title"] + " row";
+			let expPosition = s["exp-position"];
+			let expLocation = s["exp-location"];
+			let expYear = s["exp-year"] + " pull-right";
 
 			function divFunction() {
 				var accomplishmentsJsx = item.accomplishments.map(function(accomp, idx) {
@@ -84,14 +85,14 @@ export default class Profile extends React.Component {
 				<div key={idx.toString()}>
 					<div className={expTitle}>
 						<div className="col-xs-9">
-							<span className={noWrap}>{ item.name } |</span>
-							<span className={wrap}> </span>
-							<span className={noWrap}>{ item.title } |</span>
-							<span className={wrap}> </span>
-							<span className={noWrap}>{ item.location }</span>
+							<span className="">{ item.name } |</span>
+							<span> </span>
+							<span className={expPosition}>{ item.title } |</span>
+							<span> </span>
+							<span className={expLocation}>{ item.location }</span>
 						</div>
 						<div className="col-xs-3">
-							<span className="pull-right no-wrap">{ item.years }</span>
+							<span className={expYear}>{ item.years }</span>
 						</div>
 					</div>
 					{divFunction()}

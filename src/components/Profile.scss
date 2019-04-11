@@ -74,14 +74,19 @@
   font-size: 12pt;
   color: white;
   margin-top: 20px;
+}
 
-  .no-wrap {
-    white-space: nowrap;
-  }
 
-  .wrap {
-    white-space: normal;
-  }
+.exp-position {
+  white-space: nowrap;
+}
+
+.exp-location {
+  white-space: nowrap;
+}
+
+.exp-year {
+  white-space: nowrap;
 }
 
 
@@ -126,8 +131,12 @@
 
 @media only screen and (min-width: 600px) {
   .item-title {
-    width: 550px;
+    max-width: 560px;
     padding-left: 2px;
+  }
+
+  .item-content {
+    max-width: 560px;
   }
 
   .item-container {
