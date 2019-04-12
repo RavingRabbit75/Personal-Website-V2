@@ -136,7 +136,7 @@ export default class ImagePreviews extends React.Component {
 			const previewDoubleWrapper2 = s["preview-double-wrapper2"];
 			const previewTripleWrapper = s["preview-triple-wrapper"];
 			const previewTripleWrapper2 = s["preview-triple-wrapper2"];
-			const projectImtImageBuffer = s["project-image-buffer"];
+			const projectImageBuffer = s["project-image-buffer"];
 
 			topImageRef.className = previewsRow2 + " " + bottom;
 
