@@ -6,8 +6,8 @@ class Utils():
 
     # takes psycopg2 cursor sql query results and puts into list for convenience and safety
     def cursorToList(cursorObj):
-        if cursorObj.rowcount == 0:
-            raise ValueError('Cursor has a row count of 0')
+        # if cursorObj.rowcount == 0:
+        #     raise ValueError('Cursor has a row count of 0')
 
         newList = []
         for item in cursorObj:
