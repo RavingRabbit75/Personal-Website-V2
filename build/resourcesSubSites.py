@@ -104,7 +104,7 @@ class SubSites(Resource):
                 newSiteData["name"], 
                 newSiteData["pathName"], 
                 newSiteData["zipFile"],
-                False
+                newSiteData["public"]
             )
         )
 
