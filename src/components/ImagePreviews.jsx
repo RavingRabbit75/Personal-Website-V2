@@ -230,147 +230,150 @@ export default class ImagePreviews extends React.Component {
 
 		imagePathA = imagePathsArr[0];
 
-		if(!this.props.linkOnImage) {
+
+		if (this.props.layout === 1) {
+			layoutJSX = 
+			<div className={wrapper}>	
+				<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
+					<div className={previewSingleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={imagePathA}
+								 ref={div => this.imgATag1 = div}
+								 alt="" />
+						</div>
+					</div>
+				</div>
+				<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
+					<div className={previewSingleWrapper2 + " " + shadowOff} ref={div => this.imageBWrapper1 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={blankSrc}
+								 ref={div => this.imgBTag1 = div} 
+								 alt="" />
+						</div>
+					</div>
+				</div>
+			</div>;
+
+			if(this.props.linkOnImage) {
+				layoutJSX = 
+				<a href={this.props.linkOnImage[1]} target="_blank">
+					{layoutJSX}
+				</a>;
+			}
+
+		} else if (this.props.layout === 2) {
+			layoutJSX = 
+			<div className={wrapper}>
+				<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
+					<div className={previewDoubleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
+						<div className={projectImage}>
+							<img className={image}
+								 src={imagePathsArr[0]}
+								 ref={div => this.imgATag1 = div}
+								 alt="" />
+						</div>
+					</div>
+					<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn} ref={div => this.imageAWrapper2 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={imagePathsArr[1]}
+								 ref={div => this.imgATag2 = div}
+								 alt="" />
+						</div>
+					</div>
+				</div>
+				<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
+					<div className="preview-double-wrapper2 shadow-off" ref={div => this.imageBWrapper1 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={blankSrc}
+								 ref={div => this.imgBTag1 = div}
+								 alt="" />
+						</div>
+					</div>
+					<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn} ref={div => this.imageBWrapper2 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={blankSrc}
+								 ref={div => this.imgBTag2 = div}
+								 alt="" />
+						</div>
+					</div>
+				</div>
+			</div>;
+
+			if(this.props.linkOnImage) {
+				layoutJSX = 
+				<a href={this.props.linkOnImage[1]} target="_blank">
+					{layoutJSX}
+				</a>
+			}
+
+		} else if (this.props.layout === 3) {
 
 			layoutJSX = 
 			<div className={wrapper}>
-
-			</div>;
-
-		} else {
-
-			if (this.props.layout === 1) {
-
-				if(this.props.linkOnImage) {
-					layoutJSX = 
-					<a href={this.props.linkOnImage[1]} target="_blank"><div className={wrapper}>	
-						<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
-							<div className={previewSingleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={imagePathA}
-										 ref={div => this.imgATag1 = div}
-										 alt="" />
-								</div>
-							</div>
+				<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
+					<div className={previewTripleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={imagePathsArr[0]}
+								 ref={div => this.imgATag1 = div}
+								 alt=""/>
 						</div>
-						<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
-							<div className={previewSingleWrapper2 + " " + shadowOff} ref={div => this.imageBWrapper1 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={blankSrc}
-										 ref={div => this.imgBTag1 = div} 
-										 alt="" />
-								</div>
-							</div>
+					</div>
+					<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn} ref={div => this.imageAWrapper2 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={imagePathsArr[1]}
+								 ref={div => this.imgATag2 = div}
+								 alt=""/>
 						</div>
-					</div></a>;
-				}
-
-			} else if (this.props.layout === 2) {
-
-				if(this.props.linkOnImage) {
-					layoutJSX = 
-					<a href={this.props.linkOnImage[1]} target="_blank"><div className={wrapper}>
-						<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
-							<div className={previewDoubleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
-								<div className={projectImage}>
-									<img className={image}
-										 src={imagePathsArr[0]}
-										 ref={div => this.imgATag1 = div}
-										 alt="" />
-								</div>
-							</div>
-							<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn} ref={div => this.imageAWrapper2 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={imagePathsArr[1]}
-										 ref={div => this.imgATag2 = div}
-										 alt="" />
-								</div>
-							</div>
+					</div>
+					<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn} ref={div => this.imageAWrapper3 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={imagePathsArr[2]}
+								 ref={div => this.imgATag3 = div}
+								 alt=""/>
 						</div>
-						<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
-							<div className="preview-double-wrapper2 shadow-off" ref={div => this.imageBWrapper1 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={blankSrc}
-										 ref={div => this.imgBTag1 = div}
-										 alt="" />
-								</div>
-							</div>
-							<div className={previewDoubleWrapper + " " + projectImageBuffer + " " + shadowOn} ref={div => this.imageBWrapper2 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={blankSrc}
-										 ref={div => this.imgBTag2 = div}
-										 alt="" />
-								</div>
-							</div>
+					</div>
+				</div>
+				<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
+					<div className={previewTripleWrapper2 + " " + shadowOff} ref={div => this.imageBWrapper1 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={blankSrc}
+								 ref={div => this.imgBTag1 = div}
+								 alt=""/>
 						</div>
-					</div></a>;
-				}
-
-			} else if (this.props.layout === 3) {
-
-				if(this.props.linkOnImage) {
-					layoutJSX = 
-					<a href={this.props.linkOnImage[1]} target="_blank"><div className={wrapper}>
-						<div id="" className={previewsRow + " " + top} ref={div => this.imageA = div}>
-							<div className={previewTripleWrapper + " " + shadowOn} ref={div => this.imageAWrapper1 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={imagePathsArr[0]}
-										 ref={div => this.imgATag1 = div}
-										 alt=""/>
-								</div>
-							</div>
-							<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn} ref={div => this.imageAWrapper2 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={imagePathsArr[1]}
-										 ref={div => this.imgATag2 = div}
-										 alt=""/>
-								</div>
-							</div>
-							<div className={previewTripleWrapper + " " + projectImageBuffer + " "+ shadowOn} ref={div => this.imageAWrapper3 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={imagePathsArr[2]}
-										 ref={div => this.imgATag3 = div}
-										 alt=""/>
-								</div>
-							</div>
+					</div>
+					<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff} ref={div => this.imageBWrapper2 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={blankSrc}
+								 ref={div => this.imgBTag2 = div}
+								 alt=""/>
 						</div>
-						<div id="" className={previewsRow2 + " " + bottom} ref={div => this.imageB = div}>
-							<div className={previewTripleWrapper2 + " " + shadowOff} ref={div => this.imageBWrapper1 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={blankSrc}
-										 ref={div => this.imgBTag1 = div}
-										 alt=""/>
-								</div>
-							</div>
-							<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff} ref={div => this.imageBWrapper2 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={blankSrc}
-										 ref={div => this.imgBTag2 = div}
-										 alt=""/>
-								</div>
-							</div>
-							<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff} ref={div => this.imageBWrapper3 = div}>
-								<div className={projectImage}>
-									<img className={image} 
-										 src={blankSrc}
-										 ref={div => this.imgBTag3 = div}
-										 alt=""/>
-								</div>
-							</div>
+					</div>
+					<div className={previewTripleWrapper2 + " " + projectImageBuffer + " " + shadowOff} ref={div => this.imageBWrapper3 = div}>
+						<div className={projectImage}>
+							<img className={image} 
+								 src={blankSrc}
+								 ref={div => this.imgBTag3 = div}
+								 alt=""/>
 						</div>
-					</div></a>;
-				}
+					</div>
+				</div>
+			</div>
 
+			if(this.props.linkOnImage) {
+				layoutJSX = 
+				<a href={this.props.linkOnImage[1]} target="_blank">
+					{layoutJSX}
+				</a>
 			}
 
 		}
