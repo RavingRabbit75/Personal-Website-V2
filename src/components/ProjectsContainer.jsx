@@ -59,6 +59,29 @@ export default class ProjectsContainer extends React.Component {
 
 	}
 
+	sortProjectsByPriority(projectArray) {
+		let sortedProjectArray=[];
+
+		projectArray.forEach((project, idx)=>{
+			if(sortedProjectArray.length === 0){
+				sortedProjectArray.push(project);
+			} else {
+				for (let x=0; x<sortedProjectArray.length; x++) {
+					if(project.priority >= sortedProjectArray[x].priority) {
+						sortedProjectArray.splice(x, 0, project);
+						break;
+					} else if (x === sortedProjectArray.length-1) {
+						sortedProjectArray.push(project);
+						break;
+					}
+				}
+			}
+
+		});
+		
+		return sortedProjectArray;
+	}
+
 	updateProjectList(filterList) {
 		const newProjectList = this.state.projectsList.map((project, idx) => {
 			let hidden=true;
@@ -90,7 +113,7 @@ export default class ProjectsContainer extends React.Component {
 			<React.Fragment>
 				<ProjectsFilter updateFunc={this.updateProjectList.bind(this)}/>
 				{
-					this.state.projectsList.filter((project, idx) => {
+					this.sortProjectsByPriority(this.state.projectsList).filter((project, idx) => {
 						return project.hidden === false;
 					}).map((project, idx) => {
 						return <Project key={project.name} projectData={project} />;
